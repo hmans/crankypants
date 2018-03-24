@@ -1,0 +1,13 @@
+name: crankypants
+version: 0.1.0
+
+authors:
+  - Hendrik Mans <hendrik@mans.de>
+
+targets:
+  crankypants:
+    main: src/crankypants.cr
+
+crystal: 0.24.2
+
+license: MIT
