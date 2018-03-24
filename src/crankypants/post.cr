@@ -1,14 +1,10 @@
 module Crankypants
-  class Post
-    property title : String
-    property body : String
-
-    def initialize(@title, @body)
+  class Post < Crecto::Model
+    schema "posts" do
+      field :title, String
+      field :body, String
     end
 
-    def self.load_from_database(db, key)
-      attrs = db.query_one "select title, body from posts where key = ?", key, as: { String, String }
-      new(*attrs)
-    end
+    validate_required [:body]
   end
 end

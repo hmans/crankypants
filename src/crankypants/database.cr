@@ -1,22 +1,17 @@
 require "sqlite3"
+require "crecto"
+require "micrate"
 
+# Micrate::DB.connection_url = "sqlite://./data.db"
+# Micrate.up
+#
 module Crankypants
-  module Database
-    extend self
+  module Repo
+    extend Crecto::Repo
 
-    def setup(db)
-      db.exec "drop table if exists posts"
-
-      db.exec "create table posts (key text, title text, body text)"
-      db.exec "insert into posts values (?, ?, ?)", "hello-world", "Hello world", "I am the first post. Isn't it amazing?"
-    end
-
-    def open
-      DB.open "sqlite3://./data.db"
-    end
-
-    def close(db)
-      db.close
+    config do |conf|
+      conf.adapter = Crecto::Adapters::SQLite3
+      conf.database = "./data.db"
     end
   end
 end
