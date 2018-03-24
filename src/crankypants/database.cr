@@ -1,10 +1,6 @@
 require "sqlite3"
 require "crecto"
-require "micrate"
 
-# Micrate::DB.connection_url = "sqlite://./data.db"
-# Micrate.up
-#
 module Crankypants
   module Repo
     extend Crecto::Repo
