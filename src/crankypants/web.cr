@@ -6,7 +6,9 @@ end
 
 module Crankypants
   module Web
-    def self.run
+    extend self
+
+    def run
       Kemal.run
     end
   end
