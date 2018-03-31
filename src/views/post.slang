@@ -1,2 +1,1 @@
-h1 = post.title
-p = post.body
+== render "src/views/_post.slang"
