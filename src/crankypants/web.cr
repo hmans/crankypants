@@ -11,6 +11,7 @@ get "/" do
 end
 
 get "/crankypants.js" do |env|
+  env.response.headers.add "Cache-Control", "max-age=600, public"
   env.response.content_type = "text/javascript"
   render "dist/bundle.js.ecr"
 end
