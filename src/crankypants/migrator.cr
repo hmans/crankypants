@@ -5,11 +5,7 @@ class Migrator
   def run_pending_migrations!
     setup_migration_table
 
-    migrate "0-something-stupid" do |db|
-      # noop
-    end
-
-    migrate "1-initial-setup" do |db|
+    migrate "initial-setup" do |db|
       db.exec "create table posts (id int primary key, key text, title text, body text);"
       db.exec "insert into posts values (1, \"hello-world\", \"Hello world\", \"I am the first post. Isn't it amazing?\");"
     end
