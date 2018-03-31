@@ -1,12 +1,17 @@
 require "./crankypants/*"
-require "micrate"
 
 module Crankypants
 end
 
-# Run pending database migrations
-Micrate::DB.connection_url = "sqlite3://./data.db"
-Micrate::Cli.run_up
+# -- +micrate Up
+# -- SQL in section 'Up' is executed when this migration is applied
+# create table posts (id int primary key, key text, title text, body text);
+# insert into posts values (1, "hello-world", "Hello world", "I am the first post. Isn't it amazing?");
+#
+# -- +micrate Down
+# -- SQL section 'Down' is executed when this migration is rolled back
+# drop table posts;
+
 
 # Run web app
 Crankypants::Web.run
