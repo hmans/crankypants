@@ -9,7 +9,7 @@ class Migrator
     setup_migration_table
 
     migrate "initial-setup" do |db|
-      db.exec "create table posts (id int primary key, key text, title text, body text, created_at, updated_at);"
+      db.exec "create table posts (id integer primary key, key text, title text, body text, created_at, updated_at);"
     end
   end
 
