@@ -1,3 +1,5 @@
+require "crecto"
+
 module Crankypants
   class Post < Crecto::Model
     schema "posts" do

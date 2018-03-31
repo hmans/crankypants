@@ -1,3 +1,4 @@
+require "./crankypants/repo"
 require "./crankypants/*"
 
 module Crankypants
