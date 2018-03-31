@@ -12,8 +12,7 @@ macro render_page(filename)
 end
 
 get "/" do
-  query = Query.order_by("created_at DESC")
-  posts = Repo.all(Post, query)
+  posts = Repo.all(Post, Query.order_by("created_at DESC"))
   render_page "posts/index"
 end
 
@@ -29,19 +28,17 @@ end
 # end
 
 post "/posts" do |env|
-
   post = Post.new
   post.title = env.params.body["post[title]"].as(String)
-  post.body = env.params.body["post[body]"].as(String)
+  post.body =  env.params.body["post[body]"].as(String)
 
-  changeset = Repo.insert(post)
+  _changeset = Repo.insert(post)
 
   env.redirect "/"
 end
 
 get "/posts/:id" do |env|
-  id = env.params.url["id"]
-  post = Repo.get!(Post, id)
+  post = Repo.get!(Post, env.params.url["id"])
   render_page "posts/show"
 end
 
