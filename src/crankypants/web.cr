@@ -1,12 +1,15 @@
 require "kemal"
 
 get "/" do
-  "Blog LOL!"
+  posts = Crankypants::Repo.all(Crankypants::Post)
+
+  render "src/views/index.ecr"
 end
 
-get "/posts/:key" do |env|
-  key = env.params.url["key"]
-  post = Crankypants::Repo.get!(Crankypants::Post, 1)
+get "/posts/:id" do |env|
+  id = env.params.url["id"]
+  post = Crankypants::Repo.get!(Crankypants::Post, id)
+
   render "src/views/post.ecr"
 end
 
