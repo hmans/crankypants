@@ -2,12 +2,12 @@ require "kemal"
 require "kilt/slang"
 
 macro render_page(filename)
-  render "src/views/#{{{filename}}}.slang", "src/views/layout.slang"
+  render "src/views/#{{{filename}}}.slang", "src/views/layouts/application.slang"
 end
 
 get "/" do
   posts = Crankypants::Repo.all(Crankypants::Post)
-  render_page "index"
+  render_page "posts/index"
 end
 
 get "/crankypants.css" do |env|
@@ -18,7 +18,7 @@ end
 get "/posts/:id" do |env|
   id = env.params.url["id"]
   post = Crankypants::Repo.get!(Crankypants::Post, id)
-  render_page "post"
+  render_page "posts/show"
 end
 
 module Crankypants
