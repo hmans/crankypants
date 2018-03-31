@@ -15,10 +15,10 @@ get "/crankypants.js" do |env|
   render "dist/bundle.js.ecr"
 end
 
-get "/crankypants.css" do |env|
-  env.response.content_type = "text/css"
-  render "src/views/crankypants.css.ecr"
-end
+# get "/crankypants.css" do |env|
+#   env.response.content_type = "text/css"
+#   render "src/views/crankypants.css.ecr"
+# end
 
 get "/posts/:id" do |env|
   id = env.params.url["id"]
