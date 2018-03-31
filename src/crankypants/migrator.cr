@@ -1,3 +1,5 @@
+require "sqlite3"
+
 class Migrator
   def initialize(@url : String)
   end
