@@ -20,6 +20,10 @@ shards:
     github: luislavena/radix
     version: 0.3.8
 
+  slang:
+    github: jeromegn/slang
+    version: 1.7.1
+
   sqlite3:
     github: crystal-lang/crystal-sqlite3
     version: 0.9.0
