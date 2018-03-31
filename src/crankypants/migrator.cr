@@ -1,4 +1,5 @@
 require "sqlite3"
+require "colorize"
 
 class Migrator
   def initialize(@url : String)
@@ -15,7 +16,7 @@ class Migrator
 
   private def migrate(name, &blk)
     if run_migration?(name)
-      puts "Running migration: #{name}"
+      say "Running migration: #{name}"
 
       DB.open @url do |db|
         db.transaction do |tx|
@@ -40,5 +41,9 @@ class Migrator
     DB.open @url do |db|
       db.exec "CREATE TABLE IF NOT EXISTS _migrations (name TEXT)"
     end
+  end
+
+  private def say(text)
+    puts [" * ".colorize(:green), text.colorize(:white)].join
   end
 end
