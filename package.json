@@ -16,6 +16,6 @@
   "scripts": {
     "build": "webpack --mode development && crystal build src/crankypants.cr",
     "build:production": "webpack --mode production && crystal build src/crankypants.cr --release --no-debug",
-    "dev": "rm data.db && yarn run build && ./crankypants"
+    "dev": "yarn run build && ./crankypants"
   }
 }

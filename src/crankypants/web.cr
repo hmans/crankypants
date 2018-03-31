@@ -1,12 +1,19 @@
 require "kemal"
 require "kilt/slang"
+require "crecto"
+
+Query = Crecto::Repo::Query
+Multi = Crecto::Multi
+Repo  = Crankypants::Repo
+Post  = Crankypants::Post
 
 macro render_page(filename)
   render "src/views/#{{{filename}}}.slang", "src/views/layouts/application.slang"
 end
 
 get "/" do
-  posts = Crankypants::Repo.all(Crankypants::Post)
+  query = Query.order_by("created_at DESC")
+  posts = Repo.all(Post, query)
   render_page "posts/index"
 end
 
@@ -21,9 +28,20 @@ end
 #   render "src/views/crankypants.css.ecr"
 # end
 
+post "/posts" do |env|
+
+  post = Post.new
+  post.title = env.params.body["post[title]"].as(String)
+  post.body = env.params.body["post[body]"].as(String)
+
+  changeset = Repo.insert(post)
+
+  env.redirect "/"
+end
+
 get "/posts/:id" do |env|
   id = env.params.url["id"]
-  post = Crankypants::Repo.get!(Crankypants::Post, id)
+  post = Repo.get!(Post, id)
   render_page "posts/show"
 end
 

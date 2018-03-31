@@ -9,8 +9,7 @@ class Migrator
     setup_migration_table
 
     migrate "initial-setup" do |db|
-      db.exec "create table posts (id int primary key, key text, title text, body text);"
-      db.exec "insert into posts values (1, \"hello-world\", \"Hello world <g>\", \"I am the first post.\n\nIsn't it _amazing_?\");"
+      db.exec "create table posts (id int primary key, key text, title text, body text, created_at, updated_at);"
     end
   end
 
