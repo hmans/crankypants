@@ -10,6 +10,11 @@ get "/" do
   render_page "posts/index"
 end
 
+get "/crankypants.js" do |env|
+  env.response.content_type = "application/javascript"
+  render "dist/bundle.js.ecr"
+end
+
 get "/crankypants.css" do |env|
   env.response.content_type = "text/css"
   render "src/views/crankypants.css.ecr"
