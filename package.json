@@ -1,0 +1,21 @@
+{
+  "name": "crankypants",
+  "version": "1.0.0",
+  "repository": "git@github.com:hmans/crankypants.git",
+  "author": "Hendrik Mans <hendrik@mans.de>",
+  "license": "MIT",
+  "devDependencies": {
+    "css-loader": "^0.28.11",
+    "node-sass": "^4.8.3",
+    "normalize.css": "^8.0.0",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.20.3",
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13"
+  },
+  "scripts": {
+    "build": "webpack --mode development && crystal build src/crankypants.cr",
+    "build:production": "webpack --mode production && crystal build src/crankypants.cr --release --no-debug",
+    "dev": "rm data.db ; yarn run build ; crystal run src/crankypants.cr"
+  }
+}

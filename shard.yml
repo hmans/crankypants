@@ -11,3 +11,13 @@ targets:
 crystal: 0.24.2
 
 license: MIT
+
+dependencies:
+  kemal:
+    github: kemalcr/kemal
+  sqlite3:
+    github: crystal-lang/crystal-sqlite3
+  crecto:
+    github: fridgerator/crecto
+  slang:
+    github: jeromegn/slang
