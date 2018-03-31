@@ -11,7 +11,7 @@ get "/" do
 end
 
 get "/crankypants.js" do |env|
-  env.response.content_type = "application/javascript"
+  env.response.content_type = "text/javascript"
   render "dist/bundle.js.ecr"
 end
 
