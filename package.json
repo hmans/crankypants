@@ -14,8 +14,8 @@
     "webpack-cli": "^2.0.13"
   },
   "scripts": {
-    "build": "webpack --mode=development",
-    "build:production": "webpack --mode=production",
+    "build": "webpack --mode development && crystal build src/crankypants.cr",
+    "build:production": "webpack --mode production && crystal build src/crankypants.cr --release --no-debug",
     "dev": "rm data.db ; yarn run build ; crystal run src/crankypants.cr"
   }
 }
