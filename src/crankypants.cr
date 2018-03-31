@@ -1,8 +1,11 @@
+require "./crankypants/migrator"
 require "./crankypants/repo"
 require "./crankypants/*"
 
 module Crankypants
 end
+
+Migrator.migrate!(url: "sqlite3://./data.db")
 
 # -- +micrate Up
 # -- SQL in section 'Up' is executed when this migration is applied
