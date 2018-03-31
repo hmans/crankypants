@@ -5,7 +5,7 @@ require "./crankypants/*"
 module Crankypants
 end
 
-Migrator.migrate!(url: "sqlite3://./data.db")
+Migrator.new(url: "sqlite3://./data.db").run_pending_migrations!
 
 # -- +micrate Up
 # -- SQL in section 'Up' is executed when this migration is applied
