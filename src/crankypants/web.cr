@@ -1,6 +1,7 @@
 require "kemal"
 require "kilt/slang"
 require "crecto"
+require "./formatter"
 
 Query = Crecto::Repo::Query
 Multi = Crecto::Multi
@@ -50,6 +51,7 @@ module Crankypants
         post = Post.new
         post.title = env.params.body["post[title]"].as(String)
         post.body =  env.params.body["post[body]"].as(String)
+        post.body_html = Formatter.new(post.body.as(String)).markdown.to_s
 
         _changeset = Repo.insert(post)
 
