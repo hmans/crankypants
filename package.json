@@ -8,14 +8,19 @@
     "css-loader": "^0.28.11",
     "node-sass": "^4.8.3",
     "normalize.css": "^8.0.0",
+    "npm-run-all": "^4.1.2",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
     "webpack": "^4.4.1",
     "webpack-cli": "^2.0.13"
   },
   "scripts": {
-    "build": "webpack --mode development && crystal build src/crankypants.cr",
-    "build:release": "webpack --mode production && crystal build src/crankypants.cr --release --no-debug",
-    "dev": "yarn run build && ./crankypants"
+    "web:build": "webpack --mode development",
+    "web:build:release": "webpack --mode production --output-filename crankypants.js.ecr",
+    "web:watch": "webpack --mode development --watch",
+    "app:run": "crystal run src/crankypants.cr",
+    "app:release": "crystal build src/crankypants.cr --release --no-debug",
+    "dev": "run-p web:watch app:run",
+    "release": "run-s web:build:release app:release"
   }
 }

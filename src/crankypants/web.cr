@@ -33,11 +33,13 @@ module Crankypants
       # is to have a single self-contained executable, so there
       # you go.
       #
-      get "/crankypants.js" do |env|
-        env.response.headers.add "Cache-Control", "max-age=600, public"
-        env.response.content_type = "text/javascript"
-        render "dist/bundle.js.ecr"
-      end
+      {% if flag?(:release) %}
+        get "/crankypants.js" do |env|
+          env.response.headers.add "Cache-Control", "max-age=600, public"
+          env.response.content_type = "text/javascript"
+          render "public/crankypants.js.ecr"
+        end
+      {% end %}
 
       # POST requests to /posts create a new posts. No idea
       # how long-lived this will be since we eventually want

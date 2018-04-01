@@ -10,3 +10,6 @@
 /node_modules
 /dist
 /yarn-*.log
+
+# We're using Kemal's public/ directory for Webpack output only
+/public
