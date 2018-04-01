@@ -14,3 +14,18 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+
+.input {
+  margin: 1em 0;
+
+  textarea, input[type="text"] {
+    font: inherit;
+    border: none;
+    width: 100%;
+    outline: none;
+  }
+
+  textarea#post_body {
+    height: 5em;
+  }
+}

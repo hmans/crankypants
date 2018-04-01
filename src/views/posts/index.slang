@@ -2,9 +2,9 @@ h1 Blog
 
 form action="/posts" method="post"
   .input
-    input type="text" name="post[title]"
+    input id="post_title" type="text" name="post[title]" placeholder="Title (optional)" autofocus="true"
   .input
-    textarea name="post[body]"
+    textarea id="post_body" name="post[body]" placeholder="Post body (Markdown enabled!)"
   input type="submit" value="Create Post"
 
 - posts.each do |post|
