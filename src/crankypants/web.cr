@@ -9,7 +9,7 @@ Multi = Crecto::Multi
 Repo  = Crankypants::Repo
 Post  = Crankypants::Models::Post
 
-macro render_page(filename)
+private macro render_page(filename)
   render "src/views/#{{{filename}}}.slang", "src/views/layouts/application.slang"
 end
 
