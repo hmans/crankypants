@@ -5,15 +5,16 @@ class Migrator
   def initialize(@url : String)
   end
 
-  def run_pending_migrations!
+  def execute(&blk : Migrator -> _)
     setup_migration_table
-
-    migrate "initial-setup" do |db|
-      db.exec "create table posts (id integer primary key, key text, title text, body text, created_at, updated_at);"
-    end
+    blk.call(self)
   end
 
-  private def migrate(name, &blk)
+  def self.execute(url : String, &blk : Migrator -> _)
+    new(url).execute(&blk)
+  end
+
+  def migrate(name)
     if run_migration?(name)
       say "Running migration: #{name}"
 
