@@ -3,11 +3,7 @@ require "kilt/slang"
 require "crecto"
 require "./formatter"
 require "./models/*"
-
-Query = Crecto::Repo::Query
-Multi = Crecto::Multi
-Repo  = Crankypants::Repo
-Post  = Crankypants::Models::Post
+require "./blog"
 
 private macro render_page(filename)
   render "src/views/#{{{filename}}}.slang", "src/views/layouts/application.slang"
@@ -15,18 +11,20 @@ end
 
 module Crankypants
   module Web
+    Post = Models::Post
+    
     def self.run
       # Our root page renders this site's latest posts.
       #
       get "/" do
-        posts = Repo.all(Post, Query.order_by("created_at DESC"))
+        posts = Blog.load_posts
         render_page "posts/index"
       end
 
       # This is where we render individual posts.
       #
       get "/posts/:id" do |env|
-        post = Repo.get!(Post, env.params.url["id"])
+        post = Blog.load_post(env.params.url["id"].to_i)
         render_page "posts/show"
       end
 
@@ -51,10 +49,10 @@ module Crankypants
       post "/posts" do |env|
         post = Post.new
         post.title = env.params.body["post[title]"].as(String)
-        post.body =  env.params.body["post[body]"].as(String)
+        post.body = env.params.body["post[body]"].as(String)
         post.body_html = Formatter.new(post.body.as(String)).markdown.to_s
 
-        _changeset = Repo.insert(post)
+        Blog.create_post(post)
 
         env.redirect "/"
       end
