@@ -1,5 +1,3 @@
-div#app Vue app
-
 h1 Blog
 
 form action="/posts" method="post"
