@@ -21,3 +21,5 @@ dependencies:
     github: fridgerator/crecto
   slang:
     github: jeromegn/slang
+  markd:
+    github: icyleaf/markd

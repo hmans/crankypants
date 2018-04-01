@@ -1,4 +1,4 @@
-require "markdown"
+require "markd"
 
 class Formatter
   def initialize(@input : String)
@@ -6,7 +6,7 @@ class Formatter
   end
 
   def markdown
-    @current = Markdown.to_html(@current)
+    @current = Markd.to_html(@current)
   end
 
   def to_s : String
