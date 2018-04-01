@@ -18,7 +18,7 @@ shards:
 
   markd:
     github: icyleaf/markd
-    version: 0.1.1
+    commit: 9aef8c9d89934d64eb3f576d4b294e6caf2622eb
 
   radix:
     github: luislavena/radix
