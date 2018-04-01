@@ -24,3 +24,7 @@ dependencies:
   markd:
     github: icyleaf/markd
     branch: master
+
+development_dependencies:
+  sentry:
+    github: samueleaton/sentry

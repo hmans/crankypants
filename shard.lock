@@ -24,6 +24,10 @@ shards:
     github: luislavena/radix
     version: 0.3.8
 
+  sentry:
+    github: samueleaton/sentry
+    version: 0.2.0
+
   slang:
     github: jeromegn/slang
     version: 1.7.1
