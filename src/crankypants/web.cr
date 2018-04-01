@@ -12,7 +12,7 @@ end
 module Crankypants
   module Web
     Post = Models::Post
-    
+
     def self.run
       # Our root page renders this site's latest posts.
       #
@@ -34,10 +34,10 @@ module Crankypants
       # you go.
       #
       {% if flag?(:release) %}
-        get "/crankypants.js" do |env|
+        get "/blog-bundle.js" do |env|
           env.response.headers.add "Cache-Control", "max-age=600, public"
           env.response.content_type = "text/javascript"
-          render "public/crankypants.js.ecr"
+          render "public/blog-bundle.js.ecr"
         end
       {% end %}
 
