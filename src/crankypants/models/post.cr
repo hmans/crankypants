@@ -1,6 +1,6 @@
 require "crecto"
 
-module Crankypants
+module Crankypants::Models
   class Post < Crecto::Model
     schema "posts" do
       field :title, String

@@ -2,11 +2,12 @@ require "kemal"
 require "kilt/slang"
 require "crecto"
 require "./formatter"
+require "./models/*"
 
 Query = Crecto::Repo::Query
 Multi = Crecto::Multi
 Repo  = Crankypants::Repo
-Post  = Crankypants::Post
+Post  = Crankypants::Models::Post
 
 macro render_page(filename)
   render "src/views/#{{{filename}}}.slang", "src/views/layouts/application.slang"
