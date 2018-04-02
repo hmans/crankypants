@@ -15,7 +15,12 @@ yarn run dev
 - [x] Building & overall setup
 - [x] Creating posts
 - [ ] Editing posts
-- [ ] Validate posts
+- [x] Validate posts
 - [x] Deleting posts
 - [ ] Authentication
 - [ ] Configuration
+
+etc.
+
+- [ ] Uglify webpack bundles for production/release
+- [ ] Nicer validation hints in forms?

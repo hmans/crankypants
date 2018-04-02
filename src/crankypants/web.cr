@@ -5,16 +5,22 @@ require "./formatter"
 require "./models/*"
 require "./blog"
 
+# A macro to render a beautiful HTML page using our preferred page layout.
+#
 private macro render_page(filename)
   render "src/views/#{{{filename}}}.slang", "src/views/layouts/application.slang"
 end
 
-private macro render_json_error(message)
+# A macro to render a JSON error message.
+#
+private macro render_json_error(message, status = 400)
   env.response.content_type = "application/json"
-  env.response.status_code = 400
+  env.response.status_code = {{ status }}
   { message: {{ message }} }.to_json
 end
 
+# A macro to render an object that hopefully respons to #to_json... as JSON.
+#
 private macro render_json(obj)
   env.response.content_type = "application/json"
   {{ obj }}.to_json
