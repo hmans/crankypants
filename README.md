@@ -1,7 +1,7 @@
 # crankypants
 
 ```
-brew install crystal-lang yarn
+brew bundle
 shards install
 yarn install
 yarn run dev
