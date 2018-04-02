@@ -2,8 +2,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
   entry: {
-    blog: "./web/blog",
-    app: "./web/app"
+    blog: "./web/blog/index.coffee",
+    app: "./web/app/index.coffee"
   },
   output: {
     path: __dirname + "/public", // Folder to store generated bundle
