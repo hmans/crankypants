@@ -27,10 +27,13 @@ module Crankypants
 
     def self.run
       # This is our self-contained Vue app that you use for posting,
-      # reading your feed, et al. OMG MAGICKS
-      get "/app/*" do
-        render "src/views/app.slang"
-      end
+      # reading your feed, et al. OMG MAGICKS!
+      #
+      # We need to handle both /app and /app/* because for some reason,
+      # the splat argument is handled slightly differently in release mode.
+      #
+      get "/app"   { render "src/views/app.slang" }
+      get "/app/*" { render "src/views/app.slang" }
 
       # Our root page renders this site's latest posts.
       #
