@@ -12,7 +12,8 @@
     props: ['post']
     methods:
       deletePost: ->
-        @$store.dispatch 'deletePost', @post
+        if confirm 'Are you sure? There is no undo!'
+          @$store.dispatch 'deletePost', @post
 </script>
 
 <style scoped>
