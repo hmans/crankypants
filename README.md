@@ -14,5 +14,7 @@ yarn run dev
 
 - [x] Building & overall setup
 - [ ] Creating posts
+- [ ] Editing posts
+- [ ] Deleting posts
 - [ ] Authentication
 - [ ] Configuration
