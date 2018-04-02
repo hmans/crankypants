@@ -8,18 +8,11 @@
 </template>
 
 <script lang="coffee">
+  import { mapState, mapMutations } from 'vuex'
+
   export default
-    data: ->
-      posts: [
-        {
-          id: 1
-          title: "First Post!"
-          body: "<p>This is the first blog post. Amazing!</p>"
-        },
-        {
-          id: 2
-          title: "Second Post!"
-          body: "<p>Here's another post. Whoddathunk.</p>"
-        }
-      ]
+    computed:
+      mapState ['posts']
+    methods:
+      mapMutations ['increment']
 </script>

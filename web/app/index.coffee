@@ -3,10 +3,12 @@ import Vue from 'vue'
 import "normalize.css"
 
 import App from './App'
-import Router from './router'
+import store from './store'
+import router from './router'
 
 document.addEventListener 'DOMContentLoaded', ->
   new Vue
-    el: '#app',
-    router: Router,
+    el: '#app'
+    store: store
+    router: router
     render: (h) -> h(App)
