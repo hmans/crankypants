@@ -13,8 +13,9 @@ yarn run dev
 ### TODO
 
 - [x] Building & overall setup
-- [ ] Creating posts
+- [x] Creating posts
 - [ ] Editing posts
+- [ ] Validate posts
 - [x] Deleting posts
 - [ ] Authentication
 - [ ] Configuration

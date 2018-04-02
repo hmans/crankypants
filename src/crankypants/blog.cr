@@ -21,7 +21,15 @@ module Crankypants
     end
 
     def self.create_post(post : Models::Post)
+      post.body_html = Formatter.new(post.body.as(String)).markdown.to_s
       _changeset = Repo.insert(post)
+    end
+
+    def self.create_post(title : String, body : String)
+      post = Models::Post.new
+      post.title = title
+      post.body = body
+      create_post(post)
     end
   end
 end
