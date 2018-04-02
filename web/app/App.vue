@@ -1,26 +1,30 @@
 <template lang="pug">
   #app
-    .container
-      h1 Hello World
-      
-      p
-        router-link(to='/app') BLOG
-        router-link(to='/app/feed') FEED
-        router-link(to='/app/network') NETWORK
-      
-      router-view
+    navigation
+    router-view
 </template>
 
 <script lang="coffee">
 import Blog from './components'
+import Navigation from './components/Navigation'
 
 export default
   name: 'app'
-  components: { Blog }
+  components: { Blog, Navigation }
 </script>
 
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700');
+
+* { box-sizing: inherit }
+html, body { box-sizing: border-box; }
+
 body {
-  background-color: rgb(163, 172, 233);
+  background-color: #f2f2f2;
+  font: 15px/1.5 "Open Sans", Helvetica, sans-serif;
+}
+
+nav[role="main"] {
+  background-color: rgb(245, 196, 95);
 }
 </style>
