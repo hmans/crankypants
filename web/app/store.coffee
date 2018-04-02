@@ -1,23 +1,20 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store
   state:
-    count: 0
-    posts: [
-      {
-        id: 1
-        title: "First Post!"
-        body: "<p>This is the first blog post. Amazing!</p>"
-      },
-      {
-        id: 2
-        title: "Second Post!"
-        body: "<p>Here's another post. Whoddathunk.</p>"
-      }
-    ]
+    posts: []
 
   mutations:
-    increment: (state) -> state.count++
+    set_posts: (state, posts) -> state.posts = posts
+
+  actions:
+    loadPosts: ({ commit }) ->
+      axios
+        .get '/api/posts'
+        .then (r) -> r.data
+        .then (posts) ->
+          commit 'set_posts', posts
