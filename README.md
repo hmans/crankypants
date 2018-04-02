@@ -12,6 +12,7 @@ yarn run dev
 
 ### TODO
 
+- [ ] Make the blog look nicer :-)
 - [x] Building & overall setup
 - [x] Creating posts
 - [ ] Editing posts
@@ -24,3 +25,4 @@ etc.
 
 - [ ] Uglify webpack bundles for production/release
 - [ ] Nicer validation hints in forms?
+- [ ] Teach Kilt to embed plain files so we don't have to go through ECR all the time
