@@ -59,6 +59,21 @@ textarea#post_body {
 }
 
 
+/* buttons */
+
+.button, button, input[type="submit"] {
+  display: inline-block;
+  font: inherit;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(73, 99, 193);
+  color: rgba(255, 255, 255, 0.95);
+  padding: 0 1em;
+  padding-bottom: 1px; /* looks better :b */
+  line-height: 2;
+  cursor: pointer;
+}
+
 /* main navigation */
 
 nav[role="main"] {
