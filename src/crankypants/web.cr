@@ -69,6 +69,14 @@ module Crankypants
         env.redirect "/"
       end
 
+      # JSON API!
+      #
+      get "/api/posts" do |env|
+        env.response.content_type = "application/json"
+        posts = Blog.load_posts
+        posts.to_json
+      end
+
       Kemal.run
     end
   end
