@@ -9,6 +9,18 @@ private macro render_page(filename)
   render "src/views/#{{{filename}}}.slang", "src/views/layouts/application.slang"
 end
 
+private macro render_json_error(message)
+  env.response.content_type = "application/json"
+  env.response.status_code = 400
+  { message: {{ message }} }.to_json
+end
+
+private macro render_json(obj)
+  env.response.content_type = "application/json"
+  {{ obj }}.to_json
+end
+
+
 module Crankypants
   module Web
     Post = Models::Post
@@ -58,7 +70,7 @@ module Crankypants
       get "/api/posts" do |env|
         env.response.content_type = "application/json"
         posts = Blog.load_posts
-        posts.to_json
+        render_json posts
       end
 
       post "/api/posts" do |env|
@@ -66,13 +78,10 @@ module Crankypants
           title: env.params.json["title"].as(String),
           body: env.params.json["body"].as(String)
 
-        env.response.content_type = "application/json"
-
         if changeset.valid?
-          changeset.instance.to_json
+          render_json changeset.instance
         else
-          env.response.status_code = 400
-          { message: "Invalid post data." }.to_json
+          render_json_error "Invalid post data."
         end
       end
 
