@@ -53,19 +53,6 @@ module Crankypants
         end
       {% end %}
 
-      # POST requests to /posts create a new posts. No idea
-      # how long-lived this will be since we eventually want
-      # all admin stuff to go through a client-side app
-      # that talks to a JSON API.
-      #
-      post "/posts" do |env|
-        _changeset = Blog.create_post \
-          title: env.params.body["post[title]"].as(String),
-          body: env.params.body["post[body]"].as(String)
-
-        env.redirect "/"
-      end
-
       # JSON API!
       #
       get "/api/posts" do |env|
