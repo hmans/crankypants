@@ -30,7 +30,7 @@
     "web:watch": "webpack --mode development --watch",
     "app:sentry": "crystal run src/sentry.cr",
     "app:run": "crystal run src/crankypants.cr",
-    "app:release": "crystal build src/crankypants.cr --release --no-debug",
+    "app:release": "crystal build src/crankypants.cr --release --no-debug --link-flags \"/usr/local/lib/libgc.a\" && strip crankypants",
     "dev": "run-p web:watch app:sentry",
     "release": "run-s web:build:release app:release"
   },
