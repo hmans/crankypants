@@ -80,7 +80,13 @@ module Crankypants
           body: env.params.json["body"].as(String)
 
         env.response.content_type = "application/json"
-        changeset.instance.to_json
+
+        if changeset.valid?
+          changeset.instance.to_json
+        else
+          env.response.status_code = 400
+          { message: "Invalid post data." }.to_json
+        end
       end
 
       delete "/api/posts/:id" do |env|

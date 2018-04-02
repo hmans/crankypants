@@ -18,7 +18,11 @@
     methods:
       submitForm: ->
         @$store.dispatch 'createPost', @post
-        @resetForm()
+          .then (res) =>
+            @resetForm()
+          .catch (e) =>
+            console.log "ERROR: Post could not be created (#{e.response.data.message})"
+            alert "Your post could not be saved. The server said: #{e.response.data.message}"
 
       resetForm: ->
         @post = newPost()

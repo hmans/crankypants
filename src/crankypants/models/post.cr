@@ -9,5 +9,6 @@ module Crankypants::Models
     end
 
     validate_required [:body]
+    validate_length :body, min: 1
   end
 end
