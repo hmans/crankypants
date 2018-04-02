@@ -6,6 +6,8 @@ import App from './App'
 import store from './store'
 import router from './router'
 
+import './app.scss'
+
 document.addEventListener 'DOMContentLoaded', ->
   new Vue
     el: '#app'
