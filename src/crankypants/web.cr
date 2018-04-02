@@ -77,6 +77,11 @@ module Crankypants
         posts.to_json
       end
 
+      delete "/api/posts/:id" do |env|
+        Blog.delete_post(env.params.url["id"].to_i)
+        halt env, status_code: 204
+      end
+
       Kemal.run
     end
   end

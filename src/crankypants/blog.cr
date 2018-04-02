@@ -15,6 +15,11 @@ module Crankypants
       Repo.get!(Post, id)
     end
 
+    def self.delete_post(id : Int32)
+      post = Repo.get!(Post, id)
+      Repo.delete(post)
+    end
+
     def self.create_post(post : Models::Post)
       _changeset = Repo.insert(post)
     end
