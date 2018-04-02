@@ -26,4 +26,10 @@ body {
 nav[role="main"] {
   background-color: rgb(245, 196, 95);
 }
+
+.container {
+  max-width: 800px;
+  padding: 0.5em;
+}
+
 </style>

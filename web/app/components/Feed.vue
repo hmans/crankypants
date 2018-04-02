@@ -1,5 +1,6 @@
 <template lang="pug">
   #feed
-    h3 Feed
-    p I'm the FEED. I do FEEDY THINGS.
+    .container
+      h2 Feed
+      p Your feed will eventually show all posts from your friends.
 </template>

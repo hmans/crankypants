@@ -1,5 +1,6 @@
 <template lang="pug">
   #network
-    h3 Network
-    p I do networky stuff, w00t!
+    .container
+      h2 Network
+      p This is where we'll eventually display your friends and followers.
 </template>
