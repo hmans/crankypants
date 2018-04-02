@@ -12,8 +12,14 @@ end
 module Crankypants
   module Web
     Post = Models::Post
-    
+
     def self.run
+      # This is our self-contained Vue app that you use for posting,
+      # reading your feed, et al. OMG MAGICKS
+      get "/app/*" do
+        render "src/views/app.slang"
+      end
+
       # Our root page renders this site's latest posts.
       #
       get "/" do
@@ -34,10 +40,16 @@ module Crankypants
       # you go.
       #
       {% if flag?(:release) %}
-        get "/crankypants.js" do |env|
+        get "/blog-bundle.js" do |env|
           env.response.headers.add "Cache-Control", "max-age=600, public"
           env.response.content_type = "text/javascript"
-          render "public/crankypants.js.ecr"
+          render "public/blog-bundle.js.ecr"
+        end
+
+        get "/app-bundle.js" do |env|
+          env.response.headers.add "Cache-Control", "max-age=600, public"
+          env.response.content_type = "text/javascript"
+          render "public/app-bundle.js.ecr"
         end
       {% end %}
 
@@ -55,6 +67,14 @@ module Crankypants
         Blog.create_post(post)
 
         env.redirect "/"
+      end
+
+      # JSON API!
+      #
+      get "/api/posts" do |env|
+        env.response.content_type = "application/json"
+        posts = Blog.load_posts
+        posts.to_json
       end
 
       Kemal.run

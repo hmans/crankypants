@@ -1,8 +1,11 @@
 # crankypants
 
 ```
+brew install crystal-lang yarn
 shards install
 yarn install
-yarn run build:production
-./crankypants
+yarn run dev
+
+# http://localhost:3000/ (server-rendered public-facing blog)
+# http://localhost:3000/app/ (your crankypants app)
 ```
