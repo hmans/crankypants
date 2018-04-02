@@ -45,6 +45,12 @@ module Crankypants
           env.response.content_type = "text/javascript"
           render "public/blog-bundle.js.ecr"
         end
+
+        get "/app-bundle.js" do |env|
+          env.response.headers.add "Cache-Control", "max-age=600, public"
+          env.response.content_type = "text/javascript"
+          render "public/app-bundle.js.ecr"
+        end
       {% end %}
 
       # POST requests to /posts create a new posts. No idea
