@@ -1,9 +1,8 @@
 <template lang="pug">
   article.post
     .container
-      h2 {{ post.title }}
+      h2(v-if="post.title") {{ post.title }}
       .post-body(v-html="post.body_html")
-      button(@click="deletePost") Delete
 </template>
 
 <script lang="coffee">
