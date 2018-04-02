@@ -26,6 +26,9 @@ module.exports = {
       }
     ]
   },
+  resolve: {
+    extensions: ['*', '.js', '.coffee', '.vue']
+  },
   plugins: [
     new CleanWebpackPlugin(['public'])
   ]

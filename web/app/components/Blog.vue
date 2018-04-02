@@ -1,5 +1,4 @@
-<template>
-  <div id="blog">
-    <p>I'm the blog.</p>
-  </div>
+<template lang="pug">
+  #blog
+    p I'm the blog.
 </template>

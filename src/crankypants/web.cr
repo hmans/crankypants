@@ -16,7 +16,7 @@ module Crankypants
     def self.run
       # This is our self-contained Vue app that you use for posting,
       # reading your feed, et al. OMG MAGICKS
-      get "/app" do
+      get "/app/*" do
         render "src/views/app.slang"
       end
 
