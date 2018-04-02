@@ -35,4 +35,9 @@
     margin-right: auto;
     padding: 0.5em;
   }
+  
+  input[type="text"], textarea {
+    font: inherit;
+    width: 100%;
+  }
 </style>

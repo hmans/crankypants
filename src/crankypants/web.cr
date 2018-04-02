@@ -59,12 +59,9 @@ module Crankypants
       # that talks to a JSON API.
       #
       post "/posts" do |env|
-        post = Post.new
-        post.title = env.params.body["post[title]"].as(String)
-        post.body = env.params.body["post[body]"].as(String)
-        post.body_html = Formatter.new(post.body.as(String)).markdown.to_s
-
-        Blog.create_post(post)
+        _changeset = Blog.create_post \
+          title: env.params.body["post[title]"].as(String),
+          body: env.params.body["post[body]"].as(String)
 
         env.redirect "/"
       end
@@ -75,6 +72,15 @@ module Crankypants
         env.response.content_type = "application/json"
         posts = Blog.load_posts
         posts.to_json
+      end
+
+      post "/api/posts" do |env|
+        changeset = Blog.create_post \
+          title: env.params.json["title"].as(String),
+          body: env.params.json["body"].as(String)
+
+        env.response.content_type = "application/json"
+        changeset.instance.to_json
       end
 
       delete "/api/posts/:id" do |env|

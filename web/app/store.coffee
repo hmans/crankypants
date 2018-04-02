@@ -13,6 +13,7 @@ export default new Vuex.Store
   mutations:
     set_posts: (state, posts) -> state.posts = posts
     remove_post: (state, post) -> removeFrom state.posts, post
+    add_post: (state, post) -> state.posts.unshift post
 
   actions:
     loadPosts: ({ commit }) ->
@@ -23,3 +24,8 @@ export default new Vuex.Store
     deletePost: ({ commit }, post) ->
       axios.delete "/api/posts/#{post.id}"
         .then -> commit 'remove_post', post
+
+    createPost: ({ commit }, post) ->
+      axios.post '/api/posts', post
+        .then (res) -> res.data
+        .then (post) -> commit 'add_post', post
