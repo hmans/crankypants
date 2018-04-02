@@ -4,7 +4,7 @@
       article.post(v-for="post in posts")
         header
           h2 {{ post.title }}
-        .post-body(v-html="post.body")
+        .post-body(v-html="post.body_html")
 </template>
 
 <script lang="coffee">
