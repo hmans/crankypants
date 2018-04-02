@@ -16,13 +16,10 @@ export default new Vuex.Store
 
   actions:
     loadPosts: ({ commit }) ->
-      axios
-        .get '/api/posts'
+      axios.get '/api/posts'
         .then (res) -> res.data
-        .then (posts) ->
-          commit 'set_posts', posts
+        .then (posts) -> commit 'set_posts', posts
 
     deletePost: ({ commit }, post) ->
       axios.delete "/api/posts/#{post.id}"
-        .then ->
-          commit 'remove_post', post
+        .then -> commit 'remove_post', post
