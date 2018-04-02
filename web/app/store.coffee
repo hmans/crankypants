@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 
+import { removeFrom } from './helpers'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store
@@ -10,9 +12,7 @@ export default new Vuex.Store
 
   mutations:
     set_posts: (state, posts) -> state.posts = posts
-    remove_post: (state, post) ->
-      p = state.posts
-      p.splice p.indexOf(post), 1
+    remove_post: (state, post) -> removeFrom state.posts, post
 
   actions:
     loadPosts: ({ commit }) ->
