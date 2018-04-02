@@ -15,6 +15,6 @@ export default new Vuex.Store
     loadPosts: ({ commit }) ->
       axios
         .get '/api/posts'
-        .then (r) -> r.data
+        .then (res) -> res.data
         .then (posts) ->
           commit 'set_posts', posts
