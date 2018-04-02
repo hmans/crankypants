@@ -29,3 +29,8 @@ etc.
 - [ ] Move database into a subdirectory (important for Docker volumes)
 - [ ] CLI option to specify which database to use
 - [ ] CLI option to specify which port to use
+
+Deployment/etc.:
+
+- [ ] https://traefik.io/
+- [ ] https://github.com/umputun/nginx-le
