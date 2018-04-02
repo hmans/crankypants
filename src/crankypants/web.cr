@@ -68,9 +68,7 @@ module Crankypants
       # JSON API!
       #
       get "/api/posts" do |env|
-        env.response.content_type = "application/json"
-        posts = Blog.load_posts
-        render_json posts
+        render_json Blog.load_posts
       end
 
       post "/api/posts" do |env|
