@@ -5,8 +5,7 @@
 </template>
 
 <script lang="coffee">
-import Blog from './components'
-import Navigation from './components/Navigation'
+import { Blog, Navigation } from './components'
 
 export default
   name: 'app'

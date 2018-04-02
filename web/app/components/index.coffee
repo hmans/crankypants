@@ -1,3 +1,4 @@
 import Blog from './Blog'
+import Navigation from './Navigation'
 
-export default Blog
+export { Blog, Navigation }
