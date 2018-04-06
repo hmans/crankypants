@@ -67,13 +67,13 @@ module Crankypants
         get "/blog-bundle.js" do |env|
           env.response.headers.add "Cache-Control", "max-age=600, public"
           env.response.content_type = "text/javascript"
-          embed_file "public/blog-bundle.js"
+          Assets.get("blog-bundle.js")
         end
 
         get "/app-bundle.js" do |env|
           env.response.headers.add "Cache-Control", "max-age=600, public"
           env.response.content_type = "text/javascript"
-          embed_file "public/app-bundle.js"
+          Assets.get("app-bundle.js")
         end
       {% end %}
 
