@@ -26,7 +26,7 @@
   },
   "scripts": {
     "web:build": "webpack --mode development",
-    "web:build:release": "webpack --mode production --output-filename [name]-bundle.js.ecr",
+    "web:build:release": "webpack --mode production",
     "web:watch": "webpack --mode development --watch",
     "app:sentry": "crystal run src/sentry.cr",
     "app:run": "crystal run src/crankypants.cr",
