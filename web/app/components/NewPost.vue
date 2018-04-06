@@ -1,27 +1,15 @@
 <template lang="pug">
-  section.new_post
+  section
     .container
-      input#post_title(
-        ref="post_title"
-        type="text"
-        autofocus
-        placeholder="Title (optional)"
-        v-model="post.title"
-        @keydown.enter.prevent="moveToBodyStart"
-        @keydown.arrow-down.prevent="moveToBody"
-      )
-
-      textarea#post_body(
-        ref="post_body"
-        placeholder="Post body (Markdown enabled!)"
-        v-model="post.body"
-        @keydown.arrow-up="moveToTitle"
-      )
-
-      button(@click="submitForm") Create Post!
+      post-form(
+        ref="post_form"
+        :post="post"
+        @submit="saveNewPost")
 </template>
 
 <script lang="coffee">
+  import PostForm from './PostForm'
+
   newPost = ->
     title: ""
     body: ""
@@ -32,6 +20,9 @@
     el.selectionEnd = pos
 
   export default
+    components:
+      { PostForm }
+
     data: ->
       post: newPost()
 
@@ -50,16 +41,13 @@
           focusAt @$refs.post_title, pos
           event.preventDefault()
 
-      submitForm: ->
+      saveNewPost: ->
         @$store.dispatch 'createPost', @post
           .then (res) =>
-            @resetForm()
-            @$refs.post_title.focus()
+            @post = newPost()
+            # FIXME: the following probably is an extreme antipattern?
+            @$refs.post_form.$refs.title.focus()
           .catch (e) =>
             console.log "ERROR: Post could not be created (#{e.response.data.message})"
             alert "Your post could not be saved. The server said: #{e.response.data.message}"
-
-
-      resetForm: ->
-        @post = newPost()
 </script>
