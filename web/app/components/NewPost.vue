@@ -1,8 +1,23 @@
 <template lang="pug">
   section.new_post
     .container
-      input#post_title(ref="post_title" type="text" autofocus v-model="post.title" placeholder="Title (optional)")
-      textarea#post_body(v-model="post.body" placeholder="Post body (Markdown enabled!)")
+      input#post_title(
+        ref="post_title"
+        type="text"
+        autofocus
+        placeholder="Title (optional)"
+        v-model="post.title"
+        @keydown.enter.prevent="moveToBodyStart"
+        @keydown.arrow-down.prevent="moveToBody"
+      )
+
+      textarea#post_body(
+        ref="post_body"
+        placeholder="Post body (Markdown enabled!)"
+        v-model="post.body"
+        @keydown.arrow-up="moveToTitle"
+      )
+
       button(@click="submitForm") Create Post!
 </template>
 
@@ -11,11 +26,30 @@
     title: ""
     body: ""
 
+  focusAt = (el, pos) ->
+    el.focus()
+    el.selectionStart = pos
+    el.selectionEnd = pos
+
   export default
     data: ->
       post: newPost()
 
     methods:
+      moveToBody: ->
+        focusAt @$refs.post_body, @$refs.post_title.selectionStart
+
+      moveToBodyStart: ->
+        focusAt @$refs.post_body, 0
+
+      moveToTitle: ->
+        pos = @$refs.post_body.selectionStart
+        value = @$refs.post_body.value.substring 0, pos
+
+        unless value.includes "\n"
+          focusAt @$refs.post_title, pos
+          event.preventDefault()
+
       submitForm: ->
         @$store.dispatch 'createPost', @post
           .then (res) =>
