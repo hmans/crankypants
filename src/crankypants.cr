@@ -1,4 +1,5 @@
-require "./crankypants/*"
+require "./crankypants/migrator"
+require "./crankypants/web"
 
 module Crankypants
 end
