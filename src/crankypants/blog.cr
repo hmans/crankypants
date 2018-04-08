@@ -20,6 +20,11 @@ module Crankypants
       Repo.delete(post)
     end
 
+    def self.update_post(post : Models::Post)
+      post.body_html = Formatter.new(post.body.as(String)).markdown.to_s
+      Repo.update(post)
+    end
+
     def self.create_post(post : Models::Post)
       post.body_html = Formatter.new(post.body.as(String)).markdown.to_s
       _changeset = Repo.insert(post)

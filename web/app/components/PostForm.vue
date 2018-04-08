@@ -5,7 +5,7 @@
       type="text"
       autofocus
       placeholder="Title (optional)"
-      v-model="post.title"
+      v-model="fields.title"
       @keydown.enter.prevent="moveToBodyStart"
       @keydown.arrow-down.prevent="moveToBody"
     )
@@ -13,23 +13,48 @@
     textarea#post_body(
       ref="body"
       placeholder="Post body (Markdown enabled!)"
-      v-model="post.body"
+      v-model="fields.body"
       @keydown.arrow-up="moveToTitle"
     )
 
-    button(@click="submitForm") Save!
+    button(@click.prevent="$emit('submit', fields)") Save Post
+    template(v-if="cancel")
+      |  or
+      |
+      a(@click.prevent="$emit('cancel')" href='#') cancel
 </template>
 
 <script lang="coffee">
-  focusAt = (el, pos) ->
+  focusAt = (el, pos = 0) ->
     el.focus()
     el.selectionStart = pos
     el.selectionEnd = pos
 
   export default
-    props: ['post']
+    props:
+      title:
+        type: String
+        default: ""
+      body:
+        type: String
+        default: ""
+      cancel:
+        required: false
+        default: false
+
+    data: ->
+      fields:
+        title: @title
+        body: @body
+
+    mounted: ->
+      focusAt @$refs.title
 
     methods:
+      clear: ->
+        @fields.title = ""
+        @fields.body = ""
+
       moveToBody: ->
         focusAt @$refs.body, @$refs.title.selectionStart
 
@@ -43,21 +68,4 @@
         unless value.includes "\n"
           focusAt @$refs.title, pos
           event.preventDefault()
-
-      submitForm: ->
-        @$emit 'submit'
-
-
-      # submitForm: ->
-      #   @$store.dispatch 'createPost', @post
-      #     .then (res) =>
-      #       @resetForm()
-      #       @$refs.post_title.focus()
-      #     .catch (e) =>
-      #       console.log "ERROR: Post could not be created (#{e.response.data.message})"
-      #       alert "Your post could not be saved. The server said: #{e.response.data.message}"
-      #
-      #
-      # resetForm: ->
-      #   @post = newPost()
 </script>

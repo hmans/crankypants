@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import { Blog } from './components'
-import Feed from './components/Feed'
-import Network from './components/Network'
+
+import { Blog, Feed, Network, EditPost } from './pages'
 
 Vue.use(Router)
 

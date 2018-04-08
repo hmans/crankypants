@@ -1,4 +1,5 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const path = require('path');
 
 module.exports = {
   entry: {
@@ -27,7 +28,10 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['*', '.js', '.coffee', '.vue']
+    extensions: ['*', '.js', '.coffee', '.vue'],
+    alias: {
+      '@': path.resolve(__dirname, 'web/app'),
+    }
   },
   plugins: [
     new CleanWebpackPlugin(['public'])

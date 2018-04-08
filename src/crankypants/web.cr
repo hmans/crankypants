@@ -100,6 +100,20 @@ module Crankypants
         halt env, status_code: 204
       end
 
+      patch "/api/posts/:id" do |env|
+        post = Blog.load_post(env.params.url["id"].to_i)
+        post.title = env.params.json["title"].as(String)
+        post.body = env.params.json["body"].as(String)
+
+        changeset = Blog.update_post(post)
+
+        if changeset.valid?
+          render_json changeset.instance
+        else
+          render_json_error "Invalid post data."
+        end
+      end
+
       Kemal.run
     end
   end

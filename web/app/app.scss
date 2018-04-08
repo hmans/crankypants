@@ -45,6 +45,7 @@ input[type="text"], textarea {
   border: none;
   background-color: transparent;
   outline: none;
+  padding: 0;
   &::placeholder {
     color: #ccc;
   }
@@ -52,6 +53,7 @@ input[type="text"], textarea {
 
 input#post_title {
   font-weight: bold;
+  margin-bottom: 1em;
 }
 
 textarea#post_body {

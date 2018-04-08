@@ -5,11 +5,11 @@
 </template>
 
 <script lang="coffee">
-  import { Blog, Navigation } from './components'
+  import { Navigation } from './components'
 
   export default
     name: 'app'
-    components: { Blog, Navigation }
+    components: { Navigation }
     created: ->
       @$store.dispatch 'loadPosts'
 </script>
