@@ -1,10 +1,16 @@
 # crankypants
 
+A thing that does things.
+
+### Hacking on Crankypants
+
+This currently assumes that you're on macOS. (Hacking on Crankypants on other operating systems is, of course, perfectly possible, as long as Crystal has support for them.)
+
 ```
 brew bundle
 shards install
 yarn install
-hivemind
+hivemind  # or any other Procfile manager
 
 # http://localhost:3000/ (server-rendered public-facing blog)
 # http://localhost:3000/app/ (your crankypants app)
