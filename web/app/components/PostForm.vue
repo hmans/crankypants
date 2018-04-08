@@ -1,5 +1,5 @@
 <template lang="pug">
-  .post-form
+  .post-form(@keydown.meta.enter.prevent="$emit('submit', fields)")
     input#post_title(
       ref="title"
       type="text"
