@@ -5,6 +5,10 @@ require "./formatter"
 require "./models/*"
 require "./blog"
 
+{% if flag?(:release) %}
+require "./assets"
+{% end %}
+
 # A macro to render a beautiful HTML page using our preferred page layout.
 #
 private macro render_page(filename)
@@ -67,13 +71,13 @@ module Crankypants
         get "/blog-bundle.js" do |env|
           env.response.headers.add "Cache-Control", "max-age=600, public"
           env.response.content_type = "text/javascript"
-          Assets.get("blog-bundle.js")
+          Assets.get("blog-bundle.js").gets_to_end
         end
 
         get "/app-bundle.js" do |env|
           env.response.headers.add "Cache-Control", "max-age=600, public"
           env.response.content_type = "text/javascript"
-          Assets.get("app-bundle.js")
+          Assets.get("app-bundle.js").gets_to_end
         end
       {% end %}
 
