@@ -10,7 +10,10 @@
 
     .container(v-else)
       h2(v-if="post.title") {{ post.title }}
-      .post-body(v-html="post.body_html")
+      .post-body(
+        ref="post_body"
+        v-html="post.body_html"
+        v-highlightjs)
       p
         button(@click="startEditing") edit
         |
