@@ -4,7 +4,7 @@
 brew bundle
 shards install
 yarn install
-overmind start
+hivemind
 
 # http://localhost:3000/ (server-rendered public-facing blog)
 # http://localhost:3000/app/ (your crankypants app)
