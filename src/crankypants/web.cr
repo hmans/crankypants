@@ -30,10 +30,6 @@ private macro render_json(obj)
   {{ obj }}.to_json
 end
 
-private macro embed_file(name)
-  `cat {{ name }}`
-end
-
 module Crankypants
   module Web
     Post = Models::Post
