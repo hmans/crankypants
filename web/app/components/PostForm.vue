@@ -62,10 +62,9 @@
         focusAt @$refs.body, 0
 
       moveToTitle: ->
-        # pos = @$refs.body.selectionStart
-        # value = @$refs.body.value.substring 0, pos
-        #
-        # unless value.includes "\n"
-        #   focusAt @$refs.title, pos
-        #   event.preventDefault()
+        pos = @$refs.body.selectionStart
+
+        if pos == 0
+          focusAt @$refs.title, pos
+          event.preventDefault()
 </script>
