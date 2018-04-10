@@ -12,6 +12,10 @@ tasks:
     cmds:
       - docker push hmans/crankypants
 
+  docker:run:
+    cmds:
+      - docker run --rm -v crankypants-data:/data -p 3000:3000 hmans/crankypants
+
   web:build:
     cmds:
       - yarn run web:build
