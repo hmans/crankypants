@@ -4,6 +4,7 @@ require "crecto"
 require "./formatter"
 require "./models/*"
 require "./blog"
+require "./version"
 
 {% if flag?(:release) %}
 require "./assets"
@@ -114,6 +115,10 @@ module Crankypants
         end
       end
 
+      puts ["Welcome to ", "CrankyPants".colorize(:white), "! ", ":D ".colorize(:yellow), "(#{Crankypants::VERSION})".colorize(:dark_gray)].join
+      puts ["-> ".colorize(:green), "Your blog: ", "http://localhost:3000/".colorize(:cyan)].join
+      puts ["-> ".colorize(:green), "Your app:  ", "http://localhost:3000/app/".colorize(:cyan)].join
+      puts ["Enjoy! ", "<3<3<3".colorize(:red)].join
       Kemal.run
     end
   end
