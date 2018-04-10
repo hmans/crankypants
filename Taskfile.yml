@@ -1,0 +1,21 @@
+version: '2'
+
+tasks:
+  docker:build:
+    deps: [web:build:release]
+    cmds:
+      - docker build -t hmans/crankypants .
+
+  docker:push:
+    deps:
+      - docker:build
+    cmds:
+      - docker push hmans/crankypants
+
+  web:build:
+    cmds:
+      - yarn run web:build
+
+  web:build:release:
+    cmds:
+      - yarn run web:build:release
