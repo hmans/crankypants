@@ -2,12 +2,20 @@
 FROM crystallang/crystal:latest
 RUN apt-get update && apt-get install -y libsqlite3-dev
 
-ADD . /src
-WORKDIR /src
-RUN shards build --production
-# RUN crystal run ./support/list-deps.cr -- ./bin/crankypants
+ADD . /work
+WORKDIR /work
+RUN shards install
+RUN crystal build src/crankypants.cr --release --no-debug
+RUN strip crankypants
 
-# Stage 2: build the actual image
+# This should be...:
+# RUN shards build --production
+
+# We use this to identify dependencies and generate the lower
+# part of the Dockerfile:
+# RUN crystal run ./support/list-deps.cr -- ./crankypants
+
+# STAGE 2: build the actual image
 FROM scratch
 COPY --from=0 /lib/x86_64-linux-gnu/libz.so.1 /lib/x86_64-linux-gnu/libz.so.1
 COPY --from=0 /lib/x86_64-linux-gnu/libz.so.1.2.8 /lib/x86_64-linux-gnu/libz.so.1.2.8
@@ -32,7 +40,8 @@ COPY --from=0 /lib/x86_64-linux-gnu/libc.so.6 /lib/x86_64-linux-gnu/libc.so.6
 COPY --from=0 /lib/x86_64-linux-gnu/libc-2.23.so /lib/x86_64-linux-gnu/libc-2.23.so
 COPY --from=0 /lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
 COPY --from=0 /lib/x86_64-linux-gnu/ld-2.23.so /lib/x86_64-linux-gnu/ld-2.23.so
-COPY --from=0 /src/bin/crankypants /crankypants
+COPY --from=0 /work/crankypants /crankypants
 
 EXPOSE 3000
+ENV KEMAL_ENV=production
 ENTRYPOINT ["/crankypants"]
