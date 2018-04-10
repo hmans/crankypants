@@ -5,7 +5,7 @@ A thing that does things.
 ### Giving it a try via Docker
 
 ```
-docker run --rm -v crankypants-data:/data hmans/crankypants
+docker run --rm -v crankypants-data:/data -p 3000:3000 hmans/crankypants
 ```
 
 ### Hacking on Crankypants
