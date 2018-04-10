@@ -1,2 +1,2 @@
-web: crystal run src/sentry.cr
+web: crystal run support/sentry.cr
 webpack: yarn web:watch
