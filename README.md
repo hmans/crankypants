@@ -2,6 +2,12 @@
 
 A thing that does things.
 
+### Giving it a try via Docker
+
+```
+docker run --rm -v crankypants-data:/data hmans/crankypants
+```
+
 ### Hacking on Crankypants
 
 This currently assumes that you're on macOS. (Hacking on Crankypants on other operating systems is, of course, perfectly possible, as long as Crystal has support for them.)

@@ -7,7 +7,7 @@ module Crankypants
 
     config do |conf|
       conf.adapter = Crecto::Adapters::SQLite3
-      conf.database = "./data.db"
+      conf.database = "./data/crankypants.db"
     end
   end
 end
