@@ -115,10 +115,13 @@ module Crankypants
         end
       end
 
+      puts
       puts ["Welcome to ", "CrankyPants".colorize(:white), "! ", ":D ".colorize(:yellow), "(#{Crankypants::VERSION})".colorize(:dark_gray)].join
       puts ["-> ".colorize(:green), "Your blog: ", "http://localhost:3000/".colorize(:cyan)].join
       puts ["-> ".colorize(:green), "Your app:  ", "http://localhost:3000/app/".colorize(:cyan)].join
       puts ["Enjoy! ", "<3<3<3".colorize(:red)].join
+      puts
+
       Kemal.run
     end
   end
