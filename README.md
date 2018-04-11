@@ -8,6 +8,14 @@ A thing that does things.
 docker run --rm -v crankypants-data:/data -p 3000:3000 hmans/crankypants
 ```
 
+### Deploying on hyper.sh
+
+```
+hyper run -d --name mycrankypants \
+  -v /data -p 80:3000 --size s1 \
+  --restart always hmans/crankypants
+```
+
 ### Hacking on Crankypants
 
 This currently assumes that you're on macOS. (Hacking on Crankypants on other operating systems is, of course, perfectly possible, as long as Crystal has support for them.)
