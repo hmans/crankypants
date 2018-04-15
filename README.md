@@ -5,16 +5,31 @@ A thing that does things.
 ### Giving it a try via Docker
 
 ```
-docker run --rm -v crankypants-data:/data -p 3000:3000 hmans/crankypants
+docker run --rm \
+  -v crankypants-data:/data \
+  -p 3000:3000 \
+  -e "CRANKY_LOGIN=any-user-name" \
+  -e "CRANKY_PASSWORD=any-password" \
+  hmans/crankypants
 ```
 
 ### Deploying on hyper.sh
 
 ```
 hyper run -d --name mycrankypants \
-  -v /data -p 80:3000 --size s1 \
+  -v /data \
+  -p 80:3000 \
+  -e "CRANKY_LOGIN=any-user-name" \
+  -e "CRANKY_PASSWORD=any-password" \
+  --size s1 \
   --restart always hmans/crankypants
 ```
+
+### Configuration
+
+Your Crankypants provides an app at `/app` (and an API at `/api`). Both are protected using a simple HTTP Basic Auth scheme. Please provide a login name and password through the environment variables `CRANKY_LOGIN` and `CRANKY_PASSWORD`. (These can be anything you like. You are the only user of your Crankypants installation.)
+
+If any of these variables are missing, Crankypants will not make App or API available at all.
 
 ### Hacking on Crankypants
 

@@ -2,7 +2,7 @@ require "./repo"
 require "./models/*"
 
 module Crankypants
-  module Blog
+  module Data
     Query = Crecto::Repo::Query
     Multi = Crecto::Multi
     Post  = Models::Post
