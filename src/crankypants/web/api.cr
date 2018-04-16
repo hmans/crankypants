@@ -5,8 +5,10 @@ module Crankypants::Web::Api
   include Helpers
 
   def self.mount
-    before_all "/api/*" do |context|
-      protect_with ENV["CRANKY_LOGIN"], ENV["CRANKY_PASSWORD"]
+    before_all do |context|
+      if context.request.path.starts_with?("/api")
+        protect_with ENV["CRANKY_LOGIN"], ENV["CRANKY_PASSWORD"]
+      end
     end
 
     # JSON API!

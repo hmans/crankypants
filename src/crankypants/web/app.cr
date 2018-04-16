@@ -5,8 +5,10 @@ module Crankypants::Web::App
   include Helpers
 
   def self.mount
-    before_all "/app/*" do |context|
-      protect_with ENV["CRANKY_LOGIN"], ENV["CRANKY_PASSWORD"]
+    before_all do |context|
+      if context.request.path.starts_with?("/app")
+        protect_with ENV["CRANKY_LOGIN"], ENV["CRANKY_PASSWORD"]
+      end
     end
 
     # This is our self-contained Vue app that you use for posting,
