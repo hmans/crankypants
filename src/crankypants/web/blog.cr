@@ -18,5 +18,15 @@ module Crankypants::Web::Blog
       post = Data.load_post(env.params.url["id"].to_i)
       render_page "posts/show"
     end
+
+    # Here's our statically linked-ish bundle for the blog...
+    #
+    {% if flag?(:release) %}
+      get "/blog-bundle.js" do |env|
+        env.response.headers.add "Cache-Control", "max-age=600, public"
+        env.response.content_type = "text/javascript"
+        Assets.get("blog-bundle.js").gets_to_end
+      end
+    {% end %}
   end
 end
