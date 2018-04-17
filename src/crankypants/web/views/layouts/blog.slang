@@ -7,5 +7,6 @@ html
     script type="application/javascript" src="/blog-bundle.js"
   body
     .container
-      h1.site-title = ENV.fetch("CRANKY_TITLE", "A Very Cranky Site")
+      h1.site-title
+        a href="/" = ENV.fetch("CRANKY_TITLE", "A Very Cranky Site")
       == content
