@@ -2,6 +2,8 @@
 
 A thing that does things.
 
+[![CircleCI](https://circleci.com/gh/hmans/crankypants.svg?style=svg)](https://circleci.com/gh/hmans/crankypants)
+
 ### Giving it a try via Docker
 
 ```

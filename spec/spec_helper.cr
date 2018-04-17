@@ -1,10 +1,11 @@
 require "spec"
 require "../src/crankypants"
-require "../src/crankypants/repo"
 
 Crankypants.configure do
   settings.database_uri = "sqlite3://./data/test.db"
 end
+
+require "../src/crankypants/repo"
 
 Crankypants.prepare_database
 
