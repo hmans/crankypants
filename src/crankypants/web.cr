@@ -6,6 +6,7 @@ require "./models/*"
 require "./data"
 require "./version"
 require "./web/*"
+require "./web/views/*"
 
 {% if flag?(:release) %}
 require "./assets"

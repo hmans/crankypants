@@ -17,8 +17,8 @@ module Crankypants::Web::App
     # We need to handle both /app and /app/* because for some reason,
     # the splat argument is handled slightly differently in release mode.
     #
-    get "/app"   { render "src/views/app.slang" }
-    get "/app/*" { render "src/views/app.slang" }
+    get "/app"   { render "src/crankypants/web/views/app.slang" }
+    get "/app/*" { render "src/crankypants/web/views/app.slang" }
 
     # We compile our Webpack bundle into this app to serve
     # it directly. Yes, this is sick and twisted, but the goal

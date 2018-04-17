@@ -9,14 +9,14 @@ module Crankypants::Web::Blog
     #
     get "/" do
       posts = Data.load_posts
-      render_page "posts/index"
+      PostView.index posts: posts
     end
 
     # This is where we render individual posts.
     #
     get "/posts/:id" do |env|
       post = Data.load_post(env.params.url["id"].to_i)
-      render_page "posts/show"
+      PostView.show post: post
     end
 
     # Here's our statically linked-ish bundle for the blog...

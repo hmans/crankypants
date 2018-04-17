@@ -1,10 +1,4 @@
 module Crankypants::Web::Helpers
-  # A macro to render a beautiful HTML page using our preferred page layout.
-  #
-  macro render_page(filename)
-    render "src/views/#{{{filename}}}.slang", "src/views/layouts/application.slang"
-  end
-
   # A macro to render a JSON error message.
   #
   macro render_json_error(message, status = 400)

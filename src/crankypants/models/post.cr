@@ -10,5 +10,9 @@ module Crankypants::Models
 
     validate_required [:body]
     validate_length :body, min: 1
+
+    def url
+      "/posts/#{id}"
+    end
   end
 end

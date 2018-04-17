@@ -27,9 +27,13 @@ hyper run -d --name mycrankypants \
 
 ### Configuration
 
-Your Crankypants provides an app at `/app` (and an API at `/api`). Both are protected using a simple HTTP Basic Auth scheme. Please provide a login name and password through the environment variables `CRANKY_LOGIN` and `CRANKY_PASSWORD`. (These can be anything you like. You are the only user of your Crankypants installation.)
+| ENV     | Value |
+|---------|-------|
+| `CRANKY_LOGIN` | Login name when authenticating `/app` or `/api` |
+| `CRANKY_PASSWORD` | Password (see above) |
+| `CRANKY_TITLE` | Title of your site (will be displayed at the top of every page) |
 
-If any of these variables are missing, Crankypants will not make App or API available at all.
+If `CRANKY_LOGIN` or `CRANKY_PASSWORD` are missing, Crankypants will not make its App or API available at all.
 
 ### Hacking on Crankypants
 

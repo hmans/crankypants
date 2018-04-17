@@ -1,19 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700');
+@import "../shared/mixins";
 
 * { box-sizing: inherit }
 html, body { box-sizing: border-box; }
-
-%remove-inner-margins {
-  >:first-child { margin-top: 0 }
-  >:last-child { margin-bottom: 0 }
-}
-
-%inline-list {
-  list-style: none;
-  padding-left: 0;
-  >li { display: inline; }
-  >li+li { margin-left: 1em; }
-}
 
 body {
   background-color: #f2f2f2;
@@ -21,12 +10,7 @@ body {
 }
 
 .container {
-  @extend %remove-inner-margins;
-
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 1em;
+  @include container($width: 800px);
 }
 
 /* basic formatting */

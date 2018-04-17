@@ -1,0 +1,1 @@
+== PostView._post(post)

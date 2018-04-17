@@ -1,31 +1,82 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700');
+@import "../shared/mixins";
+
+$color-background: #fff;
+$color-text: #555;
 
 * { box-sizing: inherit; }
 html, body { box-sizing: border-box; }
 
 body {
-  background-color: #fff;
-  color: #444;
+  background-color: $color-background;
+  color: $color-text;
   font: 16px/1.5 "Open Sans", helvetica, sans-serif;
 }
 
 .container {
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+  @include container($width: 700px);
+  padding-left: 6rem;
+  // background-color: yellow;
 }
 
-.input {
-  margin: 1em 0;
+h1, h2, h3, h4, h5, h6 {
+  font: inherit;
+  font-weight: bold;
+}
 
-  textarea, input[type="text"] {
-    font: inherit;
-    border: none;
-    width: 100%;
-    outline: none;
+h1.site-title {
+  font-size: 200%;
+  color: #ccc;
+  margin-bottom: 3rem;
+}
+
+/* POSTS */
+
+$color-sideline: #f2f2f2;
+$color-meta: #ccc;
+
+h2.day-header {
+  color: rgb(209, 100, 190);
+}
+
+section.posts {
+  border-left: 1px solid $color-sideline;
+  padding-left: 1.5rem;
+  margin-left: -1.5rem;
+  margin-bottom: 3rem;
+}
+
+article.post {
+  margin: 1.5em 0;
+
+  &::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    margin-left: -1.5rem - 0.75rem;
+
+    width: 1rem;
+    height: 1rem;
+    background-color: $color-sideline;
+    border-radius: 50%;
+    border: 0.25em solid white;
   }
+}
 
-  textarea#post_body {
-    height: 5em;
+.post-meta {
+  position: absolute;
+  margin-left: -5.5em;
+  margin-top: 2px;
+
+  color: $color-meta;
+  font-size: 85%;
+
+  a {
+    font: inherit;
+    color: inherit;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
