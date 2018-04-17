@@ -80,3 +80,15 @@ article.post {
     }
   }
 }
+
+/* Code Blocks */
+
+code {
+  font-family: "Source Code Pro", "Lucida Console", Monaco, monospace;
+  font-size: 90%;
+  border-radius: 5px;
+}
+
+pre>code {
+  padding: 1em !important;
+}
