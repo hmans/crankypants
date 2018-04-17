@@ -12,8 +12,8 @@ module Crankypants
 
       # A macro to render a beautiful HTML page using our preferred page layout.
       #
-      macro render_page(filename)
-        render "src/crankypants/web/views/#{{{filename}}}.slang", "src/crankypants/web/views/layouts/application.slang"
+      macro render_page(filename, layout = "blog")
+        render "src/crankypants/web/views/#{{{filename}}}.slang", "src/crankypants/web/views/layouts/{{ layout.id }}.slang"
       end
     end
   end
