@@ -3,6 +3,7 @@
 
 $color-background: #fff;
 $color-text: #555;
+$color-link: rgb(94, 142, 186);
 
 * { box-sizing: inherit; }
 html, body { box-sizing: border-box; }
@@ -28,6 +29,12 @@ h1.site-title {
   font-size: 200%;
   color: #ccc;
   margin-bottom: 3rem;
+}
+
+/* Links */
+
+a {
+  color: $color-link;
 }
 
 /* POSTS */
