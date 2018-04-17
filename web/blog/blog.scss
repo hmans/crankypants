@@ -92,3 +92,19 @@ code {
 pre>code {
   padding: 1em !important;
 }
+
+/* Block Quotes */
+
+blockquote {
+  @extend %remove-inner-margins;
+
+  margin-left: 0;
+  padding: 1em 1.25em;
+
+  border-left: 1em solid #f2f2f2;
+  border-right: 1em solid #f2f2f2;
+  border-radius: 30px;
+
+  color: #888;
+  background-color: #fcfcfc;
+}
