@@ -40,7 +40,7 @@ a {
 /* Site Title */
 
 h1.site-title {
-  a { @extend %a.invisible }
+  a { @extend %a.invisible; }
 }
 
 /* POSTS */
