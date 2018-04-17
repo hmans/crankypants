@@ -1,14 +1,18 @@
+---
 version: 2
 jobs:
   build:
     docker:
-      - image: debian:stretch
+      - image: crystallang/crystal:latest
+
     steps:
       - checkout
       - run:
-          name: Greeting
-          command: echo Hello, world.
+          name: Install Shards
+          command: |
+            shards install
+
       - run:
-          name: Print the Current Time
-          command: date
-          
+          name: Run Tests
+          command: |
+            crystal spec
