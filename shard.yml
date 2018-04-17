@@ -6,7 +6,7 @@ authors:
 
 targets:
   crankypants:
-    main: src/crankypants.cr
+    main: src/crankypants_cli.cr
 
 crystal: 0.24.2
 

@@ -31,7 +31,7 @@
     "web:build": "webpack --mode development",
     "web:build:release": "webpack --mode production",
     "web:watch": "webpack --mode development --watch",
-    "app:release": "crystal build src/crankypants.cr --release --no-debug --link-flags \"/usr/local/lib/libgc.a\" && strip crankypants",
+    "app:release": "crystal build src/crankypants_cli.cr -o ./crankypants --release --no-debug --link-flags \"/usr/local/lib/libgc.a\" && strip crankypants",
     "release": "run-s web:build:release app:release"
   },
   "dependencies": {
