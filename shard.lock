@@ -6,11 +6,15 @@ shards:
 
   crecto:
     github: fridgerator/crecto
-    version: 0.8.4
+    version: 0.8.5
 
   db:
     github: crystal-lang/crystal-db
     version: 0.5.0
+
+  habitat:
+    github: luckyframework/habitat
+    version: 0.2.1
 
   kemal:
     github: kemalcr/kemal

@@ -1,4 +1,5 @@
 require "./repo"
+require "./formatter"
 require "./models/*"
 
 module Crankypants
@@ -6,6 +7,10 @@ module Crankypants
     Query = Crecto::Repo::Query
     Multi = Crecto::Multi
     Post  = Models::Post
+
+    def self.count_posts
+      Repo.aggregate(Post, :count, :id).as(Int64)
+    end
 
     def self.load_posts
       Repo.all(Post, Query.order_by("created_at DESC"))

@@ -1,19 +1,11 @@
 require "./crankypants"
-require "./crankypants/migrator"
 require "./crankypants/web"
 
-# make sure data directory exists
-Dir.mkdir_p "./data"
-
-# Create and/or migrate our database to the latest
-# schema version.
+# Check settings
 #
-Migrator.execute(url: "sqlite3://./data/crankypants.db") do |m|
-  m.migrate "initial-setup" do |db|
-    db.exec "create table posts (id integer primary key, key text, title text, body text, body_html text, created_at, updated_at);"
-  end
-end
+Habitat.raise_if_missing_settings!
 
-# Run our web app.
+# Fire things up.
 #
+Crankypants.prepare_database
 Crankypants::Web.run

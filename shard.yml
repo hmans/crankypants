@@ -27,7 +27,9 @@ dependencies:
   baked_file_system:
     github: schovi/baked_file_system
     branch: master
-
+  habitat:
+    github: luckyframework/habitat
+    
 development_dependencies:
   sentry:
     github: samueleaton/sentry
