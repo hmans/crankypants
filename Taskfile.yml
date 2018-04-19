@@ -16,6 +16,11 @@ tasks:
     cmds:
       - docker run --rm -v crankypants-data:/data -p 3000:3000 hmans/crankypants
 
+  app:release:
+    cmds:
+      - crystal build src/crankypants_cli.cr -o ./crankypants --release --no-debug
+      - strip crankypants
+
   web:build:
     cmds:
       - yarn run web:build
@@ -23,3 +28,8 @@ tasks:
   web:build:release:
     cmds:
       - yarn run web:build:release
+
+  release:
+    deps:
+      - web:build:release
+      - app:release
