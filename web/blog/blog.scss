@@ -1,12 +1,17 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700");
 @import "../shared/mixins";
 
 $color-background: #fff;
 $color-text: #555;
 $color-link: rgb(94, 142, 186);
 
-* { box-sizing: inherit; }
-html, body { box-sizing: border-box; }
+* {
+  box-sizing: inherit;
+}
+html,
+body {
+  box-sizing: border-box;
+}
 
 body {
   background-color: $color-background;
@@ -20,7 +25,12 @@ body {
   // background-color: yellow;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font: inherit;
   font-weight: bold;
 }
@@ -40,7 +50,9 @@ a {
 /* Site Title */
 
 h1.site-title {
-  a { @extend %a.invisible; }
+  a {
+    @extend %a.invisible;
+  }
 }
 
 /* POSTS */
@@ -84,7 +96,9 @@ article.post {
   color: $color-meta;
   font-size: 85%;
 
-  a { @extend %a.invisible }
+  a {
+    @extend %a.invisible;
+  }
 }
 
 /* Code Blocks */
@@ -93,10 +107,6 @@ code {
   font-family: "Source Code Pro", "Lucida Console", Monaco, monospace;
   font-size: 90%;
   border-radius: 5px;
-}
-
-pre>code {
-  padding: 1em !important;
 }
 
 /* Block Quotes */

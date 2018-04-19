@@ -1,12 +1,8 @@
 import Vue from 'vue'
 
 # add some CSS we want
-import "normalize.css"
-import 'highlightjs/styles/default.css'
-
-# Enable v-highlightjs directive
-import VueHighlightJS from 'vue-highlightjs'
-Vue.use VueHighlightJS
+import 'normalize.css'
+import './v-prism'
 
 # Require the bits and pieces that form our app
 import App from './App'

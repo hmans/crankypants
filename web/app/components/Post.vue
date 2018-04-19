@@ -13,7 +13,7 @@
       .post-body(
         ref="post_body"
         v-html="post.body_html"
-        v-highlightjs)
+        v-prism)
       p
         button(@click="startEditing") edit
         |
@@ -30,6 +30,10 @@
 
     data: ->
       editing: false
+
+      # I have no idea, but it makes v-prism work
+      prism: true
+      v: true
 
     methods:
       startEditing: ->

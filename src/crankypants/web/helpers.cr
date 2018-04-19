@@ -14,6 +14,15 @@ module Crankypants::Web::Helpers
     {{ obj }}.to_json
   end
 
+  macro serve_static_asset(name)
+    if env.request.headers["Accept-Encoding"] =~ /gzip/
+      env.response.headers.add "Content-Encoding", "gzip"
+      Assets.get("{{ name.id }}.gz").gets_to_end
+    else
+      Assets.get("{{ name.id }}").gets_to_end
+    end
+  end
+
   private macro protect_with(username, password)
     if context.request.headers["Authorization"]? && context.request.headers["Authorization"] =~ /^Basic (.+)$/
       u, p = Base64.decode_string($1).split(':')

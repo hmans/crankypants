@@ -29,7 +29,7 @@ module Crankypants::Web::App
       get "/app-bundle.js" do |env|
         env.response.headers.add "Cache-Control", "max-age=600, public"
         env.response.content_type = "text/javascript"
-        Assets.get("app-bundle.js").gets_to_end
+        serve_static_asset "app-bundle.js"
       end
     {% end %}
   end

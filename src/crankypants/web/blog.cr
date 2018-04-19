@@ -25,7 +25,7 @@ module Crankypants::Web::Blog
       get "/blog-bundle.js" do |env|
         env.response.headers.add "Cache-Control", "max-age=600, public"
         env.response.content_type = "text/javascript"
-        Assets.get("blog-bundle.js").gets_to_end
+        serve_static_asset "blog-bundle.js"
       end
     {% end %}
   end

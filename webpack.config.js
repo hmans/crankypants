@@ -1,5 +1,7 @@
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-const path = require('path');
+const CleanWebpackPlugin = require("clean-webpack-plugin");
+const path = require("path");
+const webpack = require("webpack");
+const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -15,7 +17,7 @@ module.exports = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        loader: "vue-loader"
       },
       {
         test: /\.(s?)css$/,
@@ -28,12 +30,10 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['*', '.js', '.coffee', '.vue'],
+    extensions: ["*", ".js", ".coffee", ".vue"],
     alias: {
-      '@': path.resolve(__dirname, 'web/app'),
+      "@": path.resolve(__dirname, "web/app")
     }
   },
-  plugins: [
-    new CleanWebpackPlugin(['public'])
-  ]
+  plugins: [new CleanWebpackPlugin(["public"]), new CompressionPlugin()]
 };
