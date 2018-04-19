@@ -21,8 +21,12 @@ body {
 
 .container {
   @include container($width: 700px);
-  padding-left: 6rem;
-  // background-color: yellow;
+
+  padding-left: 3em;
+
+  @include on-desktop {
+    padding-left: 6rem;
+  }
 }
 
 h1,
@@ -89,9 +93,11 @@ article.post {
 }
 
 .post-meta {
-  position: absolute;
-  margin-left: -5.5em;
-  margin-top: 2px;
+  @include on-desktop {
+    position: absolute;
+    margin-left: -5.5em;
+    margin-top: 2px;
+  }
 
   color: $color-meta;
   font-size: 85%;
