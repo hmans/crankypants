@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700");
 @import "../shared/mixins";
 
 $color-background: #fff;
@@ -16,7 +15,8 @@ body {
 body {
   background-color: $color-background;
   color: $color-text;
-  font: 16px/1.5 "Open Sans", helvetica, sans-serif;
+  font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Helvetica Neue", helvetica,
+    sans-serif;
 }
 
 .container {
