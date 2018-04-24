@@ -15,8 +15,9 @@ body {
 body {
   background-color: $color-background;
   color: $color-text;
-  font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Helvetica Neue", helvetica,
-    sans-serif;
+  font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, sans-serif;
 }
 
 .container {
@@ -95,12 +96,12 @@ article.post {
 .post-meta {
   @include on-desktop {
     position: absolute;
-    margin-left: -5.5em;
+    margin-left: -4.5rem;
   }
 
   color: $color-meta;
-  font-size: 85%;
-  padding-top: 2px;
+  font-size: 12px;
+  padding-top: 3px;
 
   a {
     @extend %a.invisible;
