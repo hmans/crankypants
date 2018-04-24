@@ -1,8 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700");
 @import "../shared/mixins";
 
-* { box-sizing: inherit }
-html, body { box-sizing: border-box; }
+* {
+  box-sizing: inherit;
+}
+html,
+body {
+  box-sizing: border-box;
+}
 
 body {
   background-color: #f2f2f2;
@@ -15,7 +20,12 @@ body {
 
 /* basic formatting */
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-size: inherit;
   font-weight: bold;
   margin: 1em 0;
@@ -23,7 +33,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* forms */
 
-input[type="text"], textarea {
+input[type="text"],
+textarea {
   font: inherit;
   width: 100%;
   border: none;
@@ -44,14 +55,15 @@ textarea#post_body {
   height: 8em;
 }
 
-
 /* buttons */
 
-.button, button, input[type="submit"] {
+.button,
+button,
+input[type="submit"] {
   display: inline-block;
   font: inherit;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.25rem;
   background-color: rgb(73, 99, 193);
   color: rgba(255, 255, 255, 0.95);
   padding: 0 1em;
@@ -70,9 +82,10 @@ nav[role="main"] {
     text-decoration: none;
   }
 
-  ul { @extend %inline-list; }
+  ul {
+    @extend %inline-list;
+  }
 }
-
 
 /* posts */
 
@@ -80,19 +93,24 @@ article.post {
   @extend %remove-inner-margins;
   margin: 1em 0;
 
-  >.container {
+  > .container {
     background-color: white;
   }
 
   .post-body {
     @extend %remove-inner-margins;
+
+    img {
+      max-width: 100%;
+      border-radius: 0.25rem;
+    }
   }
 }
 
 section.new_post {
   margin: 1em 0;
 
-  >.container {
+  > .container {
     background-color: white;
   }
 }
