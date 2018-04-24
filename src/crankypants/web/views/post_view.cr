@@ -9,10 +9,16 @@ module Crankypants
     end
 
     def self.index(posts)
+      page_title = ENV.fetch "CRANKY_TITLE", "A Crankypants Site"
       render_page "post_view/index"
     end
 
     def self.show(post)
+      title = [] of String
+      title << post.title.not_nil! unless post.title.not_nil!.blank?
+      title << ENV["CRANKY_TITLE"]
+
+      page_title = title.compact.join(" · ")
       render_page "post_view/show"
     end
   end
