@@ -5,6 +5,6 @@ html
     meta charset="utf-8"
     title Crankypants App
     link rel="stylesheet" type="text/css" href="/app.css"
-    script type="application/javascript" src="/app-bundle.js" async=true
+    script type="application/javascript" src="/app-bundle.js" defer=true
   body
     #app

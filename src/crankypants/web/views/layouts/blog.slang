@@ -5,7 +5,7 @@ html
     meta charset="utf-8"
     title = page_title
     link rel="stylesheet" type="text/css" href="/blog.css"
-    script type="application/javascript" src="/blog-bundle.js" async=true
+    script type="application/javascript" src="/blog-bundle.js" defer=true
   body
     .container
       h1.site-title
