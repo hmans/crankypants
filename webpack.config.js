@@ -2,6 +2,7 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 const path = require("path");
 const webpack = require("webpack");
 const CompressionPlugin = require("compression-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -21,7 +22,16 @@ module.exports = {
       },
       {
         test: /\.(s?)css$/,
-        use: ["style-loader", "css-loader", "sass-loader"]
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: [
+            {
+              loader: "css-loader",
+              options: { minimize: true }
+            },
+            "sass-loader"
+          ]
+        })
       },
       {
         test: /\.coffee$/,
@@ -35,5 +45,11 @@ module.exports = {
       "@": path.resolve(__dirname, "web/app")
     }
   },
-  plugins: [new CleanWebpackPlugin(["public"]), new CompressionPlugin()]
+  plugins: [
+    new CleanWebpackPlugin(["public"]),
+    new ExtractTextPlugin({
+      filename: "[name].css"
+    }),
+    new CompressionPlugin()
+  ]
 };

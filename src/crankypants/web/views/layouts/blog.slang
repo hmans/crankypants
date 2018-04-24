@@ -4,7 +4,8 @@ html
     meta name="viewport" content="width=device-width,initial-scale=1.0"
     meta charset="utf-8"
     title = page_title
-    script type="application/javascript" src="/blog-bundle.js"
+    link rel="stylesheet" type="text/css" href="/blog.css"
+    script type="application/javascript" src="/blog-bundle.js" async=true
   body
     .container
       h1.site-title
