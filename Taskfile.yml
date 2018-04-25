@@ -20,6 +20,10 @@ tasks:
     cmds:
       - crystal spec
 
+  run:
+    cmds:
+      - crystal run src/crankypants_cli.cr
+
   release:
     deps:
       - web:build:release
