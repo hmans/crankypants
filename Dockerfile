@@ -1,5 +1,5 @@
 # STAGE 1: compile crankypants
-FROM crystallang/crystal:latest
+FROM crystallang/crystal:0.24.2
 RUN apt-get update && apt-get install -y libsqlite3-dev
 
 ADD . /work
