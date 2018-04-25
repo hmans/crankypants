@@ -73,8 +73,7 @@ class ApiHandler
   private macro on(method, part)
     if request.method == "{{ method.id.upcase }}"
       within {{ part }} do
-        # Only execute the given block when no further parts
-        # are available.
+        # Only execute the given block when no further parts are available.
         if parts.empty?
           {{ yield }}
           return
@@ -83,25 +82,11 @@ class ApiHandler
     end
   end
 
-  private macro get(part)
-    on :get, {{ part }}
-  end
-
-  private macro put(part)
-    on :put, {{ part }}
-  end
-
-  private macro post(part)
-    on :post, {{ part }}
-  end
-
-  private macro patch(part)
-    on :patch, {{ part }}
-  end
-
-  private macro delete(part)
-    on :delete, {{ part }}
-  end
+  {% for method in [:get, :put, :post, :patch, :delete] %}
+    private macro {{ method.id }}(part)
+      on :get, \{{ part }} { \{{ yield }} }   # I'm not kidding
+    end
+  {% end %}
 
   def call(context)
     request = context.request
@@ -110,8 +95,8 @@ class ApiHandler
 
     within "api" do
       get "posts" do
-        response.content_type = "text/html"
-        response.print "POSTS!"
+        response.content_type = "application/json"
+        response.print Crankypants::Data.load_posts.to_json
       end
     end
 
