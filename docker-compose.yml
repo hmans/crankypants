@@ -1,0 +1,31 @@
+version: '3'
+
+volumes:
+  project:
+    external: false
+  node-modules:
+    external: false
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+    environment:
+      - CRANKY_LOGIN=foo
+      - CRANKY_PASSWORD=bar
+      - CRANKY_TITLE=Cranky Local Development
+    ports:
+     - "3000:3000"
+    volumes:
+      - .:/work:cached
+    tty: true
+    command: sh -c '(shards check || shards install) && crystal run support/sentry.cr'
+
+  webpack:
+    image: node:9
+    volumes:
+      - .:/work:cached
+      - node-modules:/work/node_modules:delegated
+    tty: true
+    command: sh -c 'cd /work && yarn install && yarn run web:watch'

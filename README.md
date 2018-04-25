@@ -39,13 +39,8 @@ If `CRANKY_LOGIN` or `CRANKY_PASSWORD` are missing, Crankypants will not make it
 
 ### Hacking on Crankypants
 
-This currently assumes that you're on macOS. (Hacking on Crankypants on other operating systems is, of course, perfectly possible, as long as Crystal is available.)
-
 ```
-brew bundle
-shards install
-yarn install
-hivemind  # or any other Procfile manager
+docker-compose up
 
 # http://localhost:3000/ (server-rendered public-facing blog)
 # http://localhost:3000/app/ (your crankypants app)

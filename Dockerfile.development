@@ -1,0 +1,7 @@
+FROM crystallang/crystal:0.24.2
+RUN apt-get update && apt-get install -y libsqlite3-dev
+
+RUN mkdir /work
+WORKDIR /work
+
+EXPOSE 3000
