@@ -57,46 +57,13 @@ end
 
 class ApiHandler
   include HTTP::Handler
-
-  private macro next_part_matches?(part)
-    parts.any? && parts[0] == {{ part }}
-  end
-
-  private macro within(part)
-    if next_part_matches?({{ part }})
-      buffer = parts.shift
-      {{ yield }}
-      parts.unshift buffer
-    end
-  end
-
-  private macro on(method, part)
-    if request.method == "{{ method.id.upcase }}"
-      within {{ part }} do
-        # Only execute the given block when no further parts are available.
-        if parts.empty?
-          {{ yield }}
-          return
-        end
-      end
-    end
-  end
-
-  {% for method in [:get, :put, :post, :patch, :delete] %}
-    private macro {{ method.id }}(part)
-      on :get, \{{ part }} { \{{ yield }} }   # I'm not kidding
-    end
-  {% end %}
+  include Crappy::Routing
+  include Crappy::Rendering
 
   def call(context)
-    request = context.request
-    response = context.response
-    parts = request.path.split('/').reject(&.blank?)
-
-    within "api" do
-      get "posts" do
-        response.content_type = "application/json"
-        response.print Crankypants::Data.load_posts.to_json
+    crappy do
+      within "api" do
+        get "posts" { render_json Crankypants::Data.load_posts }
       end
     end
 
