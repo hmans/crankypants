@@ -44,7 +44,7 @@ module Crankypants
       # Kemal.run
 
       puts "ready: http://localhost:3000"
-      HTTP::Server.new("127.0.0.1", 3000, [
+      HTTP::Server.new("0.0.0.0", 3000, [
         HTTP::ErrorHandler.new,
         HTTP::LogHandler.new,
         HTTP::CompressHandler.new,
@@ -58,17 +58,49 @@ end
 class ApiHandler
   include HTTP::Handler
 
-  private macro within(path)
-    if request.path =~ \%r\{\A{{ path.id }}\b}
+  private macro next_part_matches?(part)
+    parts.any? && parts[0] == {{ part }}
+  end
+
+  private macro within(part)
+    if next_part_matches?({{ part }})
+      buffer = parts.shift
       {{ yield }}
+      parts.unshift buffer
     end
   end
 
-  private macro get(path)
-    if request.path =~ \%r\{\A{{ path.id }}/?\Z}
-      {{ yield }}
-      return
+  private macro on(method, part)
+    if request.method == "{{ method.id.upcase }}"
+      within {{ part }} do
+        # Only execute the given block when no further parts
+        # are available.
+        if parts.empty?
+          {{ yield }}
+          return
+        end
+      end
     end
+  end
+
+  private macro get(part)
+    on :get, {{ part }}
+  end
+
+  private macro put(part)
+    on :put, {{ part }}
+  end
+
+  private macro post(part)
+    on :post, {{ part }}
+  end
+
+  private macro patch(part)
+    on :patch, {{ part }}
+  end
+
+  private macro delete(part)
+    on :delete, {{ part }}
   end
 
   def call(context)
@@ -76,8 +108,8 @@ class ApiHandler
     response = context.response
     parts = request.path.split('/').reject(&.blank?)
 
-    within "/api" do
-      get "/api/posts" do
+    within "api" do
+      get "posts" do
         response.content_type = "text/html"
         response.print "POSTS!"
       end
