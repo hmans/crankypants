@@ -44,5 +44,14 @@ module Crappy
       response.content_type = "application/json"
       response.print {{ thing }}.to_json
     end
+
+    private macro render_template(filename)
+      response.content_type = "text/html"
+      response.print Kilt.render {{ filename }}
+    end
+
+    private macro render(thing)
+      response.print {{ thing }}
+    end
   end
 end

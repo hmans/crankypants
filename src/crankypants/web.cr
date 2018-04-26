@@ -51,6 +51,10 @@ class ApiHandler
 
   def call(context)
     crappy do
+      get "app" do
+        render_template("src/crankypants/web/views/app.slang")
+      end
+
       within "api" do
         get "posts" { render_json Crankypants::Data.load_posts }
       end
