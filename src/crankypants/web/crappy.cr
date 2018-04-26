@@ -15,8 +15,11 @@ module Crappy
     private macro within(part = nil)
       {% if part %}
         if parts.any? && (md = part_to_regex({{ part }}).match(parts[0]))
-          buffer = parts.shift
+          # Extract named captures into params... for now
           params = md.named_captures
+
+          # With the next path part removed, execute the given block
+          buffer = parts.shift
           {{ yield }}
           parts.unshift buffer
         end
@@ -30,9 +33,12 @@ module Crappy
         within {{ part }} do
           # Only execute the given block when no further parts are available.
           if parts.empty?
+            # Execute the given block... somehow
             output = ->{
               {{ yield }}
             }.call
+
+            # ...and print its result.
             response.print(output) if output
             return
           end
