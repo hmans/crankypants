@@ -29,7 +29,10 @@ module Crappy
         within {{ part }} do
           # Only execute the given block when no further parts are available.
           if parts.empty?
-            {{ yield }}
+            output = ->{
+              {{ yield }}
+            }.call
+            response.print(output) if output
             return
           end
         end
@@ -46,16 +49,11 @@ module Crappy
   module Rendering
     private macro render_json(thing)
       response.content_type = "application/json"
-      response.print {{ thing }}.to_json
+      {{ thing }}.to_json
     end
 
     private macro render_template(filename)
-      response.content_type = "text/html"
-      response.print Kilt.render {{ filename }}
-    end
-
-    private macro render(thing)
-      response.print {{ thing }}
+      Kilt.render {{ filename }}
     end
   end
 end

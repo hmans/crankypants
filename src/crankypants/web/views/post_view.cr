@@ -8,18 +8,19 @@ module Crankypants
       render_partial "post_view/_post"
     end
 
-    def self.index(posts)
+    macro index(posts)
+      posts = {{ posts }}
       page_title = ENV.fetch "CRANKY_TITLE", "A Crankypants Site"
-      render_page "post_view/index"
+      PostView.render_page "post_view/index"
     end
 
-    def self.show(post)
-      title = [] of String
-      title << post.title.not_nil! unless post.title.not_nil!.blank?
-      title << ENV["CRANKY_TITLE"]
-
-      page_title = title.compact.join(" · ")
-      render_page "post_view/show"
-    end
+    # def self.show(post)
+    #   title = [] of String
+    #   title << post.title.not_nil! unless post.title.not_nil!.blank?
+    #   title << ENV["CRANKY_TITLE"]
+    #
+    #   page_title = title.compact.join(" · ")
+    #   render_page "post_view/show"
+    # end
   end
 end

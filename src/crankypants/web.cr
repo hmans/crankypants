@@ -37,29 +37,33 @@ module Crankypants
         HTTP::ErrorHandler.new,
         HTTP::LogHandler.new,
         HTTP::CompressHandler.new,
+        Handler.new,
         HTTP::StaticFileHandler.new("./public/"),
-        ApiHandler.new,
       ]).listen
     end
-  end
-end
 
-class ApiHandler
-  include HTTP::Handler
-  include Crappy::Routing
-  include Crappy::Rendering
+    class Handler
+      include HTTP::Handler
+      include Crappy::Routing
+      include Crappy::Rendering
 
-  def call(context)
-    crappy do
-      get "app" do
-        render_template("src/crankypants/web/views/app.slang")
-      end
+      def call(context)
+        crappy do
+          get do
+            PostView.index Data.load_posts
+          end
 
-      within "api" do
-        get "posts" { render_json Crankypants::Data.load_posts }
+          get "app" do
+            render_template "src/crankypants/web/views/app.slang"
+          end
+
+          within "api" do
+            get "posts" { render_json Data.load_posts }
+          end
+        end
+
+        call_next(context)
       end
     end
-
-    call_next(context)
   end
 end
