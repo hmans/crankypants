@@ -53,6 +53,12 @@ module Crankypants
             PostView.index Data.load_posts
           end
 
+          within "posts" do
+            get "11" do
+              PostView.show Data.load_post(11)
+            end
+          end
+
           get "app" do
             render_template "src/crankypants/web/views/app.slang"
           end

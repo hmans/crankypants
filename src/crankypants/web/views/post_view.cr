@@ -17,13 +17,17 @@ module Crankypants
       end
     end
 
-    # def self.show(post)
-    #   title = [] of String
-    #   title << post.title.not_nil! unless post.title.not_nil!.blank?
-    #   title << ENV["CRANKY_TITLE"]
-    #
-    #   page_title = title.compact.join(" · ")
-    #   render_page "post_view/show"
-    # end
+    macro show(post)
+      post = {{ post }}
+      title = [] of String
+      title << post.title.not_nil! unless post.title.not_nil!.blank?
+      title << ENV["CRANKY_TITLE"]
+
+      page_title = title.compact.join(" · ")
+
+      PostView.render_with_layout "blog" do
+        PostView.render_page "post_view/show"
+      end
+    end
   end
 end
