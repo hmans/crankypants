@@ -20,7 +20,6 @@ module Crappy
           parts.unshift buffer
         end
       {% else %}
-        puts "omg"
         {{ yield }}
       {% end %}
     end
