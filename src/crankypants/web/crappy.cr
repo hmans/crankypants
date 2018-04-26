@@ -12,12 +12,17 @@ module Crappy
       parts.any? && parts[0] == {{ part }}
     end
 
-    private macro within(part)
-      if next_part_matches?({{ part }})
-        buffer = parts.shift
+    private macro within(part = nil)
+      {% if part %}
+        if next_part_matches?({{ part }})
+          buffer = parts.shift
+          {{ yield }}
+          parts.unshift buffer
+        end
+      {% else %}
+        puts "omg"
         {{ yield }}
-        parts.unshift buffer
-      end
+      {% end %}
     end
 
     private macro on(method, part)
@@ -33,7 +38,7 @@ module Crappy
     end
 
     {% for method in [:get, :put, :post, :patch, :delete] %}
-      private macro {{ method.id }}(part)
+      private macro {{ method.id }}(part = nil)
         on :get, \{{ part }} { \{{ yield }} }   # I'm not kidding
       end
     {% end %}
