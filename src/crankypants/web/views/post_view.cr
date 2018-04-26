@@ -11,7 +11,10 @@ module Crankypants
     macro index(posts)
       posts = {{ posts }}
       page_title = ENV.fetch "CRANKY_TITLE", "A Crankypants Site"
-      PostView.render_page "post_view/index"
+
+      PostView.render_with_layout "blog" do
+        PostView.render_page "post_view/index"
+      end
     end
 
     # def self.show(post)

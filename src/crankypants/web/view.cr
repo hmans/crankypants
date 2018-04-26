@@ -5,6 +5,11 @@ module Crankypants
     module View
       include Crappy::Rendering
 
+      macro render_with_layout(filename)
+        content = {{ yield }}
+        render_template "src/crankypants/web/views/layouts/#{{{ filename }}}.slang"
+      end
+
       # Render a partial (without a template)
       macro render_partial(filename)
         render_template "src/crankypants/web/views/#{{{filename}}}.slang"
