@@ -15,6 +15,8 @@ license: MIT
 dependencies:
   kemal:
     github: kemalcr/kemal
+  kilt:
+    github: jeromegn/kilt
   sqlite3:
     github: crystal-lang/crystal-sqlite3
   crecto:
@@ -29,7 +31,7 @@ dependencies:
     branch: master
   habitat:
     github: luckyframework/habitat
-    
+
 development_dependencies:
   sentry:
     github: samueleaton/sentry
