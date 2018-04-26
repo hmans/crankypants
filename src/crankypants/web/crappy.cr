@@ -8,14 +8,15 @@ module Crappy
       {{ yield }}
     end
 
-    private macro next_part_matches?(part)
-      parts.any? && parts[0] == {{ part }}
+    private macro part_to_regex(part)
+      Regex.new("\\A" + {{ part }}.gsub(/:(\w+)/, "(?<\\1>.+)") + "\\Z")
     end
 
     private macro within(part = nil)
       {% if part %}
-        if next_part_matches?({{ part }})
+        if parts.any? && (md = part_to_regex({{ part }}).match(parts[0]))
           buffer = parts.shift
+          params = md.named_captures
           {{ yield }}
           parts.unshift buffer
         end
@@ -41,7 +42,7 @@ module Crappy
 
     {% for method in [:get, :put, :post, :patch, :delete] %}
       private macro {{ method.id }}(part = nil)
-        on :get, \{{ part }} { \{{ yield }} }   # I'm not kidding
+        on {{ method }}, \{{ part }} { \{{ yield }} }   # I'm not kidding
       end
     {% end %}
   end

@@ -54,8 +54,8 @@ module Crankypants
           end
 
           within "posts" do
-            get "11" do
-              PostView.show Data.load_post(11)
+            get ":id" do
+              PostView.show Data.load_post(params["id"].not_nil!.to_i)
             end
           end
 
