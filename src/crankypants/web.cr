@@ -2,7 +2,9 @@ require "kilt"
 require "kilt/slang"
 require "http/server"
 require "crecto"
+
 require "../../crappy"
+
 require "./formatter"
 require "./models/*"
 require "./data"
@@ -37,7 +39,6 @@ module Crankypants
       HTTP::Server.new("0.0.0.0", 3000, [
         HTTP::ErrorHandler.new,
         HTTP::LogHandler.new,
-        HTTP::CompressHandler.new,
         Handler.new,
         HTTP::StaticFileHandler.new("./public/"),
       ]).listen
