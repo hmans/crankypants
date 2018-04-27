@@ -1,3 +1,7 @@
+class HTTP::Request
+  # property url_params : Hash(String, String)?
+end
+
 module Crappy
   module Routing
     private macro crappy
@@ -57,6 +61,12 @@ module Crappy
     private macro render_json(thing)
       response.content_type = "application/json"
       {{ thing }}.to_json
+    end
+
+    private macro render_json_error(message, status = 400)
+      response.content_type = "application/json"
+      response.status_code = {{ status }}
+      { message: {{ message }} }.to_json
     end
 
     private macro render_template(filename)

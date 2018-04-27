@@ -66,7 +66,23 @@ module Crankypants
           end
 
           within "api" do
-            get "posts" { render_json Data.load_posts }
+            within "posts" do
+              get do
+                render_json Data.load_posts
+              end
+
+              post do
+                changeset = Data.create_post \
+                  title: "mootitle", #env.params.json["title"].as(String),
+                  body: "moobody" #env.params.json["body"].as(String)
+
+                if changeset.valid?
+                  render_json changeset.instance
+                else
+                  render_json_error "Invalid post data."
+                end
+              end
+            end
           end
         end
 
