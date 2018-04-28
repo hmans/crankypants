@@ -74,7 +74,7 @@ module Crankypants
             end
           end
 
-          get "app" do
+          within "app" do
             protect_with ENV["CRANKY_LOGIN"], ENV["CRANKY_PASSWORD"]
             serve template: "src/crankypants/web/views/app.slang"
           end
