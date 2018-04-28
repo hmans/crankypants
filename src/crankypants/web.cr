@@ -50,7 +50,7 @@ module Crankypants
       include Crappy::Rendering
 
       module InputMappings
-        class CreatePost
+        class Post
           JSON.mapping \
             title: String,
             body: String
@@ -84,7 +84,7 @@ module Crankypants
               end
 
               post do
-                input = InputMappings::CreatePost
+                input = InputMappings::Post
                   .from_json(request.body.not_nil!)
 
                 changeset = Data.create_post \
@@ -102,6 +102,23 @@ module Crankypants
                 delete do
                   Data.delete_post(params["id"].not_nil!.to_i)
                   serve :nothing, status: 204
+                end
+
+                patch do
+                  post = Data.load_post(params["id"].not_nil!.to_i)
+
+                  input = InputMappings::Post.from_json(request.body.not_nil!)
+
+                  post.title = input.title
+                  post.body = input.body
+
+                  changeset = Data.update_post(post)
+
+                  if changeset.valid?
+                    serve json: changeset.instance, status: 204
+                  else
+                    serve_json_error "Invalid post data."
+                  end
                 end
               end
             end
