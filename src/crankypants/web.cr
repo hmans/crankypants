@@ -39,8 +39,8 @@ module Crankypants
       HTTP::Server.new("0.0.0.0", 3000, [
         HTTP::ErrorHandler.new,
         HTTP::LogHandler.new,
+        HTTP::StaticFileHandler.new("./public/", directory_listing: false),
         Handler.new,
-        HTTP::StaticFileHandler.new("./public/"),
       ]).listen
     end
 
@@ -62,8 +62,29 @@ module Crankypants
         serve json: { message: {{ message }} }, status: 400
       end
 
+      private macro serve_static_asset(name, content_type)
+        response.headers.add "Cache-Control", "max-age=600, public"
+
+        if request.headers["Accept-Encoding"] =~ /gzip/
+          response.headers.add "Content-Encoding", "gzip"
+          serve Assets.get("{{ name.id }}.gz").gets_to_end, content_type: {{ content_type }}
+        else
+          serve Assets.get("{{ name.id }}").gets_to_end, content_type: {{ content_type }}
+        end
+      end
+
       def call(context)
         crappy do
+          # static assets
+          {% if flag?(:release) %}
+            within "assets" do
+              get "blog.css" { serve_static_asset "assets/blog.css", "text/css" }
+              get "app.css"  { serve_static_asset "assets/app.css", "text/css" }
+              get "blog-bundle.js" { serve_static_asset "assets/blog-bundle.js", "text/javascript" }
+              get "app-bundle.js" { serve_static_asset "assets/app-bundle.js", "text/javascript" }
+            end
+          {% end %}
+
           get do
             serve PostView.index(Data.load_posts)
           end
