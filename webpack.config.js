@@ -10,9 +10,9 @@ module.exports = {
     app: "./web/app/index.coffee"
   },
   output: {
-    path: __dirname + "/public", // Folder to store generated bundle
+    path: __dirname + "/public/assets", // Folder to store generated bundle
     filename: "[name]-bundle.js", // Name of generated bundle after build
-    publicPath: "/" // public URL of the output directory when referenced in a browser
+    publicPath: "/assets" // public URL of the output directory when referenced in a browser
   },
   module: {
     rules: [
@@ -46,7 +46,7 @@ module.exports = {
     }
   },
   plugins: [
-    new CleanWebpackPlugin(["public"]),
+    new CleanWebpackPlugin(["public/assets"]),
     new ExtractTextPlugin({
       filename: "[name].css"
     }),
