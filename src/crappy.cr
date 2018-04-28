@@ -37,13 +37,9 @@ module Crappy
         within {{ part }} do
           # Only execute the given block when no further parts are available.
           if parts.empty?
-            # Execute the given block... somehow
-            output = ->{
-              {{ yield }}
-            }.call
-
-            # ...and print its result.
-            response.print(output) if output
+            # Execute the given block and return, preventing remaining
+            # crappy code to tun.
+            {{ yield }}
             return
           end
         end
@@ -58,24 +54,23 @@ module Crappy
   end
 
   module Rendering
-    private macro render_json(thing)
-      response.content_type = "application/json"
-      {{ thing }}.to_json
-    end
-
-    private macro render_json_error(message, status = 400)
-      response.content_type = "application/json"
-      response.status_code = {{ status }}
-      { message: {{ message }} }.to_json
-    end
-
     private macro render_template(filename)
       Kilt.render {{ filename }}
     end
 
-    private macro render(what, status = 200)
+    private macro render(output = nil, status = 200, template = nil, json = nil)
       response.status_code = {{ status }}
-      {{ what }}
+
+      {% if template %}
+        response.print(Kilt.render({{ template }}))
+      {% elsif json %}
+        response.content_type = "application/json"
+        response.print({{ json }}.to_json)
+      {% elsif output == :nothing %}
+        # nothing!
+      {% elsif output %}
+        response.print({{ output }})
+      {% end %}
     end
   end
 end
