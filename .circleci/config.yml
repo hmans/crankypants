@@ -1,7 +1,7 @@
 ---
 version: 2
 jobs:
-  build:
+  run_tests:
     docker:
       - image: crystallang/crystal:latest
     steps:
@@ -24,7 +24,7 @@ jobs:
           name: Run Tests
           command: crystal spec
 
-  docker_push:
+  push_docker_image:
     docker:
       - image: circleci/node
     steps:
@@ -49,9 +49,9 @@ workflows:
   version: 2
   build-and-push-latest:
     jobs:
-      - build
-      - docker_push:
-          requires: [build]
+      - run_tests
+      - push_docker_image:
+          requires: [run_tests]
           filters:
             branches:
               only: master
