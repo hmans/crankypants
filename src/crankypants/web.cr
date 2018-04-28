@@ -49,6 +49,14 @@ module Crankypants
       include Crappy::Routing
       include Crappy::Rendering
 
+      module InputMappings
+        class CreatePost
+          JSON.mapping \
+            title: String,
+            body: String
+        end
+      end
+
       def call(context)
         crappy do
           get do
@@ -72,9 +80,12 @@ module Crankypants
               end
 
               post do
+                input = InputMappings::CreatePost
+                  .from_json(request.body.not_nil!)
+
                 changeset = Data.create_post \
-                  title: "mootitle", #env.params.json["title"].as(String),
-                  body: "moobody" #env.params.json["body"].as(String)
+                  title: input.title,
+                  body: input.body
 
                 if changeset.valid?
                   render_json changeset.instance
