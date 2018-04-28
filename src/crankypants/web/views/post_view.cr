@@ -5,29 +5,22 @@ module Crankypants
     include Crankypants::Web::View
 
     def self._post(post)
-      render_partial "post_view/_post"
+      render_template "post_view/_post"
     end
 
-    macro index(posts)
-      posts = {{ posts }}
+    def self.index(posts)
       page_title = ENV.fetch "CRANKY_TITLE", "A Crankypants Site"
-
-      PostView.render_with_layout "blog" do
-        PostView.render_page "post_view/index"
-      end
+      render_page "post_view/index"
     end
 
-    macro show(post)
-      post = {{ post }}
+    def self.show(post)
       title = [] of String
       title << post.title.not_nil! unless post.title.not_nil!.blank?
       title << ENV["CRANKY_TITLE"]
 
       page_title = title.compact.join(" · ")
 
-      PostView.render_with_layout "blog" do
-        PostView.render_page "post_view/show"
-      end
+      render_page "post_view/show"
     end
   end
 end

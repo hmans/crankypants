@@ -57,30 +57,30 @@ module Crankypants
         end
       end
 
-      private macro render_json_error(message, status = 400)
-        render json: { message: {{ message }} }, status: 400
+      private macro serve_json_error(message, status = 400)
+        serve json: { message: {{ message }} }, status: 400
       end
 
       def call(context)
         crappy do
-          # get do
-          #   PostView.index Data.load_posts
-          # end
-          #
-          # within "posts" do
-          #   get ":id" do
-          #     PostView.show Data.load_post(params["id"].not_nil!.to_i)
-          #   end
-          # end
+          get do
+            serve PostView.index(Data.load_posts)
+          end
+
+          within "posts" do
+            get ":id" do
+              serve PostView.show(Data.load_post(params["id"].not_nil!.to_i))
+            end
+          end
 
           get "app" do
-            render template: "src/crankypants/web/views/app.slang"
+            serve template: "src/crankypants/web/views/app.slang"
           end
 
           within "api" do
             within "posts" do
               get do
-                render json: Data.load_posts
+                serve json: Data.load_posts
               end
 
               post do
@@ -92,16 +92,16 @@ module Crankypants
                   body: input.body
 
                 if changeset.valid?
-                  render json: changeset.instance
+                  serve json: changeset.instance
                 else
-                  render_json_error "Invalid post data."
+                  serve_json_error "Invalid post data."
                 end
               end
 
               within ":id" do
                 delete do
                   Data.delete_post(params["id"].not_nil!.to_i)
-                  render :nothing, status: 204
+                  serve :nothing, status: 204
                 end
               end
             end

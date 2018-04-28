@@ -54,13 +54,18 @@ module Crappy
   end
 
   module Rendering
-    private macro render_template(filename)
-      Kilt.render {{ filename }}
-    end
+    private macro serve(output = nil, status = 200, content_type = "text/html", template = nil, json = nil)
+      # Set response status code
+      {% if status %}
+        response.status_code = {{ status }}
+      {% end %}
 
-    private macro render(output = nil, status = 200, template = nil, json = nil)
-      response.status_code = {{ status }}
+      # Set response content type
+      {% if content_type %}
+        response.content_type = {{ content_type }}
+      {% end %}
 
+      # Render response body
       {% if template %}
         response.print(Kilt.render({{ template }}))
       {% elsif json %}
