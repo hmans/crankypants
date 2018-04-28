@@ -8,7 +8,7 @@ require "./views/*"
 require "./helpers"
 
 {% if flag?(:release) %}
-require "./web/assets"
+require "./assets"
 {% end %}
 
 module Crankypants::Web
