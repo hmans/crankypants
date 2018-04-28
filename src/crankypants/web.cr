@@ -48,6 +48,7 @@ module Crankypants
       include HTTP::Handler
       include Crappy::Routing
       include Crappy::Rendering
+      include Crappy::Authentication
 
       module InputMappings
         class Post
@@ -74,10 +75,13 @@ module Crankypants
           end
 
           get "app" do
+            protect_with ENV["CRANKY_LOGIN"], ENV["CRANKY_PASSWORD"]
             serve template: "src/crankypants/web/views/app.slang"
           end
 
           within "api" do
+            protect_with ENV["CRANKY_LOGIN"], ENV["CRANKY_PASSWORD"]
+
             within "posts" do
               get do
                 serve json: Data.load_posts

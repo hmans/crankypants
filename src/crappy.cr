@@ -76,6 +76,25 @@ module Crappy
       {% elsif output %}
         response.print({{ output }})
       {% end %}
+
+      # Always return, ending request processing.
+      return
+    end
+  end
+
+  module Authentication
+    private macro protect_with(username, password)
+      auth_info = if request.headers["Authorization"]? && request.headers["Authorization"] =~ /^Basic (.+)$/
+        Base64.decode_string($1).split(':')
+      else
+        [nil, nil]
+      end
+
+      if [{{username}}, {{password}}] != auth_info
+        # Authorization failed...
+        response.headers["WWW-Authenticate"] = "Basic realm=\"Crankypants!\""
+        serve "Please log in.", status: 401
+      end
     end
   end
 end
