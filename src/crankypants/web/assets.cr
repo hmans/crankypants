@@ -1,9 +1,9 @@
 require "baked_file_system"
 
-module Crankypants
+module Crankypants::Web
   class Assets
     extend BakedFileSystem
 
-    bake_folder "../../public"
+    bake_folder "../../../public"
   end
 end

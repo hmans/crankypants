@@ -13,7 +13,7 @@ require "./web/*"
 require "./web/views/*"
 
 {% if flag?(:release) %}
-require "./assets"
+require "./web/assets"
 {% end %}
 
 module Crankypants
