@@ -72,5 +72,10 @@ module Crappy
     private macro render_template(filename)
       Kilt.render {{ filename }}
     end
+
+    private macro render(what, status = 200)
+      response.status_code = {{ status }}
+      {{ what }}
+    end
   end
 end

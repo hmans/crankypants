@@ -1,4 +1,3 @@
-require "kemal"
 require "./helpers"
 
 module Crankypants::Web::Api

@@ -73,6 +73,10 @@ module Crankypants
             render_template "src/crankypants/web/views/app.slang"
           end
 
+          get "foo" do
+            render "Fooooo"
+          end
+
           within "api" do
             within "posts" do
               get do
