@@ -16,7 +16,7 @@ module Crankypants::Web
   class Handler
     include HTTP::Handler
     include Crappy::Routing
-    include Crappy::Rendering
+    include Crappy::Serving
     include Crappy::Authentication
     include Helpers
 

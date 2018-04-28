@@ -53,7 +53,7 @@ module Crappy
     {% end %}
   end
 
-  module Rendering
+  module Serving
     private macro serve(output = nil, status = 200, content_type = "text/html", template = nil, json = nil)
       # Set response status code
       {% if status %}
