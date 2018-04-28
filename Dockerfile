@@ -43,5 +43,4 @@ COPY --from=0 /lib/x86_64-linux-gnu/ld-2.23.so /lib/x86_64-linux-gnu/ld-2.23.so
 COPY --from=0 /work/crankypants /crankypants
 
 EXPOSE 3000
-ENV KEMAL_ENV=production
 ENTRYPOINT ["/crankypants"]
