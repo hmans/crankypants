@@ -1,5 +1,3 @@
-require "./helpers"
-
 module Crankypants
   module Web
     module View
