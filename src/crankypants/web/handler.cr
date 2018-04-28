@@ -32,8 +32,10 @@ module Crankypants::Web
 
     private macro serve_static_assets
       within "assets" do
-        get ":filename" do
-          serve_static_asset "assets/#{params["filename"]}"
+        within ":version" do
+          get ":filename" do
+            serve_static_asset "assets/#{params["filename"]}"
+          end
         end
       end
     end

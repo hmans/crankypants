@@ -7,6 +7,12 @@ module Crankypants
   module Web
     Post = Models::Post
 
+    ASSET_PATH = {% if flag?(:release) %}
+      "assets/#{Crankypants::GIT_COMMIT}"
+    {% else %}
+      "assets"
+    {% end %}
+
     def self.print_banner
       puts ["Welcome to ", "CrankyPants".colorize(:white), "! ", ":D ".colorize(:yellow), "(#{Crankypants::VERSION})".colorize(:dark_gray)].join
       puts ["-> ".colorize(:green), "Your blog: ", "http://localhost:3000/".colorize(:cyan)].join
