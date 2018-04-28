@@ -6,6 +6,7 @@ require "../models/*"
 require "../data"
 require "./views/*"
 require "./helpers"
+require "./input_mappings"
 
 {% if flag?(:release) %}
 require "./assets"
@@ -19,12 +20,18 @@ module Crankypants::Web
     include Crappy::Authentication
     include Helpers
 
-    module InputMappings
-      class Post
-        JSON.mapping \
-          title: String,
-          body: String
+    def call(context)
+      crappy do
+        {% if flag?(:release) %}
+          serve_static_assets
+        {% end %}
+
+        serve_blog
+        serve_app
+        serve_api
       end
+
+      call_next(context)
     end
 
     private macro serve_static_assets
@@ -97,20 +104,6 @@ module Crankypants::Web
           end
         end
       end
-    end
-
-    def call(context)
-      crappy do
-        {% if flag?(:release) %}
-          serve_static_assets
-        {% end %}
-
-        serve_blog
-        serve_app
-        serve_api
-      end
-
-      call_next(context)
     end
   end
 end
