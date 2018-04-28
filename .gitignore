@@ -11,5 +11,5 @@
 /dist
 /yarn-*.log
 
-# We're using Kemal's public/ directory for Webpack output only
-/public
+# This is where Webpack will keep rebuilding
+/public/assets

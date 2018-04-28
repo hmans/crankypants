@@ -5,7 +5,7 @@ module Crankypants
     include Crankypants::Web::View
 
     def self._post(post)
-      render_partial "post_view/_post"
+      render_template "post_view/_post"
     end
 
     def self.index(posts)
@@ -19,6 +19,7 @@ module Crankypants
       title << ENV["CRANKY_TITLE"]
 
       page_title = title.compact.join(" · ")
+
       render_page "post_view/show"
     end
   end
