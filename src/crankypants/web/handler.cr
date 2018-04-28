@@ -8,10 +8,6 @@ require "./views/*"
 require "./helpers"
 require "./input_mappings"
 
-{% if flag?(:release) %}
-require "./assets"
-{% end %}
-
 module Crankypants::Web
   class Handler
     include HTTP::Handler
@@ -36,10 +32,9 @@ module Crankypants::Web
 
     private macro serve_static_assets
       within "assets" do
-        get "blog.css" { serve_static_asset "assets/blog.css", "text/css" }
-        get "app.css"  { serve_static_asset "assets/app.css", "text/css" }
-        get "blog-bundle.js" { serve_static_asset "assets/blog-bundle.js", "text/javascript" }
-        get "app-bundle.js" { serve_static_asset "assets/app-bundle.js", "text/javascript" }
+        get ":filename" do
+          serve_static_asset "assets/#{params["filename"]}"
+        end
       end
     end
 

@@ -1,3 +1,7 @@
+{% if flag?(:release) %}
+require "./assets"
+{% end %}
+
 module Crankypants
   module Web
     module Helpers
@@ -5,14 +9,22 @@ module Crankypants
         serve json: { message: {{ message }} }, status: 400
       end
 
-      private macro serve_static_asset(name, content_type)
-        response.headers.add "Cache-Control", "max-age=600, public"
+      private macro serve_static_asset(name, cache = true)
+        content_type = case File.extname({{ name }})
+          when ".css" then "text/css"
+          when ".js"  then "application/javascript"
+          else        "application/octet-stream"
+        end
+
+        {% if cache %}
+          response.headers.add "Cache-Control", "max-age=600, public"
+        {% end %}
 
         if request.headers["Accept-Encoding"] =~ /gzip/
           response.headers.add "Content-Encoding", "gzip"
-          serve Assets.get("{{ name.id }}.gz").gets_to_end, content_type: {{ content_type }}
+          serve Assets.get({{ name }} + ".gz").gets_to_end, content_type: content_type
         else
-          serve Assets.get("{{ name.id }}").gets_to_end, content_type: {{ content_type }}
+          serve Assets.get({{ name }}).gets_to_end, content_type: content_type
         end
       end
     end
