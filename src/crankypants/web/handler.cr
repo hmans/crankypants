@@ -65,18 +65,15 @@ module Crankypants::Web
           end
 
           post do
-            input = InputMappings::Post
-              .from_json(request.body.not_nil!)
+            input = InputMappings::Post.from_json(request.body.not_nil!)
 
             changeset = Data.create_post \
               title: input.title,
-              body: input.body
+              body:  input.body
 
-            if changeset.valid?
-              serve json: changeset.instance
-            else
+            changeset.valid? ?
+              serve json: changeset.instance :
               serve_json_error "Invalid post data."
-            end
           end
 
           within ":id" do
@@ -86,20 +83,16 @@ module Crankypants::Web
             end
 
             patch do
-              post = Data.load_post(params["id"].not_nil!.to_i)
-
+              post  = Data.load_post(params["id"].not_nil!.to_i)
               input = InputMappings::Post.from_json(request.body.not_nil!)
 
               post.title = input.title
-              post.body = input.body
+              post.body  = input.body
+              changeset  = Data.update_post(post)
 
-              changeset = Data.update_post(post)
-
-              if changeset.valid?
-                serve json: changeset.instance, status: 204
-              else
+              changeset.valid? ?
+                serve json: changeset.instance, status: 204 :
                 serve_json_error "Invalid post data."
-              end
             end
           end
         end
