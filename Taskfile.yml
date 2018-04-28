@@ -24,6 +24,12 @@ tasks:
     cmds:
       - crystal run src/crankypants_cli.cr
 
+  build:
+    deps:
+      - web:build
+    cmds:
+      - crystal build src/crankypants_cli.cr -o ./crankypants
+
   release:
     deps:
       - web:build:release
