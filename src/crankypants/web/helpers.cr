@@ -17,7 +17,7 @@ module Crankypants
         end
 
         {% if cache %}
-          response.headers.add "Cache-Control", "max-age=600, public"
+          response.headers.add "Cache-Control", "max-age=#{30*24*60*60}, public"
         {% end %}
 
         if request.headers["Accept-Encoding"] =~ /gzip/
