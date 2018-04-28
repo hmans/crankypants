@@ -93,6 +93,14 @@ module Crankypants
                   render_json_error "Invalid post data."
                 end
               end
+
+              within ":id" do
+                delete do
+                  Data.delete_post(params["id"].not_nil!.to_i)
+                  response.status_code = 204
+                  ""
+                end
+              end
             end
           end
         end
