@@ -52,3 +52,6 @@ workflows:
       - build
       - docker_push:
           requires: [build]
+          filters:
+            branches:
+              only: master
