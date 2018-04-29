@@ -10,6 +10,8 @@ require "./input_mappings"
 
 module Crankypants::Web
   class Router < Crappy::Router
+    include Helpers
+
     def call
       serve_blog || serve_api || serve_app || serve_foo
     end
@@ -21,7 +23,8 @@ module Crankypants::Web
 
       within "posts" do
         get ":id" do |params|
-          render html: PostView.show(Data.load_post(params["id"].not_nil!.to_i))
+          post_id = params["id"].not_nil!.to_i
+          render html: PostView.show(Data.load_post(post_id))
         end
       end
     end
@@ -34,6 +37,19 @@ module Crankypants::Web
           get do
             render json: Data.load_posts
           end
+
+          post do
+            input = InputMappings::Post.from_json(request.body.not_nil!)
+
+            changeset = Data.create_post \
+              title: input.title,
+              body:  input.body
+
+            changeset.valid? ?
+              render json: changeset.instance :
+              render_json_error "Invalid post data."
+          end
+
         end
       end
     end
@@ -80,25 +96,6 @@ module Crankypants::Web
     #         serve_static_asset "assets/#{params["filename"]}"
     #       end
     #     end
-    #   end
-    # end
-    #
-    # private macro serve_blog
-    #   get do
-    #     serve PostView.index(Data.load_posts)
-    #   end
-    #
-    #   within "posts" do
-    #     get ":id" do
-    #       serve PostView.show(Data.load_post(params["id"].not_nil!.to_i))
-    #     end
-    #   end
-    # end
-    #
-    # private macro serve_app
-    #   within "app" do
-    #     protect_with ENV["CRANKY_LOGIN"], ENV["CRANKY_PASSWORD"]
-    #     serve template: "src/crankypants/web/views/app.slang"
     #   end
     # end
     #

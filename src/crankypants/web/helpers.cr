@@ -5,8 +5,8 @@ require "./assets"
 module Crankypants
   module Web
     module Helpers
-      private macro serve_json_error(message, status = 400)
-        serve json: { message: {{ message }} }, status: 400
+      private macro render_json_error(message, status = 400)
+        render json: { message: {{ message }} }, status: {{ status }}
       end
 
       private macro serve_static_asset(name, cache = true)
