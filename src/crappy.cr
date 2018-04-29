@@ -18,6 +18,10 @@ module Crappy
     property response : HTTP::Server::Response
     property remaining_parts : Array(String)
 
+    def self.call(*args)
+      new(*args).call
+    end
+
     def initialize(@context)
       @request = @context.request
       @response = @context.response

@@ -21,8 +21,7 @@ module Crankypants::Web
         context.response << "Foooooo!"
       end
 
-      return if request_served?
-      context.response << "404 Not Found"
+      request_served?
     end
   end
 
@@ -30,13 +29,7 @@ module Crankypants::Web
     include HTTP::Handler
 
     def call(context)
-      router = Router.new(context)
-      router.call
-      # if remaining_path.first == "foo"
-      #   return
-      # end
-      #
-      # call_next
+      Router.call(context) || call_next(context)
     end
 
     # def call(context)
