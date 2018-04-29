@@ -33,7 +33,7 @@ module Crappy
       raise "Implement me"
     end
 
-    private def render(text = nil, content_type = nil)
+    private def render(text = nil, json = nil, content_type = nil)
       output = nil
 
       if content_type
@@ -43,9 +43,13 @@ module Crappy
       if text
         response.content_type = content_type ||= "text/plain"
         response << text
+      elsif json
+        response.content_type = content_type ||= "application/json"
+        response << json.to_json
       end
-    end
 
+      @request_served = true
+    end
 
     private def on(method : Symbol, part : String | Nil = nil)
       return if done?
@@ -56,7 +60,7 @@ module Crappy
           # totally execute the given block and serve that request, yo.
           if remaining_parts.empty?
             yield
-            return @request_served = true
+            return @request_served
           end
         end
       end

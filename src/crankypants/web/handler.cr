@@ -11,10 +11,32 @@ require "./input_mappings"
 module Crankypants::Web
   class Router < Crappy::Router
     def call
-      get do
-        render text: "Home!"
-      end
+      serve_blog || serve_api || serve_app || serve_foo
+    end
 
+    def serve_blog
+    end
+
+    def serve_api
+      within "api" do
+        # protect_with ENV["CRANKY_LOGIN"], ENV["CRANKY_PASSWORD"]
+
+        within "posts" do
+          get do
+            render json: Data.load_posts
+          end
+        end
+      end
+    end
+
+    def serve_app
+      within "app" do
+        # protect_with ENV["CRANKY_LOGIN"], ENV["CRANKY_PASSWORD"]
+        render text: Kilt.render("src/crankypants/web/views/app.slang"), content_type: "text/html"
+      end
+    end
+
+    def serve_foo
       get "foo" do
         render text: "Foo?"
       end
