@@ -33,6 +33,20 @@ module Crappy
       raise "Implement me"
     end
 
+    private def render(text = nil, content_type = nil)
+      output = nil
+
+      if content_type
+        response.content_type = content_type
+      end
+
+      if text
+        response.content_type = content_type ||= "text/plain"
+        response << text
+      end
+    end
+
+
     private def on(method : Symbol, part : String | Nil = nil)
       return if done?
 
@@ -42,10 +56,12 @@ module Crappy
           # totally execute the given block and serve that request, yo.
           if remaining_parts.empty?
             yield
-            @request_served = true
+            return @request_served = true
           end
         end
       end
+
+      false
     end
 
     private def within(part : Nil)
@@ -79,7 +95,7 @@ module Crappy
 
     {% for method in [:get, :put, :post, :patch, :delete] %}
       private macro {{ method.id }}(part = nil)
-        on {{ method }}, \{{ part }} { \{{ yield }} }
+        on {{ method }}, \{{ part }} { \{{ yield }} } && return true
       end
     {% end %}
   end

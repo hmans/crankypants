@@ -12,16 +12,12 @@ module Crankypants::Web
   class Router < Crappy::Router
     def call
       get do
-        context.response.content_type = "text/html"
-        context.response << "Home!"
+        render text: "Home!"
       end
 
       get "foo" do
-        context.response.content_type = "text/html"
-        context.response << "Foooooo!"
+        render text: "Foo?"
       end
-
-      request_served?
     end
   end
 
