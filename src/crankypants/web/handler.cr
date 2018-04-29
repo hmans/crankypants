@@ -50,6 +50,29 @@ module Crankypants::Web
               render_json_error "Invalid post data."
           end
 
+          within ":id" do |params|
+            post_id = params["id"].not_nil!.to_i
+
+            delete do
+              Data.delete_post(post_id)
+              render :nothing, status: 204
+            end
+
+            patch do
+              post  = Data.load_post(post_id)
+              input = InputMappings::Post.from_json(request.body.not_nil!)
+
+              post.title = input.title
+              post.body  = input.body
+              changeset  = Data.update_post(post)
+
+              puts "patching!"
+
+              changeset.valid? ?
+                render json: changeset.instance :
+                render_json_error "Invalid post data."
+            end
+          end
         end
       end
     end

@@ -33,10 +33,12 @@ module Crappy
       raise "Implement me"
     end
 
-    private def render(text = nil, html = nil, json = nil, content_type = nil, status = 200)
+    private def render(object = nil, text = nil, html = nil, json = nil, content_type = nil, status = 200)
       response.status_code = status
 
-      if html
+      if object == :nothing
+        # noop...
+      elsif html
         response.content_type = content_type || "text/html"
         response << html
       elsif text
