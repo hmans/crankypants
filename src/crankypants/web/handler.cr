@@ -16,7 +16,13 @@ module Crankypants::Web
 
     def serve_blog
       get do
-        render text: PostView.index(Data.load_posts), content_type: "text/html"
+        render html: PostView.index(Data.load_posts)
+      end
+
+      within "posts" do
+        get ":id" do |params|
+          render html: PostView.show(Data.load_post(params["id"].not_nil!.to_i))
+        end
       end
     end
 
