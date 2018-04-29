@@ -47,6 +47,8 @@ module Crappy
       elsif json
         response.content_type = content_type || "application/json"
         response << json.to_json
+      elsif object
+        response << object
       end
 
       @request_served = true

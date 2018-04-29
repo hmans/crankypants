@@ -1,6 +1,4 @@
-{% if flag?(:release) %}
 require "./assets"
-{% end %}
 
 module Crankypants
   module Web
@@ -22,9 +20,9 @@ module Crankypants
 
         if request.headers["Accept-Encoding"] =~ /gzip/
           response.headers.add "Content-Encoding", "gzip"
-          serve Assets.get({{ name }} + ".gz").gets_to_end, content_type: content_type
+          render Assets.get({{ name }} + ".gz").gets_to_end, content_type: content_type
         else
-          serve Assets.get({{ name }}).gets_to_end, content_type: content_type
+          render Assets.get({{ name }}).gets_to_end, content_type: content_type
         end
       end
     end
