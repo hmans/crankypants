@@ -1,3 +1,4 @@
+{% if flag?(:release) %}
 require "baked_file_system"
 
 module Crankypants::Web
@@ -7,3 +8,4 @@ module Crankypants::Web
     bake_folder "../../../public"
   end
 end
+{% end %}

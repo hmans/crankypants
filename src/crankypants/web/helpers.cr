@@ -1,12 +1,10 @@
-{% if flag?(:release) %}
 require "./assets"
-{% end %}
 
 module Crankypants
   module Web
     module Helpers
-      private macro serve_json_error(message, status = 400)
-        serve json: { message: {{ message }} }, status: 400
+      private macro render_json_error(message, status = 400)
+        render json: { message: {{ message }} }, status: {{ status }}
       end
 
       private macro serve_static_asset(name, cache = true)
@@ -22,9 +20,9 @@ module Crankypants
 
         if request.headers["Accept-Encoding"] =~ /gzip/
           response.headers.add "Content-Encoding", "gzip"
-          serve Assets.get({{ name }} + ".gz").gets_to_end, content_type: content_type
+          render Assets.get({{ name }} + ".gz").gets_to_end, content_type: content_type
         else
-          serve Assets.get({{ name }}).gets_to_end, content_type: content_type
+          render Assets.get({{ name }}).gets_to_end, content_type: content_type
         end
       end
     end
