@@ -15,6 +15,9 @@ module Crankypants::Web
     end
 
     def serve_blog
+      get do
+        render text: PostView.index(Data.load_posts), content_type: "text/html"
+      end
     end
 
     def serve_api
