@@ -22,7 +22,7 @@ module Crappy
       @request = @context.request
       @response = @context.response
       @remaining_parts = @request.path.split('/').reject(&.blank?)
-      @done = false
+      @request_served = false
     end
 
     def call
@@ -31,11 +31,14 @@ module Crappy
 
     private def on(method : Symbol, part : String | Nil = nil)
       return if done?
+
       if request.method == method.to_s.upcase
         within part do
+          # If no parts are remaining, this is our target path, and we should
+          # totally execute the given block and serve that request, yo.
           if remaining_parts.empty?
             yield
-            halt
+            @request_served = true
           end
         end
       end
@@ -43,11 +46,14 @@ module Crappy
 
     private def within(part : Nil)
       return if done?
+
       yield
     end
 
     private def within(part : String)
       return if done?
+
+      # If the next part of the path matches, let's execute that block.
       if next_part_matches?(part)
         buffer = remaining_parts.shift
         yield
@@ -59,13 +65,19 @@ module Crappy
       remaining_parts.any? && remaining_parts.first == part
     end
 
-    private def halt
-      @done = true
+    def request_served?
+      @request_served
     end
 
     def done?
-      @done
+      request_served?
     end
+
+    {% for method in [:get, :put, :post, :patch, :delete] %}
+      private macro {{ method.id }}(part = nil)
+        on {{ method }}, \{{ part }} { \{{ yield }} }
+      end
+    {% end %}
   end
 end
 

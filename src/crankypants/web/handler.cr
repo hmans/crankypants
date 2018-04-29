@@ -11,17 +11,17 @@ require "./input_mappings"
 module Crankypants::Web
   class Router < Crappy::Router
     def call
-      on :get do
+      get do
         context.response.content_type = "text/html"
         context.response << "Home!"
       end
 
-      on :get, "foo" do
+      get "foo" do
         context.response.content_type = "text/html"
         context.response << "Foooooo!"
       end
 
-      return if done?
+      return if request_served?
       context.response << "404 Not Found"
     end
   end
