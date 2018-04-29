@@ -14,7 +14,7 @@ module Crankypants::Web
     include Crappy::Authentication
 
     def call
-      serve_static_assets || serve_blog || serve_api || serve_app || serve_foo
+      serve_static_assets || serve_blog || serve_api || serve_app # || serve_foo
     end
 
     def serve_static_assets
