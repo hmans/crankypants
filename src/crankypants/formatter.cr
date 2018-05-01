@@ -5,6 +5,10 @@ class Formatter
     @current = @input
   end
 
+  def complete
+    markdown
+  end
+
   def markdown
     @current = Markd.to_html(@current)
   end
