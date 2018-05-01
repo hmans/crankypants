@@ -24,6 +24,8 @@ dependencies:
   markd:
     github: icyleaf/markd
     branch: master
+  autolink:
+    github: crystal-community/autolink.cr
   baked_file_system:
     github: schovi/baked_file_system
     branch: master

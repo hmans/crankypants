@@ -21,7 +21,7 @@ describe Formatter do
       .should eq("<pre>**yay**</pre>\n")
   end
 
-  pending "autolinking" do
+  describe "autolinking" do
     it "autolinks URLs" do
       format("My blog is at http://hmans.io!")
         .should eq("<p>My blog is at <a href=\"http://hmans.io\">http://hmans.io</a>!</p>\n")
