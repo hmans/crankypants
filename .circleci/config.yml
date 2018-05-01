@@ -26,7 +26,7 @@ jobs:
 
   push_docker_image:
     docker:
-      - image: node:9
+      - image: circleci/node:9
     steps:
       - checkout
       - restore_cache:
