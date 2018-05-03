@@ -78,8 +78,6 @@ module Crankypants::Web
                 post.body  = input.body
                 changeset  = Data.update_post(post)
 
-                puts "patching!"
-
                 changeset.valid? ?
                   render json: changeset.instance :
                   render_json_error "Invalid post data."
