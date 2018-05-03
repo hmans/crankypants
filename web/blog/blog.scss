@@ -60,6 +60,17 @@ h1.site-title {
   }
 }
 
+/* Footer */
+
+footer[role="main"] {
+  margin-top: 5rem;
+  color: #ddd;
+
+  a {
+    @extend %a.invisible;
+  }
+}
+
 /* POSTS */
 
 $color-sideline: #f2f2f2;
