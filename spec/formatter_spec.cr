@@ -2,10 +2,10 @@ require "./spec_helper"
 require "../crankypants/formatter"
 
 private def format(input)
-  Formatter.new(input).complete.to_s
+  Crankypants::Formatter.new(input).complete.to_s
 end
 
-describe Formatter do
+describe Crankypants::Formatter do
   it "renders Markdown to HTML" do
     format("Hello **world**!")
       .should eq("<p>Hello <strong>world</strong>!</p>\n")
