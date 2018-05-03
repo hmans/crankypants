@@ -12,6 +12,7 @@ docker run --rm \
   -p 3000:3000 \
   -e "CRANKY_LOGIN=any-user-name" \
   -e "CRANKY_PASSWORD=any-password" \
+  -e "CRANKY_TITLE=My Crankypants" \
   hmans/crankypants
 ```
 
@@ -23,6 +24,7 @@ hyper run -d --name mycrankypants \
   -p 80:3000 \
   -e "CRANKY_LOGIN=any-user-name" \
   -e "CRANKY_PASSWORD=any-password" \
+  -e "CRANKY_TITLE=My Crankypants" \
   --size s1 \
   --restart always hmans/crankypants
 ```
@@ -40,6 +42,7 @@ If `CRANKY_LOGIN` or `CRANKY_PASSWORD` are missing, Crankypants will not make it
 ### Hacking on Crankypants
 
 ```
+cp .env-sample .env
 docker-compose up
 
 # http://localhost:3000/ (server-rendered public-facing blog)

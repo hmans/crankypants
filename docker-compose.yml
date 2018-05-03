@@ -14,9 +14,9 @@ services:
       context: .
       dockerfile: Dockerfile.development
     environment:
-      - CRANKY_LOGIN=foo
-      - CRANKY_PASSWORD=bar
-      - CRANKY_TITLE=Cranky Local Development
+      - CRANKY_LOGIN
+      - CRANKY_PASSWORD
+      - CRANKY_TITLE
     ports:
      - "3000:3000"
     volumes:

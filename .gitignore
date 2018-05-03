@@ -5,6 +5,7 @@
 /data
 /crankypants
 /crankypants.dwarf
+/.env
 
 # Ignore Npm artefacts
 /node_modules
