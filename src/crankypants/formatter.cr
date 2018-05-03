@@ -11,7 +11,7 @@ module Crankypants
   class Formatter
     def initialize(@input : String)
       @current = @input
-      @options = Markd::Options.new
+      @options = Markd::Options.new(smart: true)
       @renderer = AutolinkingRenderer.new(@options)
     end
 

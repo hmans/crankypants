@@ -21,6 +21,11 @@ describe Crankypants::Formatter do
       .should eq("<pre>**yay**</pre>\n")
   end
 
+  it "applies smart formatting" do
+    format("Hey -- nice...")
+      .should eq("<p>Hey – nice…</p>\n")
+  end
+
   describe "autolinking" do
     it "autolinks URLs" do
       format("My blog is at http://hmans.io!")
