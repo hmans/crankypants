@@ -1,12 +1,10 @@
 require "http/server"
-require "crecto"
+require "colorize"
 require "./version"
-require "./web/*"
+require "./web/handler"
 
 module Crankypants
   module Web
-    Post = Models::Post
-
     ASSET_PATH = {% if flag?(:release) %}
       "assets/#{Crankypants::GIT_COMMIT}"
     {% else %}

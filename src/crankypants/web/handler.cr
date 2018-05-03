@@ -14,7 +14,7 @@ module Crankypants::Web
     include Crappy::Authentication
 
     def call
-      serve_static_assets || serve_blog || serve_api || serve_app # || serve_foo
+      serve_static_assets || serve_blog || serve_api || serve_app
     end
 
     def serve_static_assets
@@ -93,12 +93,6 @@ module Crankypants::Web
         protect_with ENV["CRANKY_LOGIN"], ENV["CRANKY_PASSWORD"] do
           render text: Kilt.render("src/crankypants/web/views/app.slang"), content_type: "text/html"
         end
-      end
-    end
-
-    def serve_foo
-      get "foo" do
-        render text: "Foo?"
       end
     end
   end
