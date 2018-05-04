@@ -10,4 +10,4 @@ end
 
 Capybara.default_driver    = :chrome
 Capybara.javascript_driver = :chrome
-Capybara.app_host          = "http://crankypants:3000"
+Capybara.app_host          = "http://foo:bar@crankypants:3000"
