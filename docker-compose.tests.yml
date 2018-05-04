@@ -4,7 +4,7 @@ services:
   alice:
     image: hmans/crankypants:${CIRCLE_BRANCH:-master}
     build:
-      context: ..
+      context: .
       dockerfile: Dockerfile
     environment:
       - CRANKY_LOGIN=alice
@@ -16,9 +16,9 @@ services:
     container_name: selenium
 
   tests:
-    build: .
+    build: e2e-tests
     volumes:
-      - .:/code:cached
+      - ./e2e-tests:/code:cached
     depends_on:
       - alice
       - selenium
