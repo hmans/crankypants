@@ -25,8 +25,7 @@ jobs:
           command: crystal spec
 
   push_docker_image:
-    docker:
-      - image: circleci/node:9
+    machine: true
     steps:
       - checkout
       - setup_remote_docker:
