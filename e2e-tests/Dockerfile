@@ -5,3 +5,4 @@ COPY Gemfile /code/Gemfile
 COPY Gemfile.lock /code/Gemfile.lock
 RUN bundle install
 COPY . /code
+RUN ls -la
