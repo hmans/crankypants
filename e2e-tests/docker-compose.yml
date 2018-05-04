@@ -1,12 +1,14 @@
 version: '3'
 
 services:
-  crankypants:
-    image: hmans/crankypants:master
+  alice:
+    build:
+      context: ..
+      dockerfile: Dockerfile
     environment:
-      - CRANKY_LOGIN
-      - CRANKY_PASSWORD
-      - CRANKY_TITLE
+      - CRANKY_LOGIN=alice
+      - CRANKY_PASSWORD=secret
+      - CRANKY_TITLE=Hi, I'm Alice
 
   selenium:
     image: selenium/standalone-chrome
@@ -17,6 +19,6 @@ services:
     volumes:
       - .:/code:cached
     depends_on:
-      - crankypants
+      - alice
       - selenium
     command: bundle exec rspec
