@@ -29,21 +29,16 @@ jobs:
       - image: circleci/node:9
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - crankypants-docker-push-node-modules-{{ checksum "yarn.lock" }}
-            - crankypants-docker-push-node-modules-
-      - run: yarn install
-      - save_cache:
-          key: crankypants-docker-push-node-modules-{{ checksum "yarn.lock" }}
-          paths:
-            - node_modules
-      - run: yarn run web:build:release
       - setup_remote_docker:
           docker_layer_caching: true
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run: docker build -t hmans/crankypants:$CIRCLE_BRANCH .
-      - run: docker push hmans/crankypants:$CIRCLE_BRANCH
+      - deploy:
+          name: "Push Docker Image to Docker Hub"
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              docker push hmans/crankypants:$CIRCLE_BRANCH
+            fi
 
 workflows:
   version: 2
@@ -52,6 +47,3 @@ workflows:
       - run_tests
       - push_docker_image:
           requires: [run_tests]
-          filters:
-            branches:
-              only: master
