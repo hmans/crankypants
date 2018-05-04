@@ -6,6 +6,7 @@
 /data/
 /crankypants
 /crankypants.dwarf
+/e2e-tests
 
 # Ignore Npm artefacts
 /node_modules
