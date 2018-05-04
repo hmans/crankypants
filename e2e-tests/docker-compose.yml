@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  crankypants:
+    image: hmans/crankypants:master
+    environment:
+      - CRANKY_LOGIN=foo
+      - CRANKY_PASSWORD=bar
+      - CRANKY_TITLE=My Crankypants
+
+  tests:
+    build: .
+    depends_on:
+      - crankypants
+    command: bundle exec rspec
