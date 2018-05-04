@@ -22,4 +22,4 @@ services:
     depends_on:
       - alice
       - selenium
-    command: ls -lah
+    command: bundle exec rspec

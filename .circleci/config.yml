@@ -56,7 +56,7 @@ jobs:
       - run:
           name: Run E2E Tests
           command: |
-            docker-compose -f docker-compose.tests.yml run --rm tests
+            pwd && ls -la && docker-compose -f docker-compose.tests.yml run --rm tests
       - deploy:
           name: Push Docker Image to Docker Hub
           command: |
