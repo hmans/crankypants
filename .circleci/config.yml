@@ -35,20 +35,20 @@ jobs:
           keys:
             - v1-{{ .Branch }}
           paths:
-            - /caches/app.tar
+            - ~/caches/app.tar
       - run:
           name: Load Docker image layer cache
           command: |
             set +o pipefail
-            docker load -i /caches/app.tar | true
+            docker load -i ~/caches/app.tar | true
       - run:
           name: Build Docker Image
-          command: docker build -t hmans/crankypants:$CIRCLE_BRANCH .
+          command: docker build --cache-from=hmans/crankypants:$CIRCLE_BRANCH -t hmans/crankypants:$CIRCLE_BRANCH .
       - run:
           name: Save Docker image layer cache
           command: |
-            mkdir -p /caches
-            docker save -o /caches/app.tar app
+            mkdir -p ~/caches
+            docker save -o ~/caches/app.tar hmans/crankypants:$CIRCLE_BRANCH
       - run:
           name: Run E2E Tests
           command: |
