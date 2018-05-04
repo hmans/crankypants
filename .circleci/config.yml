@@ -33,6 +33,11 @@ jobs:
           docker_layer_caching: true
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run: docker build -t hmans/crankypants:$CIRCLE_BRANCH .
+      - run:
+          name: "Run E2E Tests"
+          command: |
+            cd e2etests
+            ./run_tests.sh
       - deploy:
           name: "Push Docker Image to Docker Hub"
           command: |
@@ -44,6 +49,7 @@ workflows:
   version: 2
   build-and-push-latest:
     jobs:
-      - run_tests
-      - push_docker_image:
-          requires: [run_tests]
+      - push_docker_image
+      # - run_tests
+      # - push_docker_image:
+      #     requires: [run_tests]
