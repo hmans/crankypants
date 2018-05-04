@@ -18,7 +18,7 @@ services:
   tests:
     build: e2e-tests
     volumes:
-      - ./e2e-tests:/code:cached
+      - .:/code:cached
     depends_on:
       - alice
       - selenium
