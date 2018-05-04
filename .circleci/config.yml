@@ -49,6 +49,10 @@ jobs:
           command: |
             mkdir -p ~/caches
             docker save -o ~/caches/app.tar hmans/crankypants:$CIRCLE_BRANCH
+      - save_cache:
+          key: v1-{{ .Branch }}-{{ epoch }}
+          paths:
+            - ~/caches/app.tar
       - run:
           name: Run E2E Tests
           command: |
