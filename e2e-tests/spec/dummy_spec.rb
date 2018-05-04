@@ -1,7 +1,8 @@
 require "spec_helper"
 
-describe "dummy" do
-  it do
-    expect(1 + 2).to eq(3)
+describe "dummy HTTP :-b", type: :feature do
+  it "works" do
+    visit "/"
+    expect(page).to have_text("My Crankypants")
   end
 end

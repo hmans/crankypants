@@ -4,12 +4,19 @@ services:
   crankypants:
     image: hmans/crankypants:master
     environment:
-      - CRANKY_LOGIN=foo
-      - CRANKY_PASSWORD=bar
-      - CRANKY_TITLE=My Crankypants
+      - CRANKY_LOGIN
+      - CRANKY_PASSWORD
+      - CRANKY_TITLE
+
+  selenium:
+    image: selenium/standalone-chrome
+    container_name: selenium
 
   tests:
     build: .
+    volumes:
+      - .:/code:cached
     depends_on:
       - crankypants
+      - selenium
     command: bundle exec rspec
