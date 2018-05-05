@@ -32,7 +32,7 @@ jobs:
       # Build a new Docker image:
       - run:
           name: Build Docker Image
-          command: docker build --cache-from=hmans/crankypants:$CIRCLE_BRANCH -t hmans/crankypants:$CIRCLE_BRANCH .
+          command: docker build -t crankypants-build .
 
       # Run our E2E tests via Docker-Compose:
       - run:
@@ -46,7 +46,8 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               docker login -u $DOCKER_USER -p $DOCKER_PASS
-              docker push hmans/crankypants:$CIRCLE_BRANCH
+              docker tag crankypants-build hmans/crankypants:latest
+              docker push hmans/crankypants:latest
             fi
 
 workflows:
