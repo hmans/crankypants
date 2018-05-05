@@ -1,13 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700");
 @import "../shared/mixins";
-
-* {
-  box-sizing: inherit;
-}
-html,
-body {
-  box-sizing: border-box;
-}
+@import "../shared/box-sizing";
 
 body {
   background-color: #f2f2f2;

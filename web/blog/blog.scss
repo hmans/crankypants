@@ -1,16 +1,9 @@
-@import "../shared/mixins";
-
 $color-background: #fff;
 $color-text: #555;
 $color-link: rgb(94, 142, 186);
 
-* {
-  box-sizing: inherit;
-}
-html,
-body {
-  box-sizing: border-box;
-}
+@import "../shared/mixins";
+@import "../shared/box-sizing";
 
 body {
   background-color: $color-background;
