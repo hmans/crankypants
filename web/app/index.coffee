@@ -1,8 +1,5 @@
 import Vue from 'vue'
 
-# Let's add vue-moment
-Vue.use(require('vue-moment'))
-
 # add some CSS we want
 import 'normalize.css'
 import './v-prism'

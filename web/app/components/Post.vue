@@ -18,15 +18,20 @@
       footer
         button(@click="startEditing") edit
         button(@click="deletePost") delete
-        span.post-meta {{ post.created_at | moment("MMMM Do, HH:mm") }}
+        span.post-meta {{ postedWhen }}
 </template>
 
 <script lang="coffee">
   import PostForm from './PostForm'
+  import format from 'date-fns/format'
 
   export default
     components: { PostForm }
     props: ['post']
+
+    computed:
+      postedWhen: ->
+        format @post.created_at, "MMM Do, HH:mm"
 
     data: ->
       editing: false
