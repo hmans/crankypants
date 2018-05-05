@@ -1,5 +1,6 @@
 require "rspec"
 require "capybara/rspec"
+require "site_objects"
 
 Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new app,
