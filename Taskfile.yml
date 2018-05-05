@@ -20,6 +20,10 @@ tasks:
     cmds:
       - crystal spec
 
+  e2e:
+    cmds:
+      - docker-compose -f docker-compose.tests.yml up --abort-on-container-exit --exit-code-from tests
+
   run:
     cmds:
       - crystal run src/crankypants_cli.cr
