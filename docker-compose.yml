@@ -28,8 +28,9 @@ services:
 
   webpack:
     image: node:9
+    working_dir: /work
     volumes:
       - .:/work:cached
       - node-modules:/work/node_modules:delegated
     tty: true
-    command: sh -c 'cd /work && yarn install && yarn run web:watch'
+    command: sh -c 'yarn install && yarn run web:watch'
