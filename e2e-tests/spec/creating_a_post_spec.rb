@@ -11,9 +11,10 @@ describe "creating a post", type: :feature do
       app.new_post_body.set "Hello world"
       click_on "Save Post"
 
-      # The post should now be visible on her blog.
+      # The post should now be visible at the top of her blog.
       blog.load
-      expect(blog).to have_css(:article, text: "Hello world")
+      post = blog.posts.first
+      expect(post.body).to have_text("Hello world")
     end
   end
 end
