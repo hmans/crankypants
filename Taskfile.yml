@@ -1,50 +1,17 @@
 version: '2'
 
 tasks:
-  docker:build:
-    deps: [web:build:release]
+  build:docker:
+    desc: Build the "crankypants-build" image.
     cmds:
-      - docker build -t hmans/crankypants .
-
-  docker:push:
-    deps:
-      - docker:build
-    cmds:
-      - docker push hmans/crankypants
-
-  docker:run:
-    cmds:
-      - docker run --rm -v crankypants-data:/data -p 3000:3000 hmans/crankypants
+      - docker build -t crankypants-build .
 
   spec:
+    desc: Run Crystal specs.
     cmds:
       - crystal spec
 
-  e2e:
+  spec:e2e:
+    desc: Run E2E tests.
     cmds:
       - docker-compose -f docker-compose.tests.yml up --abort-on-container-exit --exit-code-from tests
-
-  run:
-    cmds:
-      - crystal run src/crankypants_cli.cr
-
-  build:
-    deps:
-      - web:build
-    cmds:
-      - crystal build src/crankypants_cli.cr -o ./crankypants
-
-  release:
-    deps:
-      - web:build:release
-    cmds:
-      - crystal build src/crankypants_cli.cr -o ./crankypants --release --no-debug
-      - strip crankypants
-
-  web:build:
-    cmds:
-      - yarn run web:build
-
-  web:build:release:
-    cmds:
-      - yarn run web:build:release
