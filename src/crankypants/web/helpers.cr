@@ -18,7 +18,7 @@ module Crankypants
           response.headers.add "Cache-Control", "max-age=#{30*24*60*60}, public"
         {% end %}
 
-        if request.headers["Accept-Encoding"] =~ /gzip/
+        if request.headers["Accept-Encoding"]? =~ /gzip/
           response.headers.add "Content-Encoding", "gzip"
           render Assets.get({{ name }} + ".gz").gets_to_end, content_type: content_type
         else
