@@ -55,5 +55,8 @@ module.exports = {
       algorithm: "zopfli",
       minRatio: 0
     })
-  ]
+  ],
+  watchOptions: {
+    ignored: /node_modules/
+  }
 };
