@@ -8,7 +8,6 @@
     "axios": "^0.18.0",
     "coffee-loader": "^0.9.0",
     "coffeescript": "^2.2.4",
-    "compression-webpack-plugin": "^1.1.11",
     "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "node-sass": "^4.8.3",
@@ -27,7 +26,8 @@
     "vue-template-compiler": "^2.5.16",
     "vuex": "^3.0.1",
     "webpack": "^4.4.1",
-    "webpack-cli": "^2.0.13"
+    "webpack-cli": "^2.0.13",
+    "zopfli-webpack-plugin": "^0.1.0"
   },
   "scripts": {
     "web:build": "webpack --mode development",

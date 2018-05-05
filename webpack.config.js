@@ -1,8 +1,8 @@
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const path = require("path");
 const webpack = require("webpack");
-const CompressionPlugin = require("compression-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ZopfliPlugin = require("zopfli-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -50,6 +50,10 @@ module.exports = {
     new ExtractTextPlugin({
       filename: "[name].css"
     }),
-    new CompressionPlugin()
+    new ZopfliPlugin({
+      asset: "[path].gz",
+      algorithm: "zopfli",
+      minRatio: 0
+    })
   ]
 };
