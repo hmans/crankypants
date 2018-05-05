@@ -1,9 +1,10 @@
 # First of all, let's compile our web assets in production mode.
 FROM node:9 AS webpack
-ADD . /work
 WORKDIR /work
+COPY yarn.lock package.json /work/
 RUN yarn install
-run yarn web:build:release
+ADD . /work
+RUN yarn web:build:release
 
 # Next, we'll want to compile Crankypants. Let's start with the official
 # Crystal image and go from there.
