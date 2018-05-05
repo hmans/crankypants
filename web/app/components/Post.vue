@@ -14,11 +14,11 @@
         ref="post_body"
         v-html="post.body_html"
         v-prism)
-      p
+
+      footer
         button(@click="startEditing") edit
-        |
-        |
         button(@click="deletePost") delete
+        span.post-meta {{ post.created_at | moment("MMMM Do, HH:mm") }}
 </template>
 
 <script lang="coffee">

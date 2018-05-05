@@ -47,6 +47,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(["public/assets"]),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new ExtractTextPlugin({
       filename: "[name].css"
     }),

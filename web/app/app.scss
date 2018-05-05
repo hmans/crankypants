@@ -2,8 +2,12 @@
 @import "../shared/mixins";
 @import "../shared/box-sizing";
 
+$color: #444;
+$color-light: #bbb;
+
 body {
   background-color: #f2f2f2;
+  color: $color;
   font: 15px/1.5 "Open Sans", Helvetica, sans-serif;
 }
 
@@ -100,6 +104,18 @@ article.post {
     img {
       max-width: 100%;
       border-radius: 0.25rem;
+    }
+  }
+
+  .post-meta {
+    color: $color-light;
+  }
+
+  footer {
+    margin-top: 1rem;
+
+    > * {
+      margin-right: 0.5em;
     }
   }
 }
