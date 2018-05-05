@@ -22,4 +22,3 @@ services:
     depends_on:
       - alice
       - selenium
-    command: bundle exec rspec
