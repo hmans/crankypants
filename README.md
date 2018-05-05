@@ -13,7 +13,7 @@ docker run --rm \
   -e "CRANKY_LOGIN=any-user-name" \
   -e "CRANKY_PASSWORD=any-password" \
   -e "CRANKY_TITLE=My Crankypants" \
-  hmans/crankypants
+  hmans/crankypants:latest
 ```
 
 ### Deploying on hyper.sh
@@ -26,7 +26,7 @@ hyper run -d --name mycrankypants \
   -e "CRANKY_PASSWORD=any-password" \
   -e "CRANKY_TITLE=My Crankypants" \
   --size s1 \
-  --restart always hmans/crankypants
+  --restart always hmans/crankypants:latest
 ```
 
 ### Configuration
