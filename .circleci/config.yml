@@ -30,53 +30,53 @@ jobs:
       - checkout
 
       # Build a new Docker image:
-      - restore_cache:
-          keys:
-            - v1-{{ .Branch }}
-          paths:
-            - ~/caches/app.tar
-      - run:
-          name: Load Docker image layer cache
-          command: |
-            set +o pipefail
-            docker load -i ~/caches/app.tar | true
+      # - restore_cache:
+      #     keys:
+      #       - v1-{{ .Branch }}
+      #     paths:
+      #       - ~/caches/app.tar
+      # - run:
+      #     name: Load Docker image layer cache
+      #     command: |
+      #       set +o pipefail
+      #       docker load -i ~/caches/app.tar | true
       - run:
           name: Build Docker Image
           command: docker build --cache-from=hmans/crankypants:$CIRCLE_BRANCH -t hmans/crankypants:$CIRCLE_BRANCH .
-      - run:
-          name: Save Docker image layer cache
-          command: |
-            mkdir -p ~/caches
-            docker save -o ~/caches/app.tar hmans/crankypants:$CIRCLE_BRANCH
-      - save_cache:
-          key: v1-{{ .Branch }}-{{ epoch }}
-          paths:
-            - ~/caches/app.tar
+      # - run:
+      #     name: Save Docker image layer cache
+      #     command: |
+      #       mkdir -p ~/caches
+      #       docker save -o ~/caches/app.tar hmans/crankypants:$CIRCLE_BRANCH
+      # - save_cache:
+      #     key: v1-{{ .Branch }}-{{ epoch }}
+      #     paths:
+      #       - ~/caches/app.tar
 
       # Run our E2E tests via Docker-Compose:
-      - restore_cache:
-          keys:
-            - v1-tests-{{ .Branch }}
-          paths:
-            - ~/caches/tests.tar
-      - run:
-          name: Load Docker image layer cache
-          command: |
-            set +o pipefail
-            docker load -i ~/caches/tests.tar | true
+      # - restore_cache:
+      #     keys:
+      #       - v1-tests-{{ .Branch }}
+      #     paths:
+      #       - ~/caches/tests.tar
+      # - run:
+      #     name: Load Docker image layer cache
+      #     command: |
+      #       set +o pipefail
+      #       docker load -i ~/caches/tests.tar | true
       - run:
           name: Run E2E Tests
           command: |
             docker-compose -f docker-compose.tests.yml run --rm tests
-      - run:
-          name: Save Docker image layer cache
-          command: |
-            mkdir -p ~/caches
-            docker save -o ~/caches/tests.tar project_tests:latest
-      - save_cache:
-          key: v1-tests-{{ .Branch }}-{{ epoch }}
-          paths:
-            - ~/caches/tests.tar
+      # - run:
+      #     name: Save Docker image layer cache
+      #     command: |
+      #       mkdir -p ~/caches
+      #       docker save -o ~/caches/tests.tar project_tests:latest
+      # - save_cache:
+      #     key: v1-tests-{{ .Branch }}-{{ epoch }}
+      #     paths:
+      #       - ~/caches/tests.tar
 
       # We're good! Push the previously built image to Docker Hub:
       - deploy:
