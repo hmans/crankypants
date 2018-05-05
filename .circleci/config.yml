@@ -25,19 +25,29 @@ jobs:
           command: crystal spec
 
   push_docker_image:
-    docker:
-      - image: circleci/node:9
+    machine: true
     steps:
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
-      - run: docker build -t hmans/crankypants:$CIRCLE_BRANCH .
+
+      # Build a new Docker image:
+      - run:
+          name: Build Docker Image
+          command: docker build -t crankypants-build .
+
+      # Run our E2E tests via Docker-Compose:
+      - run:
+          name: Run E2E Tests
+          command: |
+            docker-compose -f docker-compose.tests.yml run --rm tests
+
+      # We're good! Push the previously built image to Docker Hub:
       - deploy:
-          name: "Push Docker Image to Docker Hub"
+          name: Push Docker Image to Docker Hub
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              docker push hmans/crankypants:$CIRCLE_BRANCH
+              docker login -u $DOCKER_USER -p $DOCKER_PASS
+              docker tag crankypants-build hmans/crankypants:latest
+              docker push hmans/crankypants:latest
             fi
 
 workflows:

@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  alice:
+    image: crankypants-build
+    environment:
+      - CRANKY_LOGIN=alice
+      - CRANKY_PASSWORD=secret
+      - CRANKY_TITLE=Hi, I'm Alice
+
+  bob:
+    image: crankypants-build
+    environment:
+      - CRANKY_LOGIN=bob
+      - CRANKY_PASSWORD=secret
+      - CRANKY_TITLE=And I Am Bob
+
+  selenium:
+    image: selenium/standalone-chrome
+    container_name: selenium
+
+  tests:
+    build: e2e-tests
+    volumes:
+      - ./e2e-tests/:/code:cached
+    depends_on:
+      - alice
+      - bob
+      - selenium
+    tty: true
