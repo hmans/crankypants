@@ -1,54 +1,18 @@
-# Third party libraries
-require "kilt"
-require "kilt/slang"
-
-# Crappy
 require "../../../crappy"
 require "../../../crappy/authentication"
 
-# Our own stuff
-require "../formatter"
-require "../models/*"
-require "../data"
-require "./views/*"
-require "./helpers"
-require "./input_mappings"
+require "../input_mappings"
+require "../helpers"
+require "../../models/*"
+require "../../data"
+require "../views/*"
 
-module Crankypants::Web
-  class Router < Crappy::Router
+module Crankypants::Web::Routers
+  class Api < Crappy::Router
     include Helpers
     include Crappy::Authentication
 
     def call
-      serve_static_assets || serve_blog || serve_api || serve_app
-    end
-
-    def serve_static_assets
-      {% if flag?(:release) %}
-        within "assets" do
-          within :version do
-            get :filename do |params|
-              serve_static_asset "assets/#{params["filename"]}"
-            end
-          end
-        end
-      {% end %}
-    end
-
-    def serve_blog
-      get do
-        render html: PostView.index(Data.load_posts)
-      end
-
-      within "posts" do
-        get :id do |params|
-          post_id = params["id"].not_nil!.to_i
-          render html: PostView.show(Data.load_post(post_id))
-        end
-      end
-    end
-
-    def serve_api
       within "api" do
         protect_with ENV["CRANKY_LOGIN"], ENV["CRANKY_PASSWORD"] do
           within "posts" do
@@ -90,14 +54,6 @@ module Crankypants::Web
               end
             end
           end
-        end
-      end
-    end
-
-    def serve_app
-      within "app" do
-        protect_with ENV["CRANKY_LOGIN"], ENV["CRANKY_PASSWORD"] do
-          render text: Kilt.render("src/crankypants/web/views/app.slang"), content_type: "text/html"
         end
       end
     end

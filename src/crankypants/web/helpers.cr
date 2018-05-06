@@ -1,3 +1,6 @@
+require "kilt"
+require "kilt/slang"
+
 require "./assets"
 
 module Crankypants

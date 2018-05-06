@@ -1,7 +1,7 @@
 require "http/server"
 require "colorize"
 require "./version"
-require "./web/router"
+require "./web/routers/*"
 
 module Crankypants
   module Web
@@ -35,7 +35,10 @@ module Crankypants
         HTTP::ErrorHandler.new,
         HTTP::LogHandler.new,
         HTTP::StaticFileHandler.new("./public/", directory_listing: false),
-        Crappy::Handler(Router).new,
+        Crappy::Handler(Routers::Blog).new,
+        Crappy::Handler(Routers::Assets).new,
+        Crappy::Handler(Routers::Api).new,
+        Crappy::Handler(Routers::App).new,
       ]).listen
     end
   end
