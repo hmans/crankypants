@@ -10,43 +10,53 @@ ZopfliPlugin = require "zopfli-webpack-plugin"
 
 # Set up our module rules.
 
-rules = []
-rules.push
-  test: /\.vue$/
-  loader: "vue-loader"
+rules = (env, argv) ->
+  r = []
 
-rules.push
-  test: /\.coffee$/
-  use: "coffee-loader"
+  r.push
+    test: /\.vue$/
+    loader: "vue-loader"
 
-rules.push
-  test: /\.(s?)css$/
-  use: ExtractTextPlugin.extract
-    fallback: "style-loader"
-    use: [
-      loader: "css-loader"
-      options:
-        minimize: true
-    ,
-      "sass-loader"
-    ]
+  r.push
+    test: /\.coffee$/
+    use: "coffee-loader"
 
+  r.push
+    test: /\.(s?)css$/
+    use: ExtractTextPlugin.extract
+      fallback: "style-loader"
+      use: [
+        loader: "css-loader"
+        options:
+          minimize: true
+      ,
+        "sass-loader"
+      ]
+
+  r
 
 # Aaaaaand a bunch of plugins.
 
-plugins = []
-plugins.push new CleanWebpackPlugin ["public/assets"]
-plugins.push new ExtractTextPlugin
-  filename: "[name].css"
-plugins.push new ZopfliPlugin
-  asset: "[path].gz"
-  algorithm: "zopfli"
-  minRatio: 0
+plugins = (env, argv) ->
+  p = []
+
+  p.push new CleanWebpackPlugin ["public/assets"]
+
+  p.push new ExtractTextPlugin
+    filename: "[name].css"
+
+  if argv.mode == "production"
+    p.push new ZopfliPlugin
+      asset: "[path].gz"
+      algorithm: "zopfli"
+      minRatio: 0
+
+  p
 
 
 # Here's the Webpack configuration itself.
 
-module.exports =
+module.exports = (env, argv) ->
   entry:
     blog: "./web/blog/index.coffee"
     app: "./web/app/index.coffee"
@@ -57,14 +67,14 @@ module.exports =
     publicPath: "/assets"
 
   module:
-    rules: rules
+    rules: rules(env, argv)
 
   resolve:
     extensions: ["*", ".js", ".coffee", ".vue"]
     alias:
       "@": path.resolve __dirname, "web/app"
 
-  plugins: plugins
+  plugins: plugins(env, argv)
 
   watchOptions:
     ignored: /node_modules/
