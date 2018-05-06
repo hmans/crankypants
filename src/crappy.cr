@@ -11,7 +11,7 @@ module Crappy
     end
   end
 
-  class Router
+  abstract class Router
     property context : HTTP::Server::Context
     property request : HTTP::Request
     property response : HTTP::Server::Response
@@ -28,9 +28,7 @@ module Crappy
       @request_served = false
     end
 
-    def call
-      raise "Implement me"
-    end
+    abstract def call
 
     private def render(object = nil, text = nil, html = nil, json = nil, content_type = nil, status = 200)
       response.status_code = status
