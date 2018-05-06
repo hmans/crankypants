@@ -1,19 +1,13 @@
-module Crappy
-  module Authentication
-    def protect_with(username, password)
-      auth_info = if request.headers["Authorization"]? && request.headers["Authorization"] =~ /^Basic (.+)$/
-        Base64.decode_string($1).split(':')
-      else
-        [nil, nil]
-      end
+require "http/server"
+require "http/request"
+require "json"
 
-      if [username, password] == auth_info
-        yield
-      else
-        # Authorization failed...
-        response.headers["WWW-Authenticate"] = "Basic realm=\"Crankypants!\""
-        render text: "Please log in.", status: 401
-      end
+module Crappy
+  class Handler(T)
+    include HTTP::Handler
+
+    def call(context : HTTP::Server::Context)
+      T.call(context) || call_next(context)
     end
   end
 
@@ -59,11 +53,11 @@ module Crappy
       @request_served = true
     end
 
-    private def on(method : Symbol, part : String | Nil = nil)
+    private def on(method : Symbol, *args)
       return true if done?
 
       if request.method == method.to_s.upcase
-        within part do |*params|
+        within *args do |*params|
           # If no parts are remaining, this is our target path, and we should
           # totally execute the given block and serve that request, yo.
           if remaining_parts.empty?
@@ -76,21 +70,54 @@ module Crappy
       false
     end
 
-    private def within(part : Nil)
+    private def within(part : Array(String | Symbol), *args)
+      part.each do |p|
+        return true if within(p, *args) { |*a| yield *a }
+      end
+    end
+
+    private def within(part : Nil, *args)
       return true if done?
 
       yield
     end
 
+    private def within(part : Symbol, *args)
+      within(":#{part}", *args) { |*a| yield *a }
+    end
+
     private def within(part : String)
       return true if done?
 
-      # If the next part of the path matches, let's execute that block.
-      if match_data = next_part_matches?(part)
-        buffer = remaining_parts.shift
-        yield match_data.named_captures
-        remaining_parts.unshift(buffer)
+      returning = false
+      buffer    = [] of String
+      params    = {} of String => String?
+      parts     = part.split("/").reject(&.blank?)
+
+      parts.each do |p|
+        break unless match_data = next_part_matches?(p)
+        buffer << remaining_parts.shift
+        params.merge!(match_data.named_captures)
       end
+
+      if buffer.size == parts.size
+        returning = yield(params)
+      end
+
+      @remaining_parts = buffer + remaining_parts
+
+      returning
+    end
+
+    # Invoke the given block regardless of how many remaining parts are
+    # still waiting to be processed. The array containing the remaining
+    # path parts will be passed as an argument to the given block.
+    #
+    private def splat
+      splat = remaining_parts.dup
+      remaining_parts.clear
+      yield splat
+      remaining_parts.concat(splat)
     end
 
     private def next_part_matches?(part)

@@ -1,6 +1,12 @@
+# Third party libraries
 require "kilt"
 require "kilt/slang"
+
+# Crappy
 require "../../../crappy"
+require "../../../crappy/authentication"
+
+# Our own stuff
 require "../formatter"
 require "../models/*"
 require "../data"
@@ -20,8 +26,8 @@ module Crankypants::Web
     def serve_static_assets
       {% if flag?(:release) %}
         within "assets" do
-          within ":version" do
-            get ":filename" do |params|
+          within :version do
+            get :filename do |params|
               serve_static_asset "assets/#{params["filename"]}"
             end
           end
@@ -35,7 +41,7 @@ module Crankypants::Web
       end
 
       within "posts" do
-        get ":id" do |params|
+        get :id do |params|
           post_id = params["id"].not_nil!.to_i
           render html: PostView.show(Data.load_post(post_id))
         end
@@ -62,7 +68,7 @@ module Crankypants::Web
                 render_json_error "Invalid post data."
             end
 
-            within ":id" do |params|
+            within :id do |params|
               post_id = params["id"].not_nil!.to_i
 
               delete do
@@ -94,14 +100,6 @@ module Crankypants::Web
           render text: Kilt.render("src/crankypants/web/views/app.slang"), content_type: "text/html"
         end
       end
-    end
-  end
-
-  class Handler
-    include HTTP::Handler
-
-    def call(context)
-      Router.call(context) || call_next(context)
     end
   end
 end
