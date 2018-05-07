@@ -23,9 +23,9 @@ module Crankypants
 
         if request.headers["Accept-Encoding"]? =~ /gzip/
           response.headers.add "Content-Encoding", "gzip"
-          render Assets.get({{ name }} + ".gz").gets_to_end, content_type: content_type
+          render Web::Assets.get({{ name }} + ".gz").gets_to_end, content_type: content_type
         else
-          render Assets.get({{ name }}).gets_to_end, content_type: content_type
+          render Web::Assets.get({{ name }}).gets_to_end, content_type: content_type
         end
       end
     end
