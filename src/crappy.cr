@@ -31,7 +31,8 @@ module Crappy
     abstract def call
 
     private def render(object = nil, text = nil, html = nil, json = nil, content_type = nil, status = 200)
-      response.status_code = status
+      response.status_code  = status if status
+      response.content_type = content_type if content_type
 
       if object == :nothing
         # noop...
