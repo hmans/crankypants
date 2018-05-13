@@ -4,10 +4,8 @@ html
     meta name="viewport" content="width=device-width,initial-scale=1.0"
     meta charset="utf-8"
     title = page_title
-    - css_url = asset_url "blog.css"
-    link rel="stylesheet" type="text/css" href=css_url
-    - js_url = asset_url "blog-bundle.js"
-    script type="application/javascript" src=js_url defer=true
+    link rel="stylesheet" type="text/css" href="#{asset_url("blog.css")}"
+    script type="application/javascript" src="#{asset_url("blog-bundle.js")}" defer=true
   body
     header role="main"
       .container
