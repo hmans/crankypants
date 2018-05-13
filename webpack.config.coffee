@@ -4,7 +4,7 @@
 CleanWebpackPlugin = require "clean-webpack-plugin"
 path = require "path"
 webpack = require "webpack"
-ExtractTextPlugin = require "extract-text-webpack-plugin"
+MiniCssExtractPlugin = require "mini-css-extract-plugin"
 ZopfliPlugin = require "zopfli-webpack-plugin"
 
 
@@ -23,15 +23,12 @@ rules = (env, argv) ->
 
   r.push
     test: /\.(s?)css$/
-    use: ExtractTextPlugin.extract
-      fallback: "style-loader"
-      use: [
-        loader: "css-loader"
-        options:
-          minimize: true
-      ,
-        "sass-loader"
-      ]
+    use: [
+      "css-hot-loader"
+      MiniCssExtractPlugin.loader
+      "css-loader"
+      "sass-loader"
+    ]
 
   r
 
@@ -42,15 +39,17 @@ plugins = (env, argv) ->
 
   p.push new CleanWebpackPlugin ["public/assets"]
 
-  p.push new ExtractTextPlugin
+  p.push new MiniCssExtractPlugin
     filename: "[name].css"
+    chunkFilename: "[id].css"
 
   if argv.mode == "production"
     p.push new ZopfliPlugin
       asset: "[path].gz"
       algorithm: "zopfli"
       minRatio: 0
-  else
+  else # development
+    p.push new webpack.NamedModulesPlugin
     p.push new webpack.HotModuleReplacementPlugin
 
   p
@@ -66,7 +65,7 @@ module.exports = (env, argv) ->
   output:
     path: __dirname + "/public/assets"
     filename: "[name]-bundle.js"
-    publicPath: "/assets"
+    publicPath: "http://localhost:8080/assets"
 
   module:
     rules: rules(env, argv)
@@ -79,8 +78,18 @@ module.exports = (env, argv) ->
   plugins: plugins(env, argv)
 
   devServer:
+    inline: true
+    hot: true
+    public: "localhost:8080"
+    contentBase: __dirname + "/public/assets"
+    headers: { "Access-Control-Allow-Origin": "*" }﻿
+    overlay:
+      warnings: true
+      errors: true
     watchOptions:
       ignored: /node_modules/
+    stats:
+      colors: true
 
   watchOptions:
     ignored: /node_modules/
