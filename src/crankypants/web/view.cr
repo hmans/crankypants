@@ -16,6 +16,12 @@ module Crankypants
           render_template({{ filename }})
         {% end %}
       end
+
+      macro asset_url(filename)
+        url = "/#{Crankypants::Web::ASSET_PATH}/{{ filename.id }}"
+        host = Crankypants.settings.asset_host
+        host.empty? ? url : "//#{host}#{url}"
+      end
     end
   end
 end

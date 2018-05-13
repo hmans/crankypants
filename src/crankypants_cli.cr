@@ -19,6 +19,10 @@ OptionParser.parse! do |parser|
     Crankypants.settings.interface = interface
   end
 
+  parser.on "--asset-host HOST", "Host to load assets from (default: blank)" do |arg|
+    Crankypants.settings.asset_host = arg
+  end
+
   parser.on "-h", "--help", "Show this help" do
     puts parser
     exit
