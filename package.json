@@ -32,7 +32,8 @@
     "zopfli-webpack-plugin": "^0.1.0"
   },
   "scripts": {
-    "web:devserver": "webpack-dev-server --host 0.0.0.0 --progress --colors",
+    "web:devserver":
+      "webpack-dev-server --host 0.0.0.0 --progress --colors --mode development",
     "web:build": "webpack --mode development",
     "web:build:release": "webpack --mode production",
     "web:watch": "webpack --mode development --watch"

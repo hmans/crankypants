@@ -50,6 +50,8 @@ plugins = (env, argv) ->
       asset: "[path].gz"
       algorithm: "zopfli"
       minRatio: 0
+  else
+    p.push new webpack.HotModuleReplacementPlugin
 
   p
 
@@ -75,6 +77,10 @@ module.exports = (env, argv) ->
       "@": path.resolve __dirname, "web/app"
 
   plugins: plugins(env, argv)
+
+  devServer:
+    watchOptions:
+      ignored: /node_modules/
 
   watchOptions:
     ignored: /node_modules/
