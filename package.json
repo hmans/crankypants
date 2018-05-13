@@ -28,9 +28,11 @@
     "vuex": "^3.0.1",
     "webpack": "^4.4.1",
     "webpack-cli": "^2.0.13",
+    "webpack-dev-server": "^3.1.4",
     "zopfli-webpack-plugin": "^0.1.0"
   },
   "scripts": {
+    "web:devserver": "webpack-dev-server --host 0.0.0.0 --progress --colors",
     "web:build": "webpack --mode development",
     "web:build:release": "webpack --mode production",
     "web:watch": "webpack --mode development --watch"

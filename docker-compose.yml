@@ -33,4 +33,6 @@ services:
       - .:/work:cached
       - node-modules:/work/node_modules:delegated
     tty: true
-    command: sh -c 'yarn install && yarn run web:watch'
+    ports:
+     - "8080:8080"
+    command: sh -c 'yarn install && yarn run web:devserver'
