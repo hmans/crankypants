@@ -4,8 +4,8 @@ html
     meta name="viewport" content="width=device-width,initial-scale=1.0"
     meta charset="utf-8"
     title = page_title
-    link rel="stylesheet" type="text/css" href="/#{Crankypants::Web::ASSET_PATH}/blog.css"
-    script type="application/javascript" src="/#{Crankypants::Web::ASSET_PATH}/blog-bundle.js" defer=true
+    link rel="stylesheet" type="text/css" href="//localhost:8080/#{Crankypants::Web::ASSET_PATH}/blog.css"
+    script type="application/javascript" src="//localhost:8080/#{Crankypants::Web::ASSET_PATH}/blog-bundle.js" defer=true
   body
     header role="main"
       .container
