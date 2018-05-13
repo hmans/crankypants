@@ -4,6 +4,8 @@ require "./crankypants/migrator"
 module Crankypants
   Habitat.create do
     setting database_uri : String
+    setting port : Int32
+    setting interface : String
   end
 
   def self.prepare_database
@@ -23,4 +25,6 @@ end
 
 Crankypants.configure do
   settings.database_uri = "sqlite3://./data/crankypants.db"
+  settings.port = 3000
+  settings.interface = "0.0.0.0"
 end
