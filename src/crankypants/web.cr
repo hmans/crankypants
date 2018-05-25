@@ -40,6 +40,7 @@ module Crankypants
         Crappy::Handler(Routers::Assets).new,
         Crappy::Handler(Routers::Api).new,
         Crappy::Handler(Routers::App).new,
+        Crappy::Handler(Routers::HealthCheck).new,
       ]).listen
     end
   end
