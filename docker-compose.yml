@@ -3,6 +3,8 @@ version: '3'
 volumes:
   node-modules:
     external: false
+  bin:
+    external: false
   shards:
     external: false
   lib:
@@ -23,6 +25,7 @@ services:
       - .:/work:cached
       - lib:/work/lib:delegated
       - shards:/work/.shards:delegated
+      - bin:/work/bin:delegated
     tty: true
     command: sh -c '(shards check || shards install) && crystal run support/sentry.cr'
 
