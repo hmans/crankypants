@@ -10,7 +10,7 @@ html
     header role="main"
       .container
         h1.site-title
-          a href="/" = ENV.fetch("CRANKY_TITLE", "A Very Cranky Site")
+          a href="/" = Crankypants.settings.site_title
 
     main
       .container

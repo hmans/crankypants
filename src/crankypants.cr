@@ -7,6 +7,7 @@ module Crankypants
     setting port : Int32
     setting interface : String
     setting asset_host : String
+    setting site_title : String
   end
 
   def self.prepare_database
@@ -29,4 +30,5 @@ Crankypants.configure do
   settings.port = 3000
   settings.interface = "0.0.0.0"
   settings.asset_host = ""
+  settings.site_title = ENV.fetch "CRANKY_TITLE", "A Very Cranky Site"
 end
