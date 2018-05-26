@@ -29,6 +29,11 @@ OptionParser.parse! do |parser|
   end
 end
 
+# Log Crecto queries to STDOUT
+{% unless flag?(:release) %}
+  Crecto::DbLogger.set_handler(STDOUT)
+{% end %}
+
 # Check settings
 #
 Habitat.raise_if_missing_settings!
