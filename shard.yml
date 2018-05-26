@@ -26,11 +26,14 @@ dependencies:
     branch: master
   autolink:
     github: crystal-community/autolink.cr
+    branch: master
   baked_file_system:
     github: schovi/baked_file_system
     branch: master
   habitat:
     github: luckyframework/habitat
+  crappy:
+    path: ./crappy
 
 development_dependencies:
   sentry:

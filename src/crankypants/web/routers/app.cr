@@ -1,5 +1,5 @@
-require "../../../crappy"
-require "../../../crappy/authentication"
+require "crappy"
+require "crappy/authentication"
 
 module Crankypants::Web::Routers
   class App < Crappy::Router

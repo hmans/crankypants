@@ -1,10 +1,8 @@
-require "../../../crappy"
-require "../../../crappy/authentication"
+require "crappy"
 
 module Crankypants::Web::Routers
   class Assets < Crappy::Router
     include Helpers
-    include Crappy::Authentication
 
     def call
       {% if flag?(:release) %}

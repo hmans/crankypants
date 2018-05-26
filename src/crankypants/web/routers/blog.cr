@@ -1,10 +1,8 @@
-require "../../../crappy"
-require "../../../crappy/authentication"
+require "crappy"
 
 module Crankypants::Web::Routers
   class Blog < Crappy::Router
     include Helpers
-    include Crappy::Authentication
 
     def call
       get do

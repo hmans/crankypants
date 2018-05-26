@@ -2,11 +2,15 @@ version: 1.0
 shards:
   autolink:
     github: crystal-community/autolink.cr
-    version: 0.1.3
+    commit: c27212593ce5d7869ed46d656ebbfeff3b7853f2
 
   baked_file_system:
     github: schovi/baked_file_system
     commit: 668ca5f501e401c247a7c0d07fa574d65ac375e1
+
+  crappy:
+    path: ./crappy
+    version: 0.1.0
 
   crecto:
     github: fridgerator/crecto
@@ -18,7 +22,7 @@ shards:
 
   habitat:
     github: luckyframework/habitat
-    version: 0.2.1
+    version: 0.3.0
 
   kilt:
     github: jeromegn/kilt

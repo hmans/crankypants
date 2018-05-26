@@ -6,10 +6,21 @@ tasks:
     cmds:
       - docker build -t crankypants-build .
 
-  spec:
-    desc: Run Crystal specs.
+  spec:crankypants:
+    desc: Run Crankypants specs.
     cmds:
-      - crystal spec
+      - crystal spec spec/
+
+  spec:crappy:
+    desc: Run Crappy specs.
+    cmds:
+      - crystal spec crappy/spec/
+
+  spec:
+    desc: Run all specs.
+    cmds:
+      - task: spec:crankypants
+      - task: spec:crappy
 
   spec:e2e:
     desc: Run E2E tests.

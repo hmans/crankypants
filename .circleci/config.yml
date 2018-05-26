@@ -22,7 +22,7 @@ jobs:
             - lib
       - run:
           name: Run Tests
-          command: crystal spec
+          command: crystal spec spec/ crappy/spec/
 
   push_docker_image:
     machine: true

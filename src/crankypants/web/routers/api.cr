@@ -1,5 +1,5 @@
-require "../../../crappy"
-require "../../../crappy/authentication"
+require "crappy"
+require "crappy/authentication"
 
 require "../input_mappings"
 require "../helpers"

@@ -1,4 +1,4 @@
-require "../../../crappy"
+require "crappy"
 
 module Crankypants::Web::Routers
   class HealthCheck < Crappy::Router
