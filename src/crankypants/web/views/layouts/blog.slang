@@ -5,6 +5,7 @@ html
     meta charset="utf-8"
     title = page_title
     link rel="stylesheet" type="text/css" href="#{asset_url("blog.css")}"
+    link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="/posts.atom" />
     script type="application/javascript" src="#{asset_url("blog-bundle.js")}" defer=true
   body
     header role="main"

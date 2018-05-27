@@ -1,6 +1,7 @@
 require "http/server"
 require "http/request"
 require "json"
+require "xml"
 
 module Crappy
   class Handler(T)
@@ -30,7 +31,7 @@ module Crappy
 
     abstract def call
 
-    private def render(object = nil, text = nil, html = nil, json = nil, content_type = nil, status = 200)
+    private def render(object = nil, text = nil, html = nil, json = nil, xml = nil, content_type = nil, status = 200)
       response.status_code  = status if status
       response.content_type = content_type if content_type
 
@@ -45,6 +46,9 @@ module Crappy
       elsif json
         response.content_type = content_type || "application/json"
         response << json.to_json
+      elsif xml
+        response.content_type = content_type || "application/xml"
+        response << xml
       elsif object
         response << object
       end

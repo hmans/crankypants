@@ -1,4 +1,5 @@
 require "habitat"
+require "./ext/*"
 require "./crankypants/migrator"
 
 module Crankypants
