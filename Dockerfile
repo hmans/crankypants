@@ -25,7 +25,7 @@ RUN crystal build src/crankypants_cli.cr -o ./crankypants --release --no-debug
 RUN strip crankypants
 
 # We use this to identify dependencies used later:
-# RUN crystal run ./support/list-deps.cr -- ./crankypants
+RUN crystal run ./support/list-deps.cr -- ./crankypants
 
 # Finally, let's build the actual Docker image... from scratch.
 FROM scratch
@@ -33,6 +33,8 @@ FROM scratch
 # We'll copy over our dependencies from the previously used crystal container.
 # If we ever need to refresh this list, uncomment the `crystal run` line found
 # above.
+COPY --from=crystal /usr/lib/x86_64-linux-gnu/libxml2.so.2 /usr/lib/x86_64-linux-gnu/libxml2.so.2
+COPY --from=crystal /usr/lib/x86_64-linux-gnu/libxml2.so.2.9.3 /usr/lib/x86_64-linux-gnu/libxml2.so.2.9.3
 COPY --from=crystal /lib/x86_64-linux-gnu/libz.so.1 /lib/x86_64-linux-gnu/libz.so.1
 COPY --from=crystal /lib/x86_64-linux-gnu/libz.so.1.2.8 /lib/x86_64-linux-gnu/libz.so.1.2.8
 COPY --from=crystal /lib/x86_64-linux-gnu/libssl.so.1.0.0 /lib/x86_64-linux-gnu/libssl.so.1.0.0
@@ -56,6 +58,15 @@ COPY --from=crystal /lib/x86_64-linux-gnu/libc.so.6 /lib/x86_64-linux-gnu/libc.s
 COPY --from=crystal /lib/x86_64-linux-gnu/libc-2.23.so /lib/x86_64-linux-gnu/libc-2.23.so
 COPY --from=crystal /lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
 COPY --from=crystal /lib/x86_64-linux-gnu/ld-2.23.so /lib/x86_64-linux-gnu/ld-2.23.so
+COPY --from=crystal /usr/lib/x86_64-linux-gnu/libicuuc.so.55 /usr/lib/x86_64-linux-gnu/libicuuc.so.55
+COPY --from=crystal /usr/lib/x86_64-linux-gnu/libicuuc.so.55.1 /usr/lib/x86_64-linux-gnu/libicuuc.so.55.1
+COPY --from=crystal /lib/x86_64-linux-gnu/liblzma.so.5 /lib/x86_64-linux-gnu/liblzma.so.5
+COPY --from=crystal /lib/x86_64-linux-gnu/liblzma.so.5.0.0 /lib/x86_64-linux-gnu/liblzma.so.5.0.0
+COPY --from=crystal /usr/lib/x86_64-linux-gnu/libicudata.so.55 /usr/lib/x86_64-linux-gnu/libicudata.so.55
+COPY --from=crystal /usr/lib/x86_64-linux-gnu/libicudata.so.55.1 /usr/lib/x86_64-linux-gnu/libicudata.so.55.1
+COPY --from=crystal /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+COPY --from=crystal /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21 /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21
+
 COPY --from=crystal /work/crankypants /crankypants
 
 EXPOSE 3000

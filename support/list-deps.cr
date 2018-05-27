@@ -28,8 +28,8 @@ puts
 puts "=" * 30
 puts "FROM scratch"
 deps.each do |dep|
-  puts "COPY --from=0 #{dep} #{dep}"
+  puts "COPY --from=crystal #{dep} #{dep}"
 end
-puts "COPY --from=0 #{executable} /#{File.basename(executable)}"
+puts "COPY --from=crystal #{executable} /#{File.basename(executable)}"
 puts "ENTRYPOINT [\"/#{File.basename(executable)}\"]"
 puts "=" * 30
