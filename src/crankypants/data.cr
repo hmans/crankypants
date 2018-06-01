@@ -25,25 +25,27 @@ module Crankypants
     end
 
     def self.delete_post(id : Int32)
-      post = Repo.get!(Post, id)
-      Repo.delete(post)
+      Repo.get!(Post, id)
+        .then { |post| Repo.delete(post) }
     end
 
     def self.update_post(post : Models::Post)
-      post.body_html = Formatter.new(post.body.as(String)).complete.to_s
-      Repo.update(post)
+      post
+        .tap  { |post| post.body_html = Formatter.new(post.body.as(String)).complete.to_s }
+        .then { |post| Repo.update(post) }
     end
 
     def self.create_post(post : Models::Post)
-      post.body_html = Formatter.new(post.body.as(String)).complete.to_s
-      _changeset = Repo.insert(post)
+      post
+        .tap  { |post| post.body_html = Formatter.new(post.body.as(String)).complete.to_s }
+        .then { |post| Repo.insert(post) }
     end
 
     def self.create_post(title : String, body : String)
-      post = Models::Post.new
-      post.title = title
-      post.body = body
-      create_post(post)
+      Models::Post.new
+        .tap  { |post| post.title = title }
+        .tap  { |post| post.body = body }
+        .then { |post| create_post(post) }
     end
   end
 end
