@@ -1,11 +1,12 @@
 <template lang="pug">
   #app
     navigation
-    router-view
+    main
+      router-view
 </template>
 
 <script lang="coffee">
-  import { Navigation } from './components'
+  import Navigation from './Navigation'
 
   export default
     name: 'app'

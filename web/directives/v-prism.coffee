@@ -1,6 +1,6 @@
 import Vue from "vue"
 
-import Prism from "../shared/loadPrism"
+import Prism from "@/lib/loadPrism"
 import 'prismjs/themes/prism-okaidia.css'
 
 Vue.directive "prism",

@@ -14,8 +14,7 @@ html
           a href="/" = Crankypants.settings.site_title
 
     main
-      .container
-        == content
+      == content
 
     footer role="main"
       .container

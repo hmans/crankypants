@@ -1,4 +1,4 @@
-import { removeFrom } from '@/helpers'
+import { removeFrom } from '@/lib/helpers'
 
 export default
   set_posts: (state, posts) ->

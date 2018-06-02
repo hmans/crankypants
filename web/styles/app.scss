@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700");
-@import "../shared/mixins";
-@import "../shared/box-sizing";
+@import "./mixins";
+@import "./box-sizing";
 
 $color: #444;
 $color-light: #bbb;
@@ -142,13 +142,6 @@ blockquote {
   color: #888;
 }
 
-/* Code snippets */
-
-code {
-  display: inline-block;
-  padding-left: 0.5em !important;
-  padding-right: 0.5em !important;
-}
-
 /* etc. */
-@import "../shared/keys";
+@import "./code";
+@import "./keys";

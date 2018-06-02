@@ -59,8 +59,8 @@ plugins = (env, argv) ->
 
 module.exports = (env, argv) ->
   entry:
-    blog: "./web/blog/index.coffee"
-    app: "./web/app/index.coffee"
+    blog: "./web/blog.coffee"
+    app: "./web/app.coffee"
 
   output:
     path: __dirname + "/public/assets"
@@ -73,7 +73,7 @@ module.exports = (env, argv) ->
   resolve:
     extensions: ["*", ".js", ".coffee", ".vue"]
     alias:
-      "@": path.resolve __dirname, "web/app"
+      "@": path.resolve __dirname, "web"
 
   plugins: plugins(env, argv)
 

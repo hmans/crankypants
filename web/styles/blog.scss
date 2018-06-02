@@ -2,8 +2,8 @@ $color-background: #fff;
 $color-text: #555;
 $color-link: rgb(94, 142, 186);
 
-@import "../shared/mixins";
-@import "../shared/box-sizing";
+@import "./mixins";
+@import "./box-sizing";
 
 body {
   background-color: $color-background;
@@ -119,14 +119,6 @@ article.post {
   }
 }
 
-/* Code Blocks */
-
-code {
-  font-family: "Source Code Pro", "Lucida Console", Monaco, monospace;
-  font-size: 90%;
-  border-radius: 5px;
-}
-
 /* Block Quotes */
 
 blockquote {
@@ -145,4 +137,5 @@ blockquote {
 }
 
 /* etc. */
-@import "../shared/keys";
+@import "./code";
+@import "./keys";
