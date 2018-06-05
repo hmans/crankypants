@@ -13,7 +13,6 @@ module ATOM
     output.to_s
   end
 
-
   module Shortcuts
     def field(name : String, value : String? = nil, **opts)
       @xml.element(name, **opts) do
@@ -39,9 +38,9 @@ module ATOM
       text_field "title", title
     end
 
-    def link(url : String)
+    def link(url : String, name : String = "link", rel : String = "alternate")
       return if url.nil? || url.blank?
-      field "link", href: url, rel: "self"
+      field name, href: url, rel: rel
     end
 
     def updated(t : Time)
