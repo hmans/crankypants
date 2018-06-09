@@ -1,1 +1,3 @@
-== PostView._post(post)
+section.posts
+  .container
+    == PostView._post(post)
