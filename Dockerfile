@@ -8,7 +8,7 @@ RUN yarn web:build:release
 
 # Next, we'll want to compile Crankypants. Let's start with the official
 # Crystal image and go from there.
-FROM crystallang/crystal:0.24.2 AS crystal
+FROM crystallang/crystal:0.25.0 AS crystal
 RUN apt-get update && apt-get install -y libsqlite3-dev
 
 ADD . /work
