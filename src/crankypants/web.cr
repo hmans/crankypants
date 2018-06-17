@@ -32,7 +32,7 @@ module Crankypants
     def self.run
       print_banner
 
-      HTTP::Server.new(Crankypants.settings.interface, Crankypants.settings.port, [
+      server = HTTP::Server.new([
         HTTP::ErrorHandler.new,
         HTTP::LogHandler.new,
         HTTP::StaticFileHandler.new("./public/", directory_listing: false),
@@ -41,7 +41,9 @@ module Crankypants
         Crappy::Handler(Routers::Api).new,
         Crappy::Handler(Routers::App).new,
         Crappy::Handler(Routers::HealthCheck).new,
-      ]).listen
+      ])
+
+      server.listen Crankypants.settings.interface, Crankypants.settings.port
     end
   end
 end
