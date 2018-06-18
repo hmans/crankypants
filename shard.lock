@@ -14,7 +14,7 @@ shards:
 
   crecto:
     github: fridgerator/crecto
-    version: 0.8.6
+    version: 0.8.7
 
   db:
     github: crystal-lang/crystal-db
@@ -42,5 +42,5 @@ shards:
 
   sqlite3:
     github: crystal-lang/crystal-sqlite3
-    version: 0.9.0
+    version: 0.10.0
 
