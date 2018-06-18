@@ -3,7 +3,7 @@ version: 2
 jobs:
   run_tests:
     docker:
-      - image: crystallang/crystal:0.24.2
+      - image: crystallang/crystal:0.25.0
     steps:
       - checkout
       - run:
