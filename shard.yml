@@ -12,6 +12,11 @@ crystal: 0.25.0
 
 license: MIT
 
+development_dependencies:
+  sentry:
+    github: hmans/sentry
+    version: 0.3.0
+
 dependencies:
   kilt:
     github: jeromegn/kilt
@@ -34,7 +39,3 @@ dependencies:
     github: luckyframework/habitat
   crappy:
     path: ./crappy
-
-development_dependencies:
-  sentry:
-    github: samueleaton/sentry

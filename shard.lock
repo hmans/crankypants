@@ -14,7 +14,7 @@ shards:
 
   crecto:
     github: fridgerator/crecto
-    version: 0.8.7
+    version: 0.9.0
 
   db:
     github: crystal-lang/crystal-db
@@ -30,11 +30,11 @@ shards:
 
   markd:
     github: icyleaf/markd
-    commit: 0dd28e58b0aed2c0febc832aceebac26c5228c05
+    commit: cf15217964779cff3bf5f6da09f313277debe626
 
   sentry:
-    github: samueleaton/sentry
-    version: 0.2.0
+    github: hmans/sentry
+    version: 0.3.0
 
   slang:
     github: jeromegn/slang
