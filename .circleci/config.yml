@@ -11,13 +11,13 @@ jobs:
           command: apt-get update && apt-get install -y libsqlite3-dev
       - restore_cache:
           keys:
-            - crankypants-shards-{{ checksum "shard.lock" }}
-            - crankypants-shards-
+            - crankypants-shards-v2-{{ checksum "shard.lock" }}
+            - crankypants-shards-v2-
       - run:
           name: Install Shards
           command: shards install
       - save_cache:
-          key: crankypants-shards-{{ checksum "shard.lock" }}
+          key: crankypants-shards-v2-{{ checksum "shard.lock" }}
           paths:
             - lib
       - run:
