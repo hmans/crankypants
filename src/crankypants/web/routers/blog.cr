@@ -6,14 +6,16 @@ module Crankypants::Web::Routers
   class Blog < Crappy::Router
     include Helpers
 
+    Post = Models::Post
+
     def call
       get do
-        render html: PostView.index(Data.load_posts)
+        render html: PostView.index(Post.all)
       end
 
       get "posts.atom" do
         uri = URI.parse("http://#{request.host_with_port}/")
-        posts = Data.load_posts(limit: 15)
+        posts = Post.all(limit: 15)
 
         feed = ATOM.build do |feed|
           feed.title Crankypants.settings.site_title

@@ -12,12 +12,14 @@ module Crankypants::Web::Routers
     include Helpers
     include Crappy::Authentication
 
+    Post = Models::Post
+
     def call
       within "api" do
         protect_with ENV["CRANKY_LOGIN"], ENV["CRANKY_PASSWORD"] do
           within "posts" do
             get do
-              render json: Data.load_posts
+              render json: Post.all
             end
 
             post do

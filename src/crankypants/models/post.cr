@@ -11,6 +11,9 @@ macro class_methods
 end
 
 module Crankypants::Models
+  Query = Crecto::Repo::Query
+  Multi = Crecto::Multi
+
   class Post < Crecto::Model
     schema "posts" do
       field :title, String
@@ -28,6 +31,14 @@ module Crankypants::Models
     class_methods do
       def count
         Repo.aggregate(self, :count, :id).as(Int64)
+      end
+
+      def all(limit : Int32? = nil)
+        query = Query
+          .order_by("created_at DESC")
+          .limit(limit)
+
+        Repo.all(self, query)
       end
 
       def create(post : Post)

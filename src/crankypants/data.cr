@@ -8,17 +8,6 @@ module Crankypants
     Multi = Crecto::Multi
     Post  = Models::Post
 
-    def self.count_posts
-      Repo.aggregate(Post, :count, :id).as(Int64)
-    end
-
-    def self.load_posts(limit : Int32? = nil)
-      query = Query
-        .order_by("created_at DESC")
-        .limit(limit)
-
-      Repo.all(Post, query)
-    end
 
     def self.load_post(id : Int32)
       Repo.get!(Post, id)
