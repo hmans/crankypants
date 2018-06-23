@@ -52,6 +52,20 @@ module Crankypants::Models
         post.body = body
         create(post)
       end
+
+      def load_one(id : Int32)
+        Repo.get!(Post, id)
+      end
+
+      def delete(id : Int32)
+        post = Repo.get!(self, id)
+        Repo.delete(post)
+      end
+
+      def update(post : self)
+        post.body_html = Formatter.new(post.body.as(String)).complete.to_s
+        Repo.update(post)
+      end
     end
   end
 end

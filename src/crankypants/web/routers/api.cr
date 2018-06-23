@@ -4,7 +4,6 @@ require "crappy/authentication"
 require "../input_mappings"
 require "../helpers"
 require "../../models/*"
-require "../../data"
 require "../views/*"
 
 module Crankypants::Web::Routers
@@ -38,17 +37,17 @@ module Crankypants::Web::Routers
               post_id = params["id"].not_nil!.to_i
 
               delete do
-                Data.delete_post(post_id)
+                Post.delete(post_id)
                 render :nothing, status: 204
               end
 
               patch do
-                post  = Data.load_post(post_id)
+                post  = Post.load_one(post_id)
                 input = InputMappings::Post.from_json(request.body.not_nil!)
 
                 post.title = input.title
                 post.body  = input.body
-                changeset  = Data.update_post(post)
+                changeset  = Post.update(post)
 
                 changeset.valid? ?
                   render json: changeset.instance :

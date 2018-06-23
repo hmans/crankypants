@@ -46,7 +46,7 @@ module Crankypants::Web::Routers
       within "posts" do
         get :id do |params|
           post_id = params["id"].not_nil!.to_i
-          render html: PostView.show(Data.load_post(post_id))
+          render html: PostView.show(Post.load_one(post_id))
         end
       end
     end
