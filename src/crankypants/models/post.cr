@@ -1,6 +1,19 @@
 require "crecto"
+require "../repo"
+require "../formatter"
+
+macro class_methods
+  module ClassMethods
+    {{ yield }}
+  end
+
+  extend ClassMethods
+end
 
 module Crankypants::Models
+  Query = Crecto::Repo::Query
+  Multi = Crecto::Multi
+
   class Post < Crecto::Model
     schema "posts" do
       field :title, String
@@ -13,6 +26,49 @@ module Crankypants::Models
 
     def url
       "/posts/#{id}"
+    end
+
+    def before_save
+      self.body_html = Formatter.new(body.as(String)).complete.to_s
+    end
+
+    def update
+      before_save
+      Repo.update(self)
+    end
+
+    def destroy
+      Repo.delete(self)
+    end
+
+    class_methods do
+      def count
+        Repo.aggregate(self, :count, :id).as(Int64)
+      end
+
+      def load_all(limit : Int32? = nil)
+        query = Query
+          .order_by("created_at DESC")
+          .limit(limit)
+
+        Repo.all(self, query)
+      end
+
+      def load_one(id : Int32)
+        Repo.get!(Post, id)
+      end
+
+      def create(post : Post)
+        post.before_save
+        Repo.insert(post)
+      end
+
+      def create(title : String, body : String)
+        post = Post.new
+        post.title = title
+        post.body = body
+        create(post)
+      end
     end
   end
 end
