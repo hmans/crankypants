@@ -23,7 +23,7 @@ module Crankypants::Web::Routers
             post do
               input = InputMappings::Post.from_json(request.body.not_nil!)
 
-              changeset = Data.create_post \
+              changeset = Post.create \
                 title: input.title,
                 body:  input.body
 
