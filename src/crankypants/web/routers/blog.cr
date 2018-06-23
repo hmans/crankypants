@@ -10,12 +10,12 @@ module Crankypants::Web::Routers
 
     def call
       get do
-        render html: PostView.index(Post.all)
+        render html: PostView.index(Post.load_all)
       end
 
       get "posts.atom" do
         uri = URI.parse("http://#{request.host_with_port}/")
-        posts = Post.all(limit: 15)
+        posts = Post.load_all(limit: 15)
 
         feed = ATOM.build do |feed|
           feed.title Crankypants.settings.site_title

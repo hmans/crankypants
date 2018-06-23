@@ -18,7 +18,7 @@ module Crankypants::Web::Routers
         protect_with ENV["CRANKY_LOGIN"], ENV["CRANKY_PASSWORD"] do
           within "posts" do
             get do
-              render json: Post.all
+              render json: Post.load_all
             end
 
             post do

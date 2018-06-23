@@ -28,12 +28,16 @@ module Crankypants::Models
       "/posts/#{id}"
     end
 
+    def before_save
+      self.body_html = Formatter.new(body.as(String)).complete.to_s
+    end
+
     class_methods do
       def count
         Repo.aggregate(self, :count, :id).as(Int64)
       end
 
-      def all(limit : Int32? = nil)
+      def load_all(limit : Int32? = nil)
         query = Query
           .order_by("created_at DESC")
           .limit(limit)
@@ -42,7 +46,7 @@ module Crankypants::Models
       end
 
       def create(post : Post)
-        post.body_html = Formatter.new(post.body.as(String)).complete.to_s
+        post.before_save
         Repo.insert(post)
       end
 
@@ -63,7 +67,7 @@ module Crankypants::Models
       end
 
       def update(post : self)
-        post.body_html = Formatter.new(post.body.as(String)).complete.to_s
+        post.before_save
         Repo.update(post)
       end
     end
