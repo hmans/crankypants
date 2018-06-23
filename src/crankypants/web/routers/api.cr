@@ -37,7 +37,7 @@ module Crankypants::Web::Routers
               post_id = params["id"].not_nil!.to_i
 
               delete do
-                Post.delete(post_id)
+                Post.load_one(post_id).destroy
                 render :nothing, status: 204
               end
 
@@ -47,7 +47,7 @@ module Crankypants::Web::Routers
 
                 post.title = input.title
                 post.body  = input.body
-                changeset  = Post.update(post)
+                changeset  = post.update
 
                 changeset.valid? ?
                   render json: changeset.instance :

@@ -32,6 +32,15 @@ module Crankypants::Models
       self.body_html = Formatter.new(body.as(String)).complete.to_s
     end
 
+    def update
+      before_save
+      Repo.update(self)
+    end
+
+    def destroy
+      Repo.delete(self)
+    end
+
     class_methods do
       def count
         Repo.aggregate(self, :count, :id).as(Int64)
@@ -45,6 +54,10 @@ module Crankypants::Models
         Repo.all(self, query)
       end
 
+      def load_one(id : Int32)
+        Repo.get!(Post, id)
+      end
+
       def create(post : Post)
         post.before_save
         Repo.insert(post)
@@ -55,20 +68,6 @@ module Crankypants::Models
         post.title = title
         post.body = body
         create(post)
-      end
-
-      def load_one(id : Int32)
-        Repo.get!(Post, id)
-      end
-
-      def delete(id : Int32)
-        post = Repo.get!(self, id)
-        Repo.delete(post)
-      end
-
-      def update(post : self)
-        post.before_save
-        Repo.update(post)
       end
     end
   end
