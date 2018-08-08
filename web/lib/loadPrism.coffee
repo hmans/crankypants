@@ -13,5 +13,6 @@ import 'prismjs/components/prism-python'
 import 'prismjs/components/prism-lua'
 import 'prismjs/components/prism-go'
 import 'prismjs/components/prism-erb'
+import 'prismjs/components/prism-r'
 
 export default Prism
